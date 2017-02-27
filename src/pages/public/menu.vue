@@ -20,7 +20,7 @@ const mapActions = vuex.mapActions;
 
 export default {
     computed: {
-      /*  ...mapState({
+        /*...mapState({
             character:state =>store.state.initModule.character
         })*/
     }

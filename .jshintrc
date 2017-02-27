@@ -98,7 +98,8 @@
       "module":false,
       "process":false,
       "__dirname":false,
-      "__filename":false
+      "__filename":false,
+      "GLOBAL_CONFIG": false
     },
     "-W083":false, //循环匿名函数
     "-W116":false, //if后面必须带{
