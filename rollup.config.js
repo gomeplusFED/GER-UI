@@ -13,8 +13,6 @@ import cssnext from 'postcss-cssnext';
 import cssnano from 'cssnano';
 
 
-//import eslint from 'rollup-plugin-eslint';
-
 export default {
   entry: 'src/index.js',
   dest: 'dist/main.js',
@@ -41,14 +39,13 @@ export default {
       main: true,
       browser: true
     }),
-    commonjs(),
+    commonjs({
+      namedExports: { 
+        'node_modules/vuex/dist/vuex.js ': [ 'mapState', 'mapActions' ]
+      }   
+    }),
     replace({
       'process.env.NODE_ENV': JSON.stringify( 'production' )
     })
-   /* eslint({
-      exclude: [
-        'src/styles/**',
-      ]
-    }),*/
   ]
 };

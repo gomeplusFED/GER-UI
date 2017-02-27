@@ -1,4 +1,3 @@
-// Import a couple modules for testing.
 import './css/main.css';
 import './css/user.css';
 import Vue from 'vue';

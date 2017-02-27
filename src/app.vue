@@ -1,6 +1,5 @@
 <template>
     <div class="ger-body">
-         
         <topBox></topBox>
         <div class="ger-middle">
            <leftMenu></leftMenu>
