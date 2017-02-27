@@ -1,0 +1,126 @@
+@charset "UTF-8";
+body, h1, h2, h3, h4, h5, h6, dl, dt, dd, ul, ol, li, p, input, button, textarea, article, aside, footer, header, nav, section, menu {
+  margin: 0;
+  padding: 0;
+  border: 0 none;
+  outline: 0;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: 100%;
+  font-style: normal;
+  vertical-align: baseline; }
+
+body, button, input, select, textarea {
+  font-size: 14px;
+  font-family: Microsoft YaHei,'宋体' , Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+}
+html,body{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+table {
+  border-spacing: 0;
+  vertical-align: middle;
+  border-collapse: collapse; }
+
+ul, li {
+  list-style: none; }
+
+img {
+  border: 0 none;
+  vertical-align: middle; }
+
+input, textarea {
+  outline: 0;
+  resize: none; }
+input:-webkit-autofill, textarea:-webkit-autofill {
+    background-color: #fff;
+    background-image: none; }
+
+a {
+  color: #333; 
+}
+a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+    outline: 0; }
+.clearfix {
+  	*zoom: 1; 
+}
+.clearfix:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden; 
+}
+.f-l{float:left;}
+.f-r{float: right;}
+/*core*/
+.ger-body{
+    height: 100%;
+    position: relative;
+    .ger-middle{    
+        position: absolute;
+        top:61px;
+        left: 0;
+        bottom:0;
+        width: 100%;
+    }
+    .ger-cotent{
+        padding-left:120px;
+        height: 100%;
+    }
+}
+
+/*header*/
+$headerBg : #fafafa;
+$headerBr : #eee; 
+$headerColor: #666;
+.header{
+    line-height: 60px;
+    background: $headerBg;
+    font-size: 20px;
+    padding:0 30px;
+    border-bottom:1px $headerBr solid;
+    color:$headerColor;
+    .f-r{
+        font-size: 12px;
+        a{
+            float:left;
+            margin-left:20px;
+            color:$headerColor;
+        }
+    }
+}
+/*menu*/
+$menuBg: #3d454d;
+$menuActiveBg: #353b41;
+$menuHoverBg: #353b41;
+.ger-menu{
+    position: absolute;
+    width: 120px;
+    height: 100%;
+    background: $menuBg;
+    line-height: 40px;
+    box-sizing: border-box;
+    padding: 20px 0;
+    ul{
+        li{
+            
+            a{
+                display: block;
+                padding-left:10px;
+                color:#fff;
+            }
+            .active{
+                background:$menuActiveBg;
+            }
+            a:hover{
+
+                background:$menuHoverBg;
+            }
+        }
+    }
+}
