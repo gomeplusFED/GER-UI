@@ -1,4 +1,4 @@
-import store from '../index.js';
+//import store from '../index.js';
 
 const state = {
     character: GLOBAL_CONFIG.character

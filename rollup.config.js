@@ -39,11 +39,7 @@ export default {
       main: true,
       browser: true
     }),
-    commonjs({
-      namedExports: { 
-        'node_modules/vuex/dist/vuex.js ': [ 'mapState', 'mapActions' ]
-      }   
-    }),
+    commonjs(),
     replace({
       'process.env.NODE_ENV': JSON.stringify( 'production' )
     })

@@ -3,7 +3,7 @@
         <div class="right_area userlist">
             <ul class="list-group" v-if="items">
             	<li v-for="item in items">
-					<a :data-id={{ item.id }} href="#">{{ item.message }}</a>
+					<a :data-id="item.id" href="#">{{ item.message }}</a>
             		<input type="button" class="btn delete fr" value="删除" />
             		<input type="button" class="btn edit fr" value="编辑" />
 				</li>
