@@ -1,8 +1,8 @@
 <template> 
     <div class="ger-menu">
         <ul>
-            <li >
-                <a href="">添加列表{{character}}</a>
+            <li v-if="isAdmin">
+                <a href="">添加列表</a>
             </li>
             <li>
                 <a href="">错误列表</a>
@@ -13,16 +13,18 @@
 <script> 
 
 import store from '../../store';
-//console.log(store)
 import vuex from 'vuex';
 const mapState = vuex.mapState;
 const mapActions = vuex.mapActions;
 
 export default {
     computed: {
-        /*...mapState({
+        ...mapState({
             character:state =>store.state.initModule.character
-        })*/
+        }),
+        isAdmin(){
+            return this.character === 'admin';
+        }
     }
 }
 </script>
