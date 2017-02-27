@@ -8,7 +8,9 @@
     "watch": "./node_modules/.bin/rollup -c --watch",
     "server": "http-server -a 0.0.0.0 -p 8889 -s",
     "devwatch": "rollup -c  rollup.config.js -w",
-    "dev": "npm-run-all --parallel server devwatch"
+    "dev": "npm-run-all --parallel server devwatch",
+    "pretest": "jshint -c .jshintrc src/routers src/store src/utils",
+    "beautify": "node ./beatufyjs.js src/routers src/store src/utils"
   },
   "repository": {
     "type": "git",
