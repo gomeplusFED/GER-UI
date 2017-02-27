@@ -13,8 +13,6 @@ import cssnext from 'postcss-cssnext';
 import cssnano from 'cssnano';
 
 
-//import eslint from 'rollup-plugin-eslint';
-
 export default {
   entry: 'src/index.js',
   dest: 'dist/main.js',
@@ -45,10 +43,5 @@ export default {
     replace({
       'process.env.NODE_ENV': JSON.stringify( 'production' )
     })
-   /* eslint({
-      exclude: [
-        'src/styles/**',
-      ]
-    }),*/
   ]
 };

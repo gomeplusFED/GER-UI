@@ -26,5 +26,6 @@ export default {
             return this.character === 'admin';
         }
     }
+   
 }
 </script>

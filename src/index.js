@@ -1,4 +1,5 @@
 import './css/main.css';
+import './css/user.css';
 import Vue from 'vue';
 import App from './app.vue';
 import store from './store';
