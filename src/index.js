@@ -1,5 +1,6 @@
 // Import a couple modules for testing.
 import './css/main.css';
+import './css/user.css';
 import Vue from 'vue';
 import App from './app.vue';
 /*import User from './modules/user.vue';

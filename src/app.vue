@@ -16,7 +16,7 @@
   </p>
   <router-view></router-view>
   </div> -->
-</template> 
+</template>
 <script> 
 
 import topBox from './pages/public/header.vue';
@@ -31,5 +31,3 @@ export default {
   }
 }
 </script>
-<style>
-</style>
