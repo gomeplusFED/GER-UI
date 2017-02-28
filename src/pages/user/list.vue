@@ -1,5 +1,6 @@
 <template> 
-    <div class="ger-cotent">
+    <div class="ger-cotent">{{test}}
+    	<input type="button" value="aaa" @click="EDIT_TEST"/>
         <div class="right_area userlist">
             <ul class="list-group" v-if="items">sadsadssadsad
             	<li v-for="item in items">
@@ -18,3 +19,31 @@
         </div>
     </div>
 </template> 
+<script>
+/*var obj = new Vue({
+	data : {
+
+	},
+	method : {
+		getList (){
+			this.$http.post();
+		}
+	}
+});*/
+import store from '../../store';
+import vuex from 'vuex';
+const mapState = vuex.mapState;
+const mapActions = vuex.mapActions;
+console.log(store)
+export default {
+    computed: {
+        ...mapState({
+            test: state =>store.state.initModule.test,
+            test1: state => store.state.initModule.test1
+        })
+    },
+    methods: {
+        ...mapActions(['EDIT_TEST','EDIT_TEST1'])
+    }
+}
+</script>
