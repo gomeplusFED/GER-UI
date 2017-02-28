@@ -4,6 +4,7 @@ import initModule from './modules/initModule';
 Vue.use(Vuex);
 export default new Vuex.Store({
 	modules:{
-		initModule: initModule
+		initModule: initModule,
+		userList: userList
 	}
 });

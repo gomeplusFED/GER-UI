@@ -1,13 +1,5 @@
 <template> 
-    <userList></userList>
+   	<div class="ger-cotent">
+  		<router-view></router-view>
+   	</div>
 </template>
-<script> 
-
-import userList from '../user/list.vue';
-
-export default {
-  components: {
-    userList
-  }
-}
-</script>

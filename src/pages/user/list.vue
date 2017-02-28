@@ -1,7 +1,8 @@
 <template> 
-    <div class="ger-cotent">
+    <div class="ger-cotent">{{test}}
+    	<input type="button" value="aaa" @click="EDIT_TEST"/>
         <div class="right_area userlist">
-            <ul class="list-group" v-if="items">
+            <ul class="list-group" v-if="items">sadsadssadsad
             	<li v-for="item in items">
 					<a :data-id="item.id" href="#">{{ item.message }}</a>
             		<input type="button" class="btn delete fr" value="删除" />
@@ -19,7 +20,7 @@
     </div>
 </template> 
 <script>
-var obj = new Vue({
+/*var obj = new Vue({
 	data : {
 
 	},
@@ -28,26 +29,21 @@ var obj = new Vue({
 			this.$http.post();
 		}
 	}
-});
-/*import store from '../../store';
-import { mapState, mapActions } from 'vuex';
-
-let msgInfoList = store.state.msgInfoList;
-let initModule = store.state.initModule;
-
+});*/
+import store from '../../store';
+import vuex from 'vuex';
+const mapState = vuex.mapState;
+const mapActions = vuex.mapActions;
+console.log(store)
 export default {
     computed: {
         ...mapState({
-            msgList: state => msgInfoList.msgList,
-            uid: state => initModule.imid,
-            userInfo: state => msgInfoList.userInfo,
-            userId: state => initModule.userInfo.userId,
-            local: state => initModule.local,
-            myAvatar: state => initModule.userInfo.myAvatar
+            test: state =>store.state.initModule.test,
+            test1: state => store.state.initModule.test1
         })
     },
-    methods:{
-      ...mapActions(['ADUIO_PLAY', 'showMask', 'RETRY_SEND'])
+    methods: {
+        ...mapActions(['EDIT_TEST','EDIT_TEST1'])
     }
-}*/
+}
 </script>
