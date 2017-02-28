@@ -1,16 +1,4 @@
 <template> 
-<<<<<<< HEAD
-    <div >
-    	
-        list<br/>
-        list<br/>
-        list<br/>
-        list<br/>
-        list<br/>
-        list<br/>
-        list<br/>
-        list<br/>
-=======
 	<div>
     	<!-- {{test}}
     	<input type="button" value="aaa" @click="EDIT_TEST"/> -->
@@ -102,7 +90,6 @@
                 <input type="button" class="back" value="返回">
             </div>
         </div> -->
->>>>>>> 7a2ef5a9f385777904243bfe1aaccae5a7c891cc
     </div>
 </template> 
 <script>
