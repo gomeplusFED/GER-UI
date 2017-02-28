@@ -4,7 +4,7 @@
   "description": "GER-UI",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/rollup -c",
+    "build": "./node_modules/.bin/rollup -c",
     "watch": "./node_modules/.bin/rollup -c --watch",
     "server": "http-server -a 0.0.0.0 -p 8889 -s",
     "devwatch": "rollup -c  rollup.config.js -w",
