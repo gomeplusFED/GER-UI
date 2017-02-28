@@ -18,7 +18,6 @@ import store from '../../store';
 import vuex from 'vuex';
 const mapState = vuex.mapState;
 const mapActions = vuex.mapActions;
-console.log(store)
 export default {
     computed: {
         ...mapState({

@@ -2,6 +2,7 @@
 
 const state = {
     character: GLOBAL_CONFIG.character,
+    isAdmin: GLOBAL_CONFIG.character === 'admin',
     test: '1111111',
     test1: '我是 test1'
 };
