@@ -11,14 +11,7 @@ import modpwd from '../pages/user/modpwd.vue';
 export default  [
 	{
 		path: '/index', 
-		component: index,
-		redirect: () => {
-			if(!stroe.state.initModule.isAdmin){
-				return '/report';
-			}
-	      // 方法接收 目标路由 作为参数
-	      // return 重定向的 字符串路径/路径对象
-	    }
+		component: index
 	},
 	{
 		path: '/index/:id', 
