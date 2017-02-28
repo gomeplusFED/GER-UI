@@ -2,10 +2,10 @@
     <div class="ger-menu">
         <ul>
             <li v-if="isAdmin">
-                <a href="">添加列表</a>
+                <router-link to="/index" active-class="active">添加列表</router-link>
             </li>
             <li>
-                <a href="">错误列表</a>
+                <router-link to="/report"  active-class="active">错误列表</router-link>
             </li>
         </ul>
     </div>
@@ -20,11 +20,8 @@ const mapActions = vuex.mapActions;
 export default {
     computed: {
         ...mapState({
-            character:state =>store.state.initModule.character
-        }),
-        isAdmin(){
-            return this.character === 'admin';
-        }
+            isAdmin:state =>store.state.initModule.isAdmin
+        })
     }
    
 }

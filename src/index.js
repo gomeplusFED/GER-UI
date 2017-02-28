@@ -6,7 +6,6 @@ import store from './store';
 import vueRouter from 'vue-router';
 import drouters from './routers';
 Vue.use(vueRouter);
-console.log(drouters)
 const router = new vueRouter({
 	hashbang: false, 
 	mode:'history',
