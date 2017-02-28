@@ -1,7 +1,12 @@
 <template> 
-    <div class="ger-cotent">
-        fsfgdfhjkgjhfghdgsfad
+    <div >
+        edit<br/>
+        edit<br/>
+        edit<br/>
+        edit<br/>
+        edit<br/>
+        edit<br/>
+        edit<br/>
+        edit<br/>
     </div>
 </template> 
-<script> 
-</script>

@@ -9,14 +9,17 @@ import detail from '../pages/report/detail.vue';
 export default  [
 	{
 		path: '/report', 
-		component: report 
+		component: report,
+		name: 'report'
 	},
 	{
-		path: '/report/:id', 
-		component: report 
+		path: '/report/list',
+		component: report,
+		name: 'list'
 	},
 	{
-		path: '/report/:id/detail', 
-		component: detail 
+		path: '/report/detail',
+		component: detail,
+		name:'reportDetail'
 	}
 ];

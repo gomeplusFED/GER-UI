@@ -11,7 +11,11 @@ const router = new vueRouter({
 	mode:'history',
   	routes: drouters
 })
-
+router.beforeEach((to, from, next) => {
+  console.log(to);
+  console.log(from);
+  next();
+})
 
 let vueApp = new Vue({
 	store,
