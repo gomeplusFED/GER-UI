@@ -4,15 +4,13 @@ import Vue from 'vue';
 import App from './app.vue';
 import store from './store';
 import vueRouter from 'vue-router';
-
-Vue.use(vueRouter)
+import drouters from './routers';
+Vue.use(vueRouter);
+console.log(drouters)
 const router = new vueRouter({
 	hashbang: false, 
 	mode:'history',
-  	routes: [
-	    /*{ path: '/user', component: User },
-	    { path: '/error', component: Report }*/
-  	]
+  	routes: drouters
 })
 
 

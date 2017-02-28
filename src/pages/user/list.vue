@@ -1,7 +1,7 @@
 <template> 
     <div class="ger-cotent">
         <div class="right_area userlist">
-            <ul class="list-group" v-if="items">
+            <ul class="list-group" v-if="items">sadsadssadsad
             	<li v-for="item in items">
 					<a :data-id="item.id" href="#">{{ item.message }}</a>
             		<input type="button" class="btn delete fr" value="删除" />
@@ -18,15 +18,3 @@
         </div>
     </div>
 </template> 
-<script>
-var obj = new Vue({
-	data : {
-
-	},
-	method : {
-		getList (){
-			this.$http.post();
-		}
-	}
-});
-</script>
