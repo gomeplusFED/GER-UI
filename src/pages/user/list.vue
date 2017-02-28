@@ -29,4 +29,25 @@ var obj = new Vue({
 		}
 	}
 });
+/*import store from '../../store';
+import { mapState, mapActions } from 'vuex';
+
+let msgInfoList = store.state.msgInfoList;
+let initModule = store.state.initModule;
+
+export default {
+    computed: {
+        ...mapState({
+            msgList: state => msgInfoList.msgList,
+            uid: state => initModule.imid,
+            userInfo: state => msgInfoList.userInfo,
+            userId: state => initModule.userInfo.userId,
+            local: state => initModule.local,
+            myAvatar: state => initModule.userInfo.myAvatar
+        })
+    },
+    methods:{
+      ...mapActions(['ADUIO_PLAY', 'showMask', 'RETRY_SEND'])
+    }
+}*/
 </script>
