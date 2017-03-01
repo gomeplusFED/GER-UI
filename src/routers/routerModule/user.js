@@ -11,12 +11,11 @@ import modpwd from '../../pages/user/modpwd.vue';
 export default  [
 	{
 		path: '/index',
-		component: user,
 		redirect: () => {
-			if(!stroe.state.initModule.isAdmin){
-				return '/report';
-			}else{
+			if(stroe.state.initModule.isAdmin){
 				return '/user';
+			}else{
+				return '/report';
 			}
 	    }
 	},
@@ -25,7 +24,8 @@ export default  [
 		component: user,
 		name: 'user',
 		meta: {
-			title: '用户列表'
+			title: '用户列表',
+			needCompetence: true
 		} 
 	},
 	{
@@ -33,7 +33,8 @@ export default  [
 		component: edit,
 		name: 'edit',
 		meta: {
-			title: '编辑用户'
+			title: '编辑用户',
+			needCompetence: true
 		} 
 	},
 	{
@@ -41,7 +42,8 @@ export default  [
 		component: add,
 		name: 'add',
 		meta: {
-			title: '添加用户'
+			title: '添加用户',
+			needCompetence: true
 		} 
 	},
 	{

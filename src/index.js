@@ -16,10 +16,10 @@ router.beforeEach((to, from, next) => {
     //设置title
     document.title = to.meta.title;
     //权限处理
-    if( to.fullPath.indexOf('/user') !== -1 && to.fullPath.indexOf('/user/modpwd') === -1){
+    if( to.meta.needCompetence && !store.state.initModule.isAdmin ){
         next({
             path: '/report'
-        })
+        });
     }else{
         if( beforeRouter[to.name] ){
             beforeRouter[to.name](to);
