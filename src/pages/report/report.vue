@@ -1,5 +1,5 @@
 <template>
-    <table>
+    <table width="100%" class="ger-table">
         <thead>
             <tr>
                 <td>域名</td>
