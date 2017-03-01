@@ -1,5 +1,5 @@
 <template> 
-    <div class="">
+    <div>
         <div class="right_area userdetail">
             <p class="content_title">用户详情</p>
             <ul>
@@ -15,12 +15,11 @@
                 </li>
             </ul>
             <div class="submit">
-                <a href="#">创建</a>
-                <!-- <input type="button" class="back" value="返回"> -->
-            	<router-link to="/index"  active-class="active" class="back">返回</router-link>
+                <input type="button" class="create" value="创建">
+                <input type="button" class="back" value="返回">
             </div>
         </div>
     </div>
 </template> 
-<script>
+<script> 
 </script>
