@@ -1,8 +1,7 @@
 //import store from '../index.js';
 
 const state = {
-    character: GLOBAL_CONFIG.character,
-    isAdmin: GLOBAL_CONFIG.character === 'admin',
+    isAdmin: GLOBAL_CONFIG.isAdmin,
     userName: GLOBAL_CONFIG.userName
 };
 
