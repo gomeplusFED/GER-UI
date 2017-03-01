@@ -3,7 +3,7 @@
     	<!-- {{test}}
     	<input type="button" value="aaa" @click="EDIT_TEST"/> -->
     	<!-- list -->
-        <!-- <div class="right_area userlist">
+        <div class="right_area userlist">
         	<p class="content_title">用户列表</p>
             <ul class="list-group" v-if="items">
             	<li v-for="item in items">
@@ -12,39 +12,109 @@
             		<input type="button" class="btn edit fr" value="编辑" />
 				</li>
             </ul>
-            <ul class="list-group">
+            <!-- <ul class="list-group">
             	<li>
-					<a href="#">1. 用户名 user-1 创建时间:2017-02-01</a>
+                    <router-link to="/user/edit/test">1. 用户名 user-1 创建时间:2017-02-01</router-link>
             		<input type="button" class="btn delete fr" value="删除" />
-            		<input type="button" class="btn edit fr" value="编辑" />
+                    <router-link to="/user/add"  active-class="active" class="edit fr">添加</router-link>
+                    <span style="display:inline-block;width:30px;color:#fff;">1</span>
+            		<router-link to="/user/edit/test"  active-class="active" class="edit fr">编辑</router-link>
 				</li>
             	<li>
-					<a href="#">2. 用户名 user-2 创建时间:2017-02-02</a>
+                    <router-link to="/user/edit/test">2. 用户名 user-2 创建时间:2017-02-01</router-link>
             		<input type="button" class="btn delete fr" value="删除" />
-            		<input type="button" class="btn edit fr" value="编辑" />
+                    <router-link to="/user/modpwd/test"  active-class="active" class="edit fr">修改密码</router-link>
+                    <span style="display:inline-block;width:30px;color:#fff;">1</span>
+            		<router-link to="/user/edit/test"  active-class="active" class="edit fr">编辑</router-link>
 				</li>
-            	<li>
-					<a href="#">3. 用户名 user-3 创建时间:2017-02-01</a>
-            		<input type="button" class="btn delete fr" value="删除" />
-            		<input type="button" class="btn edit fr" value="编辑" />
-				</li>
-            	<li>
-					<a href="#">4. 用户名 user-4 创建时间:2017-02-02</a>
-            		<input type="button" class="btn delete fr" value="删除" />
-            		<input type="button" class="btn edit fr" value="编辑" />
-				</li>
-            	<li>
-					<a href="#">5. 用户名 user-5 创建时间:2017-02-01</a>
-            		<input type="button" class="btn delete fr" value="删除" />
-            		<input type="button" class="btn edit fr" value="编辑" />
-				</li>
-            	<li>
-					<a href="#">6. 用户名 user-6 创建时间:2017-02-02</a>
-            		<input type="button" class="btn delete fr" value="删除" />
-            		<input type="button" class="btn edit fr" value="编辑" />
-				</li>
-            </ul>
-        </div> -->
+            </ul> -->
+            <div class="table_box">
+                <table align="center">
+                    <thead>
+                        <tr>
+                            <th>用户名</th>
+                            <th>创建时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        <tr>
+                            <td><router-link to="/user/edit/test">1. 用户名 user-1</router-link></td>
+                            <td><router-link to="/user/edit/test">创建时间:2017-02-01</router-link></td>
+                            <td>
+                                <input type="button" class="btn delete" value="删除" />
+                                <router-link to="/user/add"  active-class="active" class="edit">添加</router-link>
+                                <router-link to="/user/edit/test"  active-class="active" class="edit">编辑</router-link>
+                                <router-link to="/user/modpwd/test"  active-class="active" class="edit">修改密码</router-link>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><router-link to="/user/edit/test">2. 用户名 user-2</router-link></td>
+                            <td><router-link to="/user/edit/test">创建时间:2017-02-01</router-link></td>
+                            <td>
+                                <input type="button" class="btn delete" value="删除" />
+                                <router-link to="/user/add"  active-class="active" class="edit">添加</router-link>
+                                <router-link to="/user/edit/test"  active-class="active" class="edit">编辑</router-link>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><router-link to="/user/edit/test">1. 用户名 user-1</router-link></td>
+                            <td><router-link to="/user/edit/test">创建时间:2017-02-01</router-link></td>
+                            <td>
+                                <input type="button" class="btn delete" value="删除" />
+                                <router-link to="/user/add"  active-class="active" class="edit">添加</router-link>
+                                <router-link to="/user/edit/test"  active-class="active" class="edit">编辑</router-link>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><router-link to="/user/edit/test">2. 用户名 user-2</router-link></td>
+                            <td><router-link to="/user/edit/test">创建时间:2017-02-01</router-link></td>
+                            <td>
+                                <input type="button" class="btn delete" value="删除" />
+                                <router-link to="/user/add"  active-class="active" class="edit">添加</router-link>
+                                <router-link to="/user/edit/test"  active-class="active" class="edit">编辑</router-link>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><router-link to="/user/edit/test">1. 用户名 user-1</router-link></td>
+                            <td><router-link to="/user/edit/test">创建时间:2017-02-01</router-link></td>
+                            <td>
+                                <input type="button" class="btn delete" value="删除" />
+                                <router-link to="/user/add"  active-class="active" class="edit">添加</router-link>
+                                <router-link to="/user/edit/test"  active-class="active" class="edit">编辑</router-link>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><router-link to="/user/edit/test">2. 用户名 user-2</router-link></td>
+                            <td><router-link to="/user/edit/test">创建时间:2017-02-01</router-link></td>
+                            <td>
+                                <input type="button" class="btn delete" value="删除" />
+                                <router-link to="/user/add"  active-class="active" class="edit">添加</router-link>
+                                <router-link to="/user/edit/test"  active-class="active" class="edit">编辑</router-link>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><router-link to="/user/edit/test">1. 用户名 user-1</router-link></td>
+                            <td><router-link to="/user/edit/test">创建时间:2017-02-01</router-link></td>
+                            <td>
+                                <input type="button" class="btn delete" value="删除" />
+                                <router-link to="/user/add"  active-class="active" class="edit">添加</router-link>
+                                <router-link to="/user/edit/test"  active-class="active" class="edit">编辑</router-link>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><router-link to="/user/edit/test">2. 用户名 user-2</router-link></td>
+                            <td><router-link to="/user/edit/test">创建时间:2017-02-01</router-link></td>
+                            <td>
+                                <input type="button" class="btn delete" value="删除" />
+                                <router-link to="/user/add"  active-class="active" class="edit">添加</router-link>
+                                <router-link to="/user/edit/test"  active-class="active" class="edit">编辑</router-link>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
         <!-- add -->
         <!-- <div class="right_area useradd">
         	<p class="content_title">添加用户</p>
@@ -55,6 +125,7 @@
             </div>
         </div> -->
         <!-- detail -->
+
         <!-- <div class="right_area userdetail">
         	<p class="content_title">用户详情</p>
         	<ul>
@@ -106,6 +177,12 @@ export default {
     },
     methods: {
         ...mapActions(['EDIT_TEST','EDIT_TEST1'])
-    }
+    }/*,
+    created: {
+
+        let trs = document.getElementsByTagName('tr');
+        console.log(trs.length);
+    }*/
 }
+
 </script>
