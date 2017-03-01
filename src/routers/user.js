@@ -4,7 +4,7 @@
  * @date 2017/02/27
  */
 import stroe from '../store';
-import index from '../pages/user/list.vue';
+import user from '../pages/user/list.vue';
 import add from '../pages/user/add.vue';
 import edit from '../pages/user/edit.vue';
 import modpwd from '../pages/user/modpwd.vue';
@@ -16,24 +16,31 @@ export default  [
 			if(!stroe.state.initModule.isAdmin){
 				return '/report';
 			}else{
-				return '/index/1'
+				return '/user'
 			}
 	    }
 	},
 	{
-		path: '/index/:id', 
-		component: index 
+		path: '/user', 
+		component: user,
+		name: 'user'
 	},
 	{
-		path: '/user/edit/:name', 
-		component: edit 
+		path: '/user/edit', 
+		component: edit,
+		name: 'edit'
 	},
 	{
 		path: '/user/add', 
-		component: add 
+		component: add,
+		name: 'add'
 	},
 	{
-		path: '/user/modpwd/:name', 
-		component: modpwd 
+		path: '/user/modpwd', 
+		component: modpwd,
+		name: 'modpwd'/*,
+		redirect: () => {
+			console.log(modpwd)
+		}*/
 	}
 ];

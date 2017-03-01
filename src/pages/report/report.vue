@@ -1,16 +1,18 @@
-<template> 
-    <div >
-    	{{test}}
-    	<br/>
-        {{test1}}
-        <br/>
-        {{test2}}
-        <br/>
-        <a href="javascript:;" @click="EDIT_TEST">点击我</a>
-    	<br/>
-        <a href="javascript:;" @click="EDIT_TEST1">点击我test1</a>
-    	
-    </div>
+<template>
+    <table>
+        <thead>
+            <tr>
+                <td>域名</td>
+                <td>今日错误数</td>
+                <td>7日错误数</td>
+                <td>15日错误数</td>
+                <td>错误类型数</td>
+                <td>报错脚本数</td>
+                <td>最高错误类型</td>
+                <td>操作</td>
+            </tr>
+        </thead>
+    </table>
 </template> 
 <script type="text/javascript">
 	
@@ -21,15 +23,11 @@ const mapActions = vuex.mapActions;
 export default {
     computed: {
         ...mapState({
-            test:state =>store.state.initModule.test,
-            test1: state => store.state.initModule.test1
-        }),
-        test2: function(){
-            return 'eqqeqweqeqwqwewqeq';
-        }
+           
+        })
     },
     methods: {
-        ...mapActions(['EDIT_TEST','EDIT_TEST1'])
+        
     }
 
    

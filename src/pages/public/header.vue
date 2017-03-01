@@ -2,7 +2,7 @@
     <header class="header clearfix">
         <div class="f-l">GER错误监控系统</div>
         <div class="f-r">
-            <router-link :to=userName active-class="active">修改密码</router-link>
+            <router-link :to="{ name: 'modpwd', query: { uname: userName }}" active-class="active">修改密码</router-link>
             <a href="/logout"> 退出</a>
         </div>
     </header>
@@ -15,9 +15,7 @@
 	export default {
 	    computed: {
 	        ...mapState({
-	            userName:state =>{
-	            	return ('/user/modpwd/'+ store.state.initModule.userName);
-	            }
+	            userName:state => store.state.initModule.userName
 	        })
 	    }
 	   
