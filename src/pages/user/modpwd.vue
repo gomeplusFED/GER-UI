@@ -11,7 +11,7 @@
                 </li>
             </ul>
             <div class="submit">
-                <input type="button" class="change" value="修改">
+                <!-- <input type="button" class="change" value="修改"> -->
                 <a href="#">修改</a>
                 <!-- <input type="button" class="back" value="返回"> -->
             	<router-link to="/index"  active-class="active" class="back">返回</router-link>
