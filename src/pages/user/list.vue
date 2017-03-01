@@ -23,20 +23,19 @@
                     </thead>
                     <tbody id="tbody">
                         <tr>
-                            <td><router-link to="/user/edit">1. 用户名 user-1</router-link></td>
-                            <td><router-link to="/user/edit">创建时间:2017-02-01</router-link></td>
+                            <td><router-link :to="{ name: 'edit', query: { uname: userName }}">1. 用户名 user-1</router-link></td>
+                            <td><router-link :to="{ name: 'edit', query: { uname: userName }}">创建时间:2017-02-01</router-link></td>
                             <td>
                                 <a href="#">删除</a>
-                                <router-link to="/user/add"  active-class="active" class="edit">添加</router-link>
-                                <router-link to="/user/edit" :to="{ name: 'edit', query: { uname: userName }}" active-class="active" class="edit">编辑</router-link>
+                                <router-link :to="{ name: 'edit', query: { uname: userName }}" active-class="active" class="edit">编辑</router-link>
                             </td>
                         </tr>
                         <tr>
-                            <td><router-link to="/user/edit">2. 用户名 user-2</router-link></td>
-                            <td><router-link to="/user/edit">创建时间:2017-02-01</router-link></td>
+                            <td><router-link :to="{ name: 'edit', query: { uname: userName }}">2. 用户名 user-2</router-link></td>
+                            <td><router-link :to="{ name: 'edit', query: { uname: userName }}">创建时间:2017-02-01</router-link></td>
                             <td>
                                 <a href="#">删除</a>
-                                <router-link to="/user/edit"  active-class="active" class="edit">编辑</router-link>
+                                <router-link :to="{ name: 'edit', query: { uname: userName }}" active-class="active" class="edit">编辑</router-link>
                             </td>
                         </tr>
                     </tbody>
