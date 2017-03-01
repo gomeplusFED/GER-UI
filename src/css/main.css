@@ -55,6 +55,9 @@ a:link, a:visited, a:hover, a:active {
     clear: both;
     visibility: hidden; 
 }
+.t-l{text-align: left;}
+.t-c{text-align: center;}
+.t_r{text-align: right;}
 .f-l{float:left;}
 .f-r{float: right;}
 /*core*/
@@ -124,7 +127,100 @@ $menuHoverBg: #353b41;
         }
     }
 }
+/*public width*/
+.width-10{
+    width: 10%;
+    float: left;
+}
+.width-18{
+    width: 18%;
+    float: left;
+    text-indent: 10px;
+}
+.width-22{
+    width: 20%;
+    float: left;
+    text-indent: 10px;
+}
 /*list*/
-.ger-table{
-    
+.ger-list{
+    font-size: 12px;
+    li{ 
+        line-height:40px;
+        border-top:1px #ddd solid;
+        .list-over{
+            max-width: 98%;
+            height:40px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        a{
+            color:#666;
+        }
+    }
+    li:nth-child(2n){
+
+         background:#f9f9f9;
+    }
+    li:hover{
+
+        background:#ddd;
+    }
+}
+.ger-list-head{
+    padding-right: 17px;
+    font-size: 14px;
+    font-weight: bold;
+}
+/*report*/
+.ger-list-content{
+    padding: 30px 0 0; 
+    color:#666; 
+    position: relative;
+    height:100%;
+    box-sizing: border-box;
+    .ger-list-box{
+        position: absolute;
+        top:73px;
+        bottom:50px;
+        left:0;
+        right:0;
+        overflow-x: hidden;
+        overflow-y: scroll; 
+    }
+}
+.ger-list-bottom{
+    position: absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    border-top:1px #ddd solid;
+    height:50px;
+    box-sizing: border-box;
+    padding:10px;
+    background:#fafafa;
+    text-align: right;
+    a{
+        display: inline-block;
+        padding: 0 10px;
+        line-height: 30px;
+        border:1px #ddd solid;
+        border-radius: 4px;
+        margin: 0 5px;
+        background: #eee;
+    }
+    a:hover{
+        color:#fff;
+        background: #ee2f2f;
+        border-color:#ee2f2f;
+    }
+    .active,.active:hover{
+        border:none;
+        background:none;
+        color: #ee2f2f;
+    }
+    span{
+        margin: 0 5px;
+    }
 }
