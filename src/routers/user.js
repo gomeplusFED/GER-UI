@@ -11,12 +11,12 @@ import modpwd from '../pages/user/modpwd.vue';
 export default  [
 	{
 		path: '/index',
-		component: index,
+		component: user,
 		redirect: () => {
 			if(!stroe.state.initModule.isAdmin){
 				return '/report';
 			}else{
-				return '/user'
+				return '/user';
 			}
 	    }
 	},
