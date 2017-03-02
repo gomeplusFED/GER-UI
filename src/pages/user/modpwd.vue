@@ -1,7 +1,7 @@
 <template> 
     <div>
-        <div class="right_area userdetail">
-			<p class="content_title">修改密码</p>
+        <div class="right_area modpwd">
+			<h1>修改密码</h1>
 			<ul>
                 <li>
                     <label for="password">新密码: </label><input type="password" id="password" class="password">
