@@ -1,6 +1,6 @@
 <template> 
     <div>
-        <div class="right_area userdetail">
+        <div class="right_area modpwd">
 			<h1>修改密码</h1>
 			<ul>
                 <li>
