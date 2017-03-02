@@ -92,7 +92,12 @@ a.btns:hover{
     border-color: #ee2f2f;
 }
 
-
+h1{
+	font-size: 16px;
+    line-height: 30px;
+    padding-left: 20px;
+    border-bottom: 1px solid #ddd;
+}
 
 
 

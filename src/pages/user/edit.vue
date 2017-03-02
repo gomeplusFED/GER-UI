@@ -1,7 +1,7 @@
 <template> 
     <div class="">
         <div class="right_area userdetail">
-            <p class="content_title">用户详情</p>
+            <h1>用户详情</h1>
             <form>
 	            <ul>
 	                <li>
