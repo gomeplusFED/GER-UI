@@ -5,6 +5,7 @@
  */
 
 import report from '../../pages/report/report.vue';
+import list from '../../pages/report/list.vue';
 import detail from '../../pages/report/detail.vue';
 export default  [
 	{
@@ -17,7 +18,7 @@ export default  [
 	},
 	{
 		path: '/report/list',
-		component: report,
+		component: list,
 		name: 'list',
 		meta: {
 			title: '错误列表'

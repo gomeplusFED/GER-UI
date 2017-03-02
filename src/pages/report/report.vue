@@ -1,6 +1,6 @@
 <template>
     <div class="ger-list-content">
-        <ul class="ger-list-head">
+        <ul class="ger-list-head clearfix">
             <li class="width-18">域名</li>
             <li class="width-10 t-c">今日错误数</li>
             <li class="width-10 t-c">7日错误数</li>
