@@ -19,6 +19,8 @@ html,body{
     height: 100%;
     overflow: hidden;
     position: relative;
+    min-width: 1206px;
+    overflow-x: auto;
 }
 table {
   border-spacing: 0;
@@ -168,6 +170,7 @@ $menuHoverBg: #353b41;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
+            word-break:break-all;
         }
         a{
             color:#666;
