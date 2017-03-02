@@ -61,7 +61,7 @@
 					<div class="width-30">fdsfsfsd发送到发送到</div>
 					<div class="width-15 t-c">12</div>
 					<div class="width-10 t-c">
-						<a href="javascript:;">查看详情</a>
+						<router-link :to="{ name: 'reportDetail'}}">查看更多</router-link>
 					</div>
 				</li>
 	        </ul>
