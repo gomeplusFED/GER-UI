@@ -1,7 +1,7 @@
 <template> 
     <div>
         <div class="right_area useradd">
-        	<p class="content_title">添加用户</p>
+            <h1>添加用户</h1>
             <label for="username">用户名: </label><input type="text" id="username" class="username">
             <div class="submit">
                 <a href="#" class="btns create">创建</a>

@@ -13,7 +13,7 @@ textarea{;border-radius:4px;}
 
 .left_area ul{display:inline-block;width:150px;border-top:1px solid #999;}
 .left_area li{border:1px solid #999;border-top:none;}
-.right_area li{padding:0 20px;/*border-bottom:1px dashed #eae6e6;*/margin-bottom:10px;line-height:34px;}
+.right_area li{margin-bottom:10px;line-height:34px;}
 .userlist .btn{font-size:12px;/* width:75px; */padding: 4px 10px;/* height:18px; */border-radius:5px;border:1px solid #999;/* line-height:18px; */margin-top:6px;margin-right:10px;}
 .userlist .btn.delete{background-color:#169bd5;color:#fff;border-color:#169bd5;}
 .username,
@@ -33,7 +33,7 @@ textarea{;border-radius:4px;}
 .userlist .title,
 .userdetail .title,
 .changepass .title{border:1px solid #999;border-bottom:none;}
-.submit{padding-top:20px;text-align: center;}
+.submit{padding-top:20px;    padding-left: 124px;}
 .submit input{margin-right:30px;height:40px;line-height:40px;width:140px;border-radius:4px;background-color:#169bd5;color:#fff;}
 
 .right_area label{width:100px;display:inline-block;}
@@ -97,6 +97,7 @@ h1{
     line-height: 30px;
     padding-left: 20px;
     border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
 }
 
 
