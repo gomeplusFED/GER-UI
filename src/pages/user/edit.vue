@@ -15,9 +15,8 @@
                 </li>
             </ul>
             <div class="submit">
-                <a href="#">创建</a>
-                <!-- <input type="button" class="back" value="返回"> -->
-            	<router-link to="/index"  active-class="active" class="back">返回</router-link>
+            	<a class="btns" href="#">创建</a>
+            	<router-link to="/index"  active-class="active" class="btns back">返回</router-link>
             </div>
         </div>
     </div>

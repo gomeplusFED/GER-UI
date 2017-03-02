@@ -1,47 +1,53 @@
 <template> 
-	<div>
-    	<!-- {{test}}
-    	<input type="button" value="aaa" @click="EDIT_TEST"/> -->
-    	<!-- list -->
-        <div class="right_area userlist">
-        	<p class="content_title">用户列表</p>
-            <ul class="list-group" v-if="items">
-            	<li v-for="item in items">
-					<a :data-id="item.id" href="#">{{ item.message }}</a>
-            		<input type="button" class="btn delete fr" value="删除" />
-            		<input type="button" class="btn edit fr" value="编辑" />
-				</li>
+	
+    <div class="ger-list-content">
+        <ul class="ger-list-head">
+            <li class="width-50">用户名</li>
+            <li class="width-25 t-c">创建时间</li>
+            <li class="width-25 t-c">操作</li>
+        </ul>
+            
+        
+        <div class="ger-list-box">
+            <ul class="ger-list">
+                <li class="clearfix">
+                    <div class="width-50">
+                        <router-link :to="{ name: 'edit', query: { uname: userName }}">1. 用户名 user-1</router-link>
+                    </div>
+                    <div class="width-25 t-c"><router-link :to="{ name: 'edit', query: { uname: userName }}">创建时间:2017-02-01</router-link></div>
+                    <div class="width-25 t-c">
+                        <a href="#">删除</a>
+                        <router-link :to="{ name: 'edit', query: { uname: userName }}" active-class="active" class="edit">编辑</router-link></div>
+                </li>
+                <li class="clearfix">
+                    <div class="width-50">
+                        <router-link :to="{ name: 'edit', query: { uname: userName }}">1. 用户名 user-1</router-link>
+                    </div>
+                    <div class="width-25 t-c"><router-link :to="{ name: 'edit', query: { uname: userName }}">创建时间:2017-02-01</router-link></div>
+                    <div class="width-25 t-c"><a href="#">删除</a>
+                        <router-link :to="{ name: 'edit', query: { uname: userName }}" active-class="active" class="edit">编辑</router-link></div>
+                </li>
+                <li class="clearfix">
+                    <div class="width-50">
+                        <router-link :to="{ name: 'edit', query: { uname: userName }}">1. 用户名 user-1</router-link>
+                    </div>
+                    <div class="width-25 t-c"><router-link :to="{ name: 'edit', query: { uname: userName }}">创建时间:2017-02-01</router-link></div>
+                    <div class="width-25 t-c"><a href="#">删除</a>
+                        <router-link :to="{ name: 'edit', query: { uname: userName }}" active-class="active" class="edit">编辑</router-link></div>
+                </li>
             </ul>
-            <div class="table_box">
-                <table align="center">
-                    <thead>
-                        <tr>
-                            <th>用户名</th>
-                            <th>创建时间</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody">
-                        <tr>
-                            <td><router-link :to="{ name: 'edit', query: { uname: userName }}">1. 用户名 user-1</router-link></td>
-                            <td><router-link :to="{ name: 'edit', query: { uname: userName }}">创建时间:2017-02-01</router-link></td>
-                            <td>
-                                <a href="#">删除</a>
-                                <router-link :to="{ name: 'edit', query: { uname: userName }}" active-class="active" class="edit">编辑</router-link>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><router-link :to="{ name: 'edit', query: { uname: userName }}">2. 用户名 user-2</router-link></td>
-                            <td><router-link :to="{ name: 'edit', query: { uname: userName }}">创建时间:2017-02-01</router-link></td>
-                            <td>
-                                <a href="#">删除</a>
-                                <router-link :to="{ name: 'edit', query: { uname: userName }}" active-class="active" class="edit">编辑</router-link>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
         </div>
+        <div class="ger-list-bottom">
+            <a href="javascript:;">上一页</a>
+            <a href="javascript:;" class="active">1</a>
+            <a href="javascript:;">2</a>
+            <a href="javascript:;">3</a>
+            <a href="javascript:;">4</a>
+            <span>....</span>
+            <a href="javascript:;">5</a>
+            <a href="javascript:;">下一页</a>
+        </div>
+        
     </div>
 </template> 
 <script>
@@ -59,12 +65,7 @@ export default {
     },
     methods: {
         ...mapActions(['EDIT_TEST','EDIT_TEST1'])
-    }/*,
-    created: {
-
-        let trs = document.getElementsByTagName('tr');
-        console.log(trs.length);
-    }*/
+    }
 }
 
 </script>
