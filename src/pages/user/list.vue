@@ -12,28 +12,39 @@
             <ul class="ger-list">
                 <li class="clearfix">
                     <div class="width-50 list-over">
-                        <router-link :to="{ name: 'edit', query: { uname: userName }}">1. 用户名 user-1</router-link>
+                        <span>1. 用户名 user-1</span>
                     </div>
-                    <div class="width-25 t-c"><router-link :to="{ name: 'edit', query: { uname: userName }}">创建时间:2017-02-01</router-link></div>
                     <div class="width-25 t-c">
-                        <a href="#">删除</a>
-                        <router-link :to="{ name: 'edit', query: { uname: userName }}" active-class="active" class="edit">编辑</router-link></div>
+                        <span>创建时间:2017-02-01</span>
+                    </div>
+                    <div class="width-25 t-c">
+                        <a href="javascript:;">删除</a>
+                        <router-link :to="{ name: 'edit', query: { uname: userName }}" active-class="active" class="edit">编辑</router-link>
+                    </div>
                 </li>
                 <li class="clearfix">
                     <div class="width-50 list-over">
-                        <router-link :to="{ name: 'edit', query: { uname: userName }}">1. 用户名 user-1</router-link>
+                        <span>1. 用户名 user-1</span>
                     </div>
-                    <div class="width-25 t-c"><router-link :to="{ name: 'edit', query: { uname: userName }}">创建时间:2017-02-01</router-link></div>
-                    <div class="width-25 t-c"><a href="#">删除</a>
-                        <router-link :to="{ name: 'edit', query: { uname: userName }}" active-class="active" class="edit">编辑</router-link></div>
+                    <div class="width-25 t-c">
+                        <span>创建时间:2017-02-01</span>
+                    </div>
+                    <div class="width-25 t-c">
+                        <a href="javascript:;">删除</a>
+                        <router-link :to="{ name: 'edit', query: { uname: userName }}" active-class="active" class="edit">编辑</router-link>
+                    </div>
                 </li>
                 <li class="clearfix">
                     <div class="width-50 list-over">
-                        <router-link :to="{ name: 'edit', query: { uname: userName }}">1. 用户名 user-1</router-link>
+                        <span>1. 用户名 user-1</span>
                     </div>
-                    <div class="width-25 t-c"><router-link :to="{ name: 'edit', query: { uname: userName }}">创建时间:2017-02-01</router-link></div>
-                    <div class="width-25 t-c"><a href="#">删除</a>
-                        <router-link :to="{ name: 'edit', query: { uname: userName }}" active-class="active" class="edit">编辑</router-link></div>
+                    <div class="width-25 t-c">
+                        <span>创建时间:2017-02-01</span>
+                    </div>
+                    <div class="width-25 t-c">
+                        <a href="javascript:;">删除</a>
+                        <router-link :to="{ name: 'edit', query: { uname: userName }}" active-class="active" class="edit">编辑</router-link>
+                    </div>
                 </li>
             </ul>
         </div>
