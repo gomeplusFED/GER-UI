@@ -21,9 +21,9 @@ textarea{;border-radius:4px;}
 .userlist .btn.delete{background-color:#169bd5;color:#fff;border-color:#169bd5;}
 .username,
 .password,
-.domains{width:300px;border:1px solid #dcd6d6;padding:4px;}
+.domains{width:300px;border:1px solid #dcd6d6;padding:4px;float:left;}
 .username,
-.password{height:20px;}
+.password{height:24px;}
 .domains{height:80px;}
 
 
@@ -39,11 +39,11 @@ textarea{;border-radius:4px;}
 .submit{padding-top:20px;padding-left: 120px;}
 .submit input{margin-right:30px;height:40px;line-height:40px;width:140px;border-radius:4px;background-color:#169bd5;color:#fff;}
 
-.right_area label{width:100px;display:inline-block;}
+.right_area label{width:80px;float:left;}
 .userdetail .right_area li,
 .changepass .right_area li{border-bottom:none;}
-
-
+.ger-form-error,.ger-form-notice{float: left;padding-left: 20px;color:#ff0000;}
+.ger-form-notice{color:#999;}
 
 
 

@@ -62,7 +62,16 @@ a:link, a:visited, a:hover, a:active {
 .t_r{text-align: right;}
 .f-l{float:left;}
 .f-r{float: right;}
-.ger-loading{line-height: 100px;text-align: center;font-size: #333;border-top:1px #ddd solid;}
+.ger-loading{
+    line-height: 30px;
+    text-align: center;
+    font-size: #333;
+    border-top:1px #ddd solid;
+    padding: 100px 0;
+    a{
+        color:#0b84e4;
+    }
+}
 .ger-noMore{
     bottom: 0 !important;
 }
