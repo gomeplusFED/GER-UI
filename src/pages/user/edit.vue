@@ -1,7 +1,10 @@
 <template> 
     <div class="">
         <div class="right_area userdetail">
-            <h1>用户详情</h1>
+            <div class="clearfix ger-public-top">
+            	<span class="f-l">用户详情</span>
+            	<a href="javascript:;" @click="routerBack">返回</a>
+            </div>
             <form>
 	            <ul>
 	                <li>
@@ -25,4 +28,11 @@
     </div>
 </template> 
 <script>
+  export default {
+    methods:{
+      	routerBack(){
+        	this.$router.go(-1);
+      	}
+    }
+  }
 </script>

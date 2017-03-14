@@ -2,7 +2,7 @@
     <div class="ger-menu">
         <ul>
             <li v-if="isAdmin">
-                <router-link :to="{name:'user'}" active-class="active">添加列表</router-link>
+                <router-link :to="{name:'user'}" active-class="active">用户列表</router-link>
             </li>
             <li>
                 <router-link :to="{name: 'report'}"  active-class="active">错误列表</router-link>

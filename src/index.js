@@ -6,7 +6,9 @@ import store from './store';
 import vueRouter from 'vue-router';
 import drouters from './routers/routerModule';
 import beforeRouter from './routers/beforeRouter';
+import vueResource from 'vue-resource';
 Vue.use(vueRouter);
+Vue.use(vueResource);
 const router = new vueRouter({
 	hashbang: false, 
 	mode:'history',
@@ -22,7 +24,7 @@ router.beforeEach((to, from, next) => {
         });
     }else{
         if( beforeRouter[to.name] ){
-            beforeRouter[to.name](to);
+            beforeRouter[to.name](Vue, to);
         }
         next();
     }

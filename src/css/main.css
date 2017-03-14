@@ -19,6 +19,8 @@ html,body{
     height: 100%;
     overflow: hidden;
     position: relative;
+    min-width: 1206px;
+    overflow-x: auto;
 }
 table {
   border-spacing: 0;
@@ -60,6 +62,10 @@ a:link, a:visited, a:hover, a:active {
 .t_r{text-align: right;}
 .f-l{float:left;}
 .f-r{float: right;}
+.ger-loading{line-height: 100px;text-align: center;font-size: #333;border-top:1px #ddd solid;}
+.ger-noMore{
+    bottom: 0 !important;
+}
 /*core*/
 .ger-body{
     height: 100%;
@@ -161,13 +167,14 @@ $menuHoverBg: #353b41;
     font-size: 12px;
     li{ 
         line-height:40px;
-        border-top:1px #ddd solid;
+        border-bottom:1px #ddd solid;
         .list-over{
             max-width: 98%;
             height:40px;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
+            word-break:break-all;
         }
         a{
             color:#666;
@@ -181,12 +188,16 @@ $menuHoverBg: #353b41;
 
         background:#ddd;
     }
+    li:last-child{
+        border: none;
+    }
 }
 .ger-list-head{
     padding-right: 17px;
     font-size: 14px;
     font-weight: bold;
     line-height:40px;
+    border-bottom: 1px #ddd solid;
 }
 /*list content*/
 .ger-list-content{

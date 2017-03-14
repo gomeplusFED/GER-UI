@@ -1,54 +1,32 @@
 <template> 
-	
-    <div class="ger-list-content">
-        <ul class="ger-list-head">
+    
+    <div class="ger-list-content ger-user">
+
+        <div class="clearfix ger-public-top">
+            <span class="f-l">用户列表</span>
+            <router-link :to="{ name: 'add'}" >创建用户</router-link>
+        </div>
+        <ul class="ger-list-head clearfix">
             <li class="width-50">用户名</li>
             <li class="width-25 t-c">创建时间</li>
             <li class="width-25 t-c">操作</li>
         </ul>
-            
-        
-        <div class="ger-list-box">
-            <ul class="ger-list">
-                <li class="clearfix">
+        <div  :class = "['ger-list-box', {'ger-noMore': !hasMorePage}]" >
+            <ul class="ger-list" v-show="!loading && !isEmpty">
+                <li class="clearfix"  v-for="list in lists">
                     <div class="width-50 list-over">
-                        <span>1. 用户名 user-1</span>
+                        <router-link :to="{ name: 'edit', query: { uname: list.name }}">{{list.name}}</router-link>
                     </div>
+                    <div class="width-25 t-c"><router-link :to="{ name: 'edit', query: { uname: list.name }}">{{list.time}}</router-link></div>
                     <div class="width-25 t-c">
-                        <span>创建时间:2017-02-01</span>
-                    </div>
-                    <div class="width-25 t-c">
-                        <a href="javascript:;">删除</a>
-                        <router-link :to="{ name: 'edit', query: { uname: userName }}" active-class="active" class="edit">编辑</router-link>
-                    </div>
-                </li>
-                <li class="clearfix">
-                    <div class="width-50 list-over">
-                        <span>1. 用户名 user-1</span>
-                    </div>
-                    <div class="width-25 t-c">
-                        <span>创建时间:2017-02-01</span>
-                    </div>
-                    <div class="width-25 t-c">
-                        <a href="javascript:;">删除</a>
-                        <router-link :to="{ name: 'edit', query: { uname: userName }}" active-class="active" class="edit">编辑</router-link>
-                    </div>
-                </li>
-                <li class="clearfix">
-                    <div class="width-50 list-over">
-                        <span>1. 用户名 user-1</span>
-                    </div>
-                    <div class="width-25 t-c">
-                        <span>创建时间:2017-02-01</span>
-                    </div>
-                    <div class="width-25 t-c">
-                        <a href="javascript:;">删除</a>
-                        <router-link :to="{ name: 'edit', query: { uname: userName }}" active-class="active" class="edit">编辑</router-link>
+                        <a href="#">删除</a>
+                        <router-link :to="{ name: 'edit', query: { uname: list.name }}" active-class="active" class="edit">编辑</router-link>
                     </div>
                 </li>
             </ul>
+            <div v-show="loading" class="ger-loading">正在加载中，请稍后...</div>
         </div>
-        <div class="ger-list-bottom">
+        <div class="ger-list-bottom" v-if="hasMorePage">
             <a href="javascript:;">上一页</a>
             <a href="javascript:;" class="active">1</a>
             <a href="javascript:;">2</a>
@@ -70,14 +48,14 @@ export default {
     computed: {
         ...mapState({
             userName:state => store.state.initModule.userName,
-            test: state =>store.state.initModule.test,
-            test1: state => store.state.initModule.test1
+            lists: state => store.state.userList.list,
+            loading: state => store.state.userList.loading,
+            isEmpty: state => store.state.userList.isEmpty,
+            hasMorePage: state => store.state.userList.hasMorePage
         })
     },
     methods: {
         ...mapActions(['EDIT_TEST','EDIT_TEST1'])
     }
 }
-
 </script>
-
