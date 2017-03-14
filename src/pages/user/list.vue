@@ -1,5 +1,5 @@
 <template> 
-	
+    
     <div class="ger-list-content ger-user">
 
         <div class="clearfix ger-public-top">
@@ -60,6 +60,4 @@ export default {
     }
 
 }
-
 </script>
-
