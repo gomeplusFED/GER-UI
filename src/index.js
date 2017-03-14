@@ -7,6 +7,7 @@ import vueRouter from 'vue-router';
 import drouters from './routers/routerModule';
 import beforeRouter from './routers/beforeRouter';
 import vueResource from 'vue-resource';
+Vue.config.devtools = true
 Vue.use(vueRouter);
 Vue.use(vueResource);
 const router = new vueRouter({
