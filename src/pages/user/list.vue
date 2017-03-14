@@ -19,12 +19,13 @@
                     </div>
                     <div class="width-25 t-c"><router-link :to="{ name: 'edit', query: { uname: list.name }}">{{list.time}}</router-link></div>
                     <div class="width-25 t-c">
-                        <a href="#">删除</a>
+                        <a href="javascript:;" @click="DELETE_USER(list.name)">删除</a>
                         <router-link :to="{ name: 'edit', query: { uname: list.name }}" active-class="active" class="edit">编辑</router-link>
                     </div>
                 </li>
             </ul>
             <div v-show="loading" class="ger-loading">正在加载中，请稍后...</div>
+            <div v-show="isEmpty" class="ger-loading">暂无用户，点击<router-link :to="{ name: 'add'}" active-class="active">创建用户</router-link></div>
         </div>
         <div class="ger-list-bottom" v-if="hasMorePage">
             <a href="javascript:;">上一页</a>
@@ -54,9 +55,10 @@ export default {
             hasMorePage: state => store.state.userList.hasMorePage
         })
     },
-    methods: {
-        ...mapActions(['EDIT_TEST','EDIT_TEST1'])
+    methods:{
+        ...mapActions(['DELETE_USER'])
     }
+
 }
 
 </script>
