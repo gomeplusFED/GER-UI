@@ -8,9 +8,12 @@ import report from './report/report';
 import list from './report/list';
 import reportDetail from './report/detail';
 import user from './user/list';
+import edit from './user/edit';
 export default  {
 	report: report,
 	list: list,
 	reportDetail: reportDetail,
-	user: user
+	user: user,
+	edit: edit,
+	add: edit
 };

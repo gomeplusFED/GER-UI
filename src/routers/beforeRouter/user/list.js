@@ -4,10 +4,10 @@
  * @date 2017/03/1
  */
 import store from '../../../store';
-console.log(store)
 export default (Vue, obj)=>{
 	Vue.http.post('/user/getlist', {
-		userName: GLOBAL_CONFIG.userName 
+		userName: GLOBAL_CONFIG.userName,
+		page: obj.query.page || 1
 	}).then(function(response ){
 		let lists = response.data;
 		let userListModule = store.state.userList; 
