@@ -5,7 +5,7 @@ const state = {
     	name: '',
     	pwd: '',
     	rpwd: '',
-    	watchUrl: '',
+    	watchUrl: ''
     },
     error: {
     	name: false,
@@ -16,12 +16,13 @@ const state = {
     submit: true,
     hasUser: false,
     loading: true,
-    second: 3
+    second: 3,
+    isRepeat: false
 };
 
 const mutations = {
     'EDIT_NAME': (state) => {
-
+        state.isRepeat = false;
         let name = state.userInfo.name;
         if( /^[a-zA-Z]{6,20}$/.test(name) ){
             state.error.name = false;
@@ -69,12 +70,13 @@ const mutations = {
     		state.error.rpwd = true;
     		state.submit = false;
     	}
-    	if( state.submit ){
+    	if( state.submit && !state.isRepeat ){
             let options = {
-                superName: store.state.initModule.userName,
+                superName: store.state.initModule.superName,
                 userName: state.userInfo.name,
                 pwd: state.userInfo.pwd,
-                watchUrl: state.userInfo.watchUrl
+                watchUrl: state.userInfo.watchUrl,
+                type: state.userInfo.type
             }
             if(state.type === 'add'){
                 options.createTime = '2017-03-22';
@@ -82,7 +84,9 @@ const mutations = {
     		store._vm.$http.post( '/user/edit', options).then((res) => {
     			if(res.body.code === 200){
     				window.location.href = "/user";
-    			}
+    			}else if(res.body.code === 409 ){
+                    state.isRepeat = true;
+                }
     		},() => {
     			console.log(arguments);
     		})
