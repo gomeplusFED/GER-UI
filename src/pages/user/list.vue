@@ -4,7 +4,7 @@
 
         <div class="clearfix ger-public-top">
             <span class="f-l">用户列表</span>
-            <router-link :to="{ name: 'add'}" >创建用户</router-link>
+            <router-link :to="{ name: 'add', query:{ type: 'add' }}" >创建用户</router-link>
         </div>
         <ul class="ger-list-head clearfix">
             <li class="width-50">用户名</li>
@@ -20,7 +20,7 @@
                     <div class="width-25 t-c"><router-link :to="{ name: 'edit', query: { uname: list.name }}">{{list.time}}</router-link></div>
                     <div class="width-25 t-c">
                         <a href="javascript:;" @click="DELETE_USER(list.name)">删除</a>
-                        <router-link :to="{ name: 'edit', query: { uname: list.name }}" active-class="active" class="edit">编辑</router-link>
+                        <router-link :to="{ name: 'edit', query: { uname: list.name, type:'edit' }}" active-class="active" class="edit">编辑</router-link>
                     </div>
                 </li>
             </ul>

@@ -9,19 +9,20 @@
         <ul>
             <li class="clearfix">
                 <label for="username">用户名: </label>
-                <input class="username" type="text" id="username" autocomplete="new-password"  v-model = 'userInfo.name' lazy>
-                <span v-show="!error.name" class="ger-form-notice">请输入6-20位字母</span>
-                <span class="ger-form-error" v-show="error.name">密码格式错误！</span>
+                <input class="username" type="text" id="username" autocomplete="off"  v-model = 'userInfo.name' lazy @change="EDIT_NAME">
+                <span v-show="!error.name && !isRepeat" class="ger-form-notice">请输入6-20位字母</span>
+                <span class="ger-form-error" v-show="error.name">用户名格式错误</span>
+                <span class="ger-form-error" v-show="isRepeat && !error.name">用户名重复</span>
             </li>
             <li class="clearfix">
                 <label>密　码: </label>
-                <input class="password"  type="password"  autocomplete="new-password" v-model = 'userInfo.pwd' lazy  @change="EDIT_PWD">
+                <input class="password"  type="password"  autocomplete="off" v-model = 'userInfo.pwd' lazy  @change="EDIT_PWD">
                 <span v-show="!error.pwd" class="ger-form-notice">请输入6-20位字母或数字</span>
                 <span class="ger-form-error" v-show="error.pwd">密码格式错误！</span>
             </li>
             <li class="clearfix">
                 <label>确认密码: </label>
-                <input class="password"  type="password"autocomplete="new-password" v-model = 'userInfo.rpwd' lazy @blur="EDIT_RPWD">
+                <input class="password"  type="password"autocomplete="off" v-model = 'userInfo.rpwd' lazy @blur="EDIT_RPWD">
                 <span v-show="!error.rpwd" class="ger-form-notice">请再次输入密码</span>
                 <span class="ger-form-error" v-show="error.rpwd">密码输入不一致，请重新输入！</span>
             </li>
@@ -50,7 +51,8 @@ export default {
     computed: {
         ...mapState({
             userInfo: state => userInfoModule.userInfo,
-            error: state => userInfoModule.error
+            error: state => userInfoModule.error,
+            isRepeat: state => userInfoModule.isRepeat
         })
     },
     methods:{
