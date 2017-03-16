@@ -6,17 +6,24 @@
 import store from '../../../store';
 export default (Vue, obj)=>{
 	let userInfoModule = store.state.userInfo;
-	userInfoModule.type = obj.query.uname ? 'edit' : 'add';
+	let initModule = store.state.initModule;
+	userInfoModule.userInfo = {
+		name: '',
+    	pwd: '',
+    	rpwd: '',
+    	watchUrl: ''
+	}
 	userInfoModule.userInfo.name = obj.query.uname || '';
+	userInfoModule.userInfo.type = obj.query.type;
 	if( obj.query.uname ){
 		Vue.http.post('/user/getUserInfo', {
-			superName: GLOBAL_CONFIG.userName,
+			superName: initModule.superName,
 			userName: obj.query.uname
 		}).then(function(response ){
 			if( response.body.code === 200 ){
-				userInfoModule.userInfo.pwd =  response.body.pwd;
-				userInfoModule.userInfo.rpwd =  response.body.pwd;
-				userInfoModule.userInfo.watchUrl =  response.body.watchUrl;
+				userInfoModule.userInfo.pwd =  response.data.data.password;
+				userInfoModule.userInfo.rpwd =  response.data.data.password;
+				userInfoModule.userInfo.watchUrl =  response.data.data.watchUrl;
 				userInfoModule.hasUser = true;
 			}else{
 				let timer = setInterval(()=>{

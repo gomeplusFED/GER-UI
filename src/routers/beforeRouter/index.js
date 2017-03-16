@@ -9,11 +9,13 @@ import list from './report/list';
 import reportDetail from './report/detail';
 import user from './user/list';
 import edit from './user/edit';
+import modPwd from './user/modpwd';
 export default  {
 	report: report,
 	list: list,
 	reportDetail: reportDetail,
 	user: user,
 	edit: edit,
-	add: edit
+	add: edit,
+	modpwd: modPwd
 };
