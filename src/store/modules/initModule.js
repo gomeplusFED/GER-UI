@@ -3,7 +3,8 @@
 const state = {
 	superName: GLOBAL_CONFIG.superName,
     isAdmin: GLOBAL_CONFIG.isAdmin,
-    userName: GLOBAL_CONFIG.userName
+    userName: GLOBAL_CONFIG.userName,
+    watchUrl: GLOBAL_CONFIG.watchUrl
 };
 
 const mutations = {

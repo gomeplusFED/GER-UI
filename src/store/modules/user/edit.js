@@ -49,7 +49,7 @@ const mutations = {
     },
     'EDIT_WATCHURL': ( state ) => {
     	var watchUrl = state.userInfo.watchUrl;
-		if( /^[A-Za-z|/\r|\/n|/\r/\n|/\s]+$/.test(watchUrl) ){
+		if( /^[A-Za-z|/\r|\/n|/\r/\n]+$/.test(watchUrl) ){
 			state.error.watchUrl = false;
 			state.submit = true;
 		}else{
