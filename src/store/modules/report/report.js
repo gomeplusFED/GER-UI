@@ -1,8 +1,12 @@
-//import store from '../index.js';
+// import store from '../index.js';
 
 const state = {
     isAdmin: GLOBAL_CONFIG.isAdmin,
-    userName: GLOBAL_CONFIG.userName
+    userName: GLOBAL_CONFIG.userName,
+    list:[],
+    hasMorePage: false,
+    isEmpty: false,
+    loading: true
 };
 
 const mutations = {
