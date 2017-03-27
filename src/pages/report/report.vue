@@ -14,164 +14,20 @@
         
         <div class="ger-list-box">
             <ul class="ger-list">
-                <li class="clearfix">
+                <li class="clearfix" v-for="list in reportList">
                     <div class="width-18">
-                        <div class="list-over">www.gomeplus.com</div>
+                        <div class="list-over" :title=list.key>{{list.key}}</div>
                     </div>
-                    <div class="width-10 t-c">212</div>
-                    <div class="width-10 t-c">23</div>
-                    <div class="width-10 t-c">3434</div>
-                    <div class="width-10 t-c">434</div>
-                    <div class="width-10 t-c">343</div>
+                    <div class="width-10 t-c">1</div>
+                    <div class="width-10 t-c">2</div>
+                    <div class="width-10 t-c">{{list.doc_count}}</div>
+                    <div class="width-10 t-c">4</div>
+                    <div class="width-10 t-c">5</div>
                     <div class="width-22">
-                        <div class="list-over">对方水电费水电费就看电视看电视的所得税发送到发送到发送到收款返款的身份</div>
+                        <div class="list-over" title="message">message</div>
                     </div>
                     <div class="width-10 t-c">
-                        <router-link :to="{ name: 'list', query: { href: 'www.gomeplus.com' }}">查看更多</router-link>
-                    </div>
-                </li>
-                <li class="clearfix">
-                    <div class="width-18">
-                        <div class="list-over">www.gomeplus.com</div>
-                    </div>
-                    <div class="width-10 t-c">212</div>
-                    <div class="width-10 t-c">23</div>
-                    <div class="width-10 t-c">3434</div>
-                    <div class="width-10 t-c">434</div>
-                    <div class="width-10 t-c">343</div>
-                    <div class="width-22">
-                        <div class="list-over">对方水电费水电费就看电视看电视的所得税发送到发送到发送到收款返款的身份</div>
-                    </div>
-                    <div class="width-10 t-c">
-                        <router-link :to="{ name: 'list', query: { href: 'www.gomeplus.com' }}">查看更多</router-link>
-                    </div>
-                </li>
-                <li class="clearfix">
-                    <div class="width-18">
-                        <div class="list-over">www.gomeplus.com</div>
-                    </div>
-                    <div class="width-10 t-c">212</div>
-                    <div class="width-10 t-c">23</div>
-                    <div class="width-10 t-c">3434</div>
-                    <div class="width-10 t-c">434</div>
-                    <div class="width-10 t-c">343</div>
-                    <div class="width-22">
-                        <div class="list-over">对方水电费水电费就看电视看电视的所得税发送到发送到发送到收款返款的身份</div>
-                    </div>
-                    <div class="width-10 t-c">
-                        <router-link :to="{ name: 'list', query: { href: 'www.gomeplus.com' }}">查看更多</router-link>
-                    </div>
-                </li>
-                <li class="clearfix">
-                    <div class="width-18">
-                        <div class="list-over">www.gomeplus.com</div>
-                    </div>
-                    <div class="width-10 t-c">212</div>
-                    <div class="width-10 t-c">23</div>
-                    <div class="width-10 t-c">3434</div>
-                    <div class="width-10 t-c">434</div>
-                    <div class="width-10 t-c">343</div>
-                    <div class="width-22">
-                        <div class="list-over">对方水电费水电费就看电视看电视的所得税发送到发送到发送到收款返款的身份</div>
-                    </div>
-                    <div class="width-10 t-c">
-                        <router-link :to="{ name: 'list', query: { href: 'www.gomeplus.com' }}">查看更多</router-link>
-                    </div>
-                </li>
-                <li class="clearfix">
-                    <div class="width-18">
-                        <div class="list-over">www.gomeplus.com</div>
-                    </div>
-                    <div class="width-10 t-c">212</div>
-                    <div class="width-10 t-c">23</div>
-                    <div class="width-10 t-c">3434</div>
-                    <div class="width-10 t-c">434</div>
-                    <div class="width-10 t-c">343</div>
-                    <div class="width-22">
-                        <div class="list-over">对方水电费水电费就看电视看电视的所得税发送到发送到发送到收款返款的身份</div>
-                    </div>
-                    <div class="width-10 t-c">
-                        <router-link :to="{ name: 'list', query: { href: 'www.gomeplus.com' }}">查看更多</router-link>
-                    </div>
-                </li>
-                <li class="clearfix">
-                    <div class="width-18">
-                        <div class="list-over">www.gomeplus.com</div>
-                    </div>
-                    <div class="width-10 t-c">212</div>
-                    <div class="width-10 t-c">23</div>
-                    <div class="width-10 t-c">3434</div>
-                    <div class="width-10 t-c">434</div>
-                    <div class="width-10 t-c">343</div>
-                    <div class="width-22">
-                        <div class="list-over">对方水电费水电费就看电视看电视的所得税发送到发送到发送到收款返款的身份</div>
-                    </div>
-                    <div class="width-10 t-c">
-                        <router-link :to="{ name: 'list', query: { href: 'www.gomeplus.com' }}">查看更多</router-link>
-                    </div>
-                </li>
-                <li class="clearfix">
-                    <div class="width-18">
-                        <div class="list-over">www.gomeplus.com</div>
-                    </div>
-                    <div class="width-10 t-c">212</div>
-                    <div class="width-10 t-c">23</div>
-                    <div class="width-10 t-c">3434</div>
-                    <div class="width-10 t-c">434</div>
-                    <div class="width-10 t-c">343</div>
-                    <div class="width-22">
-                        <div class="list-over">对方水电费水电费就看电视看电视的所得税发送到发送到发送到收款返款的身份</div>
-                    </div>
-                    <div class="width-10 t-c">
-                        <router-link :to="{ name: 'list', query: { href: 'www.gomeplus.com' }}">查看更多</router-link>
-                    </div>
-                </li>
-                <li class="clearfix">
-                    <div class="width-18">
-                        <div class="list-over">www.gomeplus.com</div>
-                    </div>
-                    <div class="width-10 t-c">212</div>
-                    <div class="width-10 t-c">23</div>
-                    <div class="width-10 t-c">3434</div>
-                    <div class="width-10 t-c">434</div>
-                    <div class="width-10 t-c">343</div>
-                    <div class="width-22">
-                        <div class="list-over">对方水电费水电费就看电视看电视的所得税发送到发送到发送到收款返款的身份</div>
-                    </div>
-                    <div class="width-10 t-c">
-                        <router-link :to="{ name: 'list', query: { href: 'www.gomeplus.com' }}">查看更多</router-link>
-                    </div>
-                </li>
-                <li class="clearfix">
-                    <div class="width-18">
-                        <div class="list-over">www.gomeplus.com</div>
-                    </div>
-                    <div class="width-10 t-c">212</div>
-                    <div class="width-10 t-c">23</div>
-                    <div class="width-10 t-c">3434</div>
-                    <div class="width-10 t-c">434</div>
-                    <div class="width-10 t-c">343</div>
-                    <div class="width-22">
-                        <div class="list-over">对方水电费水电费就看电视看电视的所得税发送到发送到发送到收款返款的身份</div>
-                    </div>
-                    <div class="width-10 t-c">
-                        <router-link :to="{ name: 'list', query: { href: 'www.gomeplus.com' }}">查看更多</router-link>
-                    </div>
-                </li>
-                <li class="clearfix">
-                    <div class="width-18">
-                        <div class="list-over">www.gomeplus.com</div>
-                    </div>
-                    <div class="width-10 t-c">212</div>
-                    <div class="width-10 t-c">23</div>
-                    <div class="width-10 t-c">3434</div>
-                    <div class="width-10 t-c">434</div>
-                    <div class="width-10 t-c">343</div>
-                    <div class="width-22">
-                        <div class="list-over">对方水电费水电费就看电视看电视的所得税发送到发送到发送到收款返款的身份</div>
-                    </div>
-                    <div class="width-10 t-c">
-                        <router-link :to="{ name: 'list', query: { href: 'www.gomeplus.com' }}">查看更多</router-link>
+                        <router-link :to="{ name: 'list', query: { href: list.key }}">查看更多</router-link>
                     </div>
                 </li>
             </ul>
@@ -198,14 +54,13 @@ const mapActions = vuex.mapActions;
 export default {
     computed: {
         ...mapState({
-           
+            reportList:state => store.state.report.list
         })
     },
-    methods: {
-        
+    methods:{
+        //...mapActions(['DELETE_USER'])
     }
 
-   
 }
 
 </script>

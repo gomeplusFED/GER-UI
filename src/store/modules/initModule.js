@@ -4,7 +4,8 @@ const state = {
 	superName: GLOBAL_CONFIG.superName,
     isAdmin: GLOBAL_CONFIG.isAdmin,
     userName: GLOBAL_CONFIG.userName,
-    watchUrl: GLOBAL_CONFIG.watchUrl
+    watchUrl: GLOBAL_CONFIG.watchUrl,
+    isReaded: GLOBAL_CONFIG.isReaded
 };
 
 const mutations = {
