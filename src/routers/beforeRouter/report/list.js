@@ -5,12 +5,11 @@
  */
 
 export default (Vue, obj)=>{
-	let pageNum = obj.query.page ? obj.query.page : 0;
+	console.log(Vue, obj);
+	/*let pageNum = obj.query.page ? obj.query.page : 0;
 	Vue.http.get('/report/getAll', {
 		page: pageNum
 	}).then(function(response ){
-		console.log(response );
-		
 		let lists = response.data.data;
 		let userListModule = store.state.userList; 
 		userListModule.list = lists; 
@@ -19,6 +18,6 @@ export default (Vue, obj)=>{
 		userListModule.loading = false;
 		
 	}, function(){
-		console.log(arguments)
-	});
+		console.log(arguments)；
+	});*/
 };

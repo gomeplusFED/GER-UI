@@ -5,26 +5,28 @@
             <li class="width-10 t-c">今日错误数</li>
             <li class="width-10 t-c">7日错误数</li>
             <li class="width-10 t-c">15日错误数</li>
-            <li class="width-10 t-c">错误类型数</li>
-            <li class="width-10 t-c">报错脚本数</li>
-            <li class="width-22">最高错误类型</li>
+            <li class="width-10 t-c">15日错误类型数</li>
+            <li class="width-10 t-c">15日报错脚本数</li>
+            <li class="width-22">15日最高错误类型</li>
             <li class="width-10 t-c">操作</li>
         </ul>
             
         
-        <div class="ger-list-box">
-            <ul class="ger-list">
+        <div  :class = "['ger-list-box', {'ger-noMore': !hasMorePage}]">
+            <div class="ger-loading" v-show="isLoading && !isError">正在加载中，请稍后...</div>
+            <div class="ger-loading" v-show="isError && !isLoading">加载失败，点击重试</div>
+            <ul class="ger-list" v-show="!isError && !isLoading">
                 <li class="clearfix" v-for="list in reportList">
                     <div class="width-18">
-                        <div class="list-over" :title=list.key>{{list.key}}</div>
+                        <div class="list-over" :title=list.local>{{list.local}}</div>
                     </div>
-                    <div class="width-10 t-c">1</div>
-                    <div class="width-10 t-c">2</div>
-                    <div class="width-10 t-c">{{list.doc_count}}</div>
-                    <div class="width-10 t-c">4</div>
-                    <div class="width-10 t-c">5</div>
+                    <div class="width-10 t-c">{{list.todayErrorNum}}</div>
+                    <div class="width-10 t-c">{{list.weekErrorNum}}</div>
+                    <div class="width-10 t-c">{{list.lastFifteenErrorNum}}</div>
+                    <div class="width-10 t-c">{{list.errorType}}</div>
+                    <div class="width-10 t-c">{{list.scriptErrorNum}}</div>
                     <div class="width-22">
-                        <div class="list-over" title="message">message</div>
+                        <div class="list-over" title="list.highError">{{list.highError}}</div>
                     </div>
                     <div class="width-10 t-c">
                         <router-link :to="{ name: 'list', query: { href: list.key }}">查看更多</router-link>
@@ -32,7 +34,7 @@
                 </li>
             </ul>
         </div>
-        <div class="ger-list-bottom">
+        <div class="ger-list-bottom" v-if="hasMorePage">
             <a href="javascript:;">上一页</a>
             <a href="javascript:;" class="active">1</a>
             <a href="javascript:;">2</a>
@@ -54,7 +56,9 @@ const mapActions = vuex.mapActions;
 export default {
     computed: {
         ...mapState({
-            reportList:state => store.state.report.list
+            reportList:state => store.state.report.list,
+            isError: state => store.state.report.isError,
+            isLoading: state => store.state.report.loading,
         })
     },
     methods:{

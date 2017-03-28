@@ -3,7 +3,7 @@
 const state = {
     list:[],
     hasMorePage: false,
-    isEmpty: false,
+    isError: false,
     loading: true
 };
 

@@ -10,5 +10,5 @@ export default (Vue, obj)=>{
 		name: obj.query.uname,
     	pwd: '',
     	rpwd: ''
-   	}
+   	};
 };

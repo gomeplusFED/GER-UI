@@ -65,8 +65,6 @@ a:link, a:visited, a:hover, a:active {
 .ger-loading{
     line-height: 30px;
     text-align: center;
-    font-size: #333;
-    border-top:1px #ddd solid;
     padding: 100px 0;
     a{
         color:#0b84e4;
@@ -217,7 +215,7 @@ $menuHoverBg: #353b41;
     box-sizing: border-box;
     .ger-list-box{
         position: absolute;
-        top:63px;
+        top:61px;
         bottom:50px;
         left:0;
         right:0;

@@ -14,11 +14,11 @@ const mutations = {
 			userName: name
 		}).then((res) => {
 			if(res.body.code === 200){
-				window.location.reload() 
+				window.location.reload();
 			}
 		},() => {
 			console.log(arguments);
-		})
+		});
 	}
 };
 

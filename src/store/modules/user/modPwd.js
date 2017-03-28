@@ -39,9 +39,12 @@ const mutations = {
         let info = state.info;
         let error = state.error;
         for( let key in info ){
-            if( !info[key] ){
-                state.submit = false;
-                error[key] = true;
+
+            if ( info.hasOwnProperty( key ) ) {
+                if( !info[key] ){
+                    state.submit = false;
+                    error[key] = true;
+                }
             }
         }
         if( info.pwd !== info.rpwd ){
@@ -61,7 +64,7 @@ const mutations = {
                 }
             },() => {
                 console.log(arguments);
-            })
+            });
         }
     }
 };
