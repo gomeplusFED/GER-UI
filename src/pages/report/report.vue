@@ -7,14 +7,14 @@
             <li class="width-10 t-c">15日错误数</li>
             <li class="width-10 t-c">15日错误类型数</li>
             <li class="width-10 t-c">15日报错脚本数</li>
-            <li class="width-22">15日最高错误类型</li>
+            <li class="width-22 t-c">15日最高错误类型</li>
             <li class="width-10 t-c">操作</li>
         </ul>
             
         
         <div  :class = "['ger-list-box', {'ger-noMore': !hasMorePage}]">
             <div class="ger-loading" v-show="isLoading && !isError">正在加载中，请稍后...</div>
-            <div class="ger-loading" v-show="isError && !isLoading">加载失败，点击重试</div>
+            <div class="ger-loading" v-show="isError && !isLoading" @click="REPORT_REGET">加载失败，点击重试</div>
             <ul class="ger-list" v-show="!isError && !isLoading">
                 <li class="clearfix" v-for="list in reportList">
                     <div class="width-18">
@@ -25,7 +25,7 @@
                     <div class="width-10 t-c">{{list.lastFifteenErrorNum}}</div>
                     <div class="width-10 t-c">{{list.errorType}}</div>
                     <div class="width-10 t-c">{{list.scriptErrorNum}}</div>
-                    <div class="width-22">
+                    <div class="width-22 t-c">
                         <div class="list-over" title="list.highError">{{list.highError}}</div>
                     </div>
                     <div class="width-10 t-c">
@@ -62,7 +62,7 @@ export default {
         })
     },
     methods:{
-        //...mapActions(['DELETE_USER'])
+        ...mapActions(['REPORT_REGET'])
     }
 
 }

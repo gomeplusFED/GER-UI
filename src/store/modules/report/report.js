@@ -1,4 +1,4 @@
-// import store from '../index.js';
+
 
 const state = {
     list:[],
@@ -8,21 +8,15 @@ const state = {
 };
 
 const mutations = {
-    /*EDIT_TEST: ( state) => {
-     	state.test = '234242242343';
-    },
-    EDIT_TEST1: (state) => {
-    	state.test1 = '我是test1';
-    }*/
+    'REPORT_REGET': ( state) => {
+     	window.location.reload();
+    }
 };
 
 const actions = {
-    /*EDIT_TEST: (store)=>{
-    	store.commit( 'EDIT_TEST');
-    },
-    EDIT_TEST1: (store) => {
-    	store.commit('EDIT_TEST1');
-    }*/
+    'REPORT_REGET': (store)=>{
+    	store.commit( 'REPORT_REGET');
+    }
 };
 
 const initModule = {
