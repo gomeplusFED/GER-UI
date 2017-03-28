@@ -8,7 +8,7 @@ const state = {
 };
 
 const mutations = {
-    'REPORT_REGET': ( state) => {
+    'REPORT_REGET': () => {
      	window.location.reload();
     }
 };
