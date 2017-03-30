@@ -1,5 +1,6 @@
 
 import Vue from  'vue';
+import echarts from  'echarts';
 const state = {
     lists:{},
     buckets: {},
@@ -33,6 +34,12 @@ const mutations = {
     },
     'SEARCH_ECHAR': state => {
         console.log(state);
+
+        // let options = {};
+
+        console.log(echarts);
+        // echarts.init(document.getElementsByClass('report-charbox')[0]);
+        // myChart.setOption(options);
     },
     'SEARCH': (state, store) => {
         if( state.searchCount > 0 ){
