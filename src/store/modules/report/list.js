@@ -1,22 +1,29 @@
 
 
 const state = {
-    list:[],
+    lists:{},
+    buckets: {},
+    page: {},
+    local: '',
     hasMorePage: false,
+    listNormal: false,
     isError: false,
-    loading: true
+    loading: true,
+    selectDays: '1',
+    selectTypes: '1',
+    
 };
 
 const mutations = {
-    'REPORT_REGET': () => {
+    /*'REPORT_REGET': () => {
      	window.location.reload();
-    }
+    }*/
 };
 
 const actions = {
-    'REPORT_REGET': (store)=>{
+    /*'REPORT_REGET': (store)=>{
     	store.commit( 'REPORT_REGET');
-    }
+    }*/
 };
 
 const initModule = {

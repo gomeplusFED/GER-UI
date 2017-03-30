@@ -49,7 +49,7 @@ const mutations = {
     },
     'EDIT_WATCHURL': ( state ) => {
     	var watchUrl = state.userInfo.watchUrl;
-		if( /^[A-Za-z|/\r|\/n|/\r/\n]+$/.test(watchUrl) ){
+		if( /^[A-Za-z0-9|/\r|\/n|/\r/\n|\.]+$/.test(watchUrl) ){
 			state.error.watchUrl = false;
 			state.submit = true;
 		}else{
@@ -61,10 +61,14 @@ const mutations = {
     	let userInfo = state.userInfo;
     	let error = state.error;
     	for( let key in userInfo ){
-    		if( !userInfo[key] ){
-    			state.submit = false;
-    			error[key] = true;
-    		}
+
+            if ( userInfo.hasOwnProperty( key ) ) {
+                if( !userInfo[key] ){
+                    state.submit = false;
+                    error[key] = true;
+                }
+            }
+    		
     	}
     	if( userInfo.pwd !== userInfo.rpwd ){
     		state.error.rpwd = true;
@@ -77,7 +81,7 @@ const mutations = {
                 pwd: state.userInfo.pwd,
                 watchUrl: state.userInfo.watchUrl,
                 type: state.userInfo.type
-            }
+            };
             if(state.type === 'add'){
                 options.createTime = '2017-03-22';
             }
@@ -89,7 +93,7 @@ const mutations = {
                 }
     		},() => {
     			console.log(arguments);
-    		})
+    		});
     	}
     }
 };

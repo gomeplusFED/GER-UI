@@ -16,6 +16,6 @@ export default (Vue, obj)=>{
 		userListModule.hasMorePage = lists.length > 20;
 		userListModule.loading = false;
 	}, function(){
-		console.log(arguments)
+		console.log(arguments);
 	});
 };

@@ -12,7 +12,7 @@ export default (Vue, obj)=>{
     	pwd: '',
     	rpwd: '',
     	watchUrl: ''
-	}
+	};
 	userInfoModule.userInfo.name = obj.query.uname || '';
 	userInfoModule.userInfo.type = obj.query.type;
 	if( obj.query.uname ){
@@ -36,7 +36,7 @@ export default (Vue, obj)=>{
 			}
 			userInfoModule.loading = false;
 		}, function(){
-			console.log(arguments)
+			console.log(arguments);
 		});
 	}
 };
