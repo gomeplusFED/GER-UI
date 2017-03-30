@@ -16,7 +16,7 @@
             <div class="ger-loading" v-show="isLoading && !isError">正在加载中，请稍后...</div>
             <div class="ger-loading" v-show="isError && !isLoading" @click="REPORT_REGET">加载失败，点击重试</div>
             <ul class="ger-list" v-show="!isError && !isLoading">
-                <li class="clearfix" v-for="list in reportList">
+                <li class="clearfix" v-for="list in reportList" track-by="list.local">
                     <div class="width-18">
                         <div class="list-over" :title=list.local>{{list.local}}</div>
                     </div>

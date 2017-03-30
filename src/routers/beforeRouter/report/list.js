@@ -29,11 +29,10 @@ export default (Vue, obj)=>{
 		}else{
 			reportList.isError = true;
 		}
-		
+		reportList.loading = false;
 		
 	},()=>{
 		reportList.isError = true;
-	}).catch(()=>{
 		reportList.loading = false;
 	});
 };

@@ -10,9 +10,10 @@ const state = {
     isError: false,
     loading: true,
     selectDay: 1,
-    selectType: '',
+    selectType: 'message.msg.raw',
     selectTypes: ['message.msg.raw', 'message.currentUrl', 'message.targetUrl'],
-    searchKey: ''
+    searchKey: '',
+    searchCount: 0
 };
 
 const mutations = {
@@ -21,42 +22,78 @@ const mutations = {
     },
     'CHNAGE_DAY': ( state, e ) => {
         state.selectDay = e.target.selectedIndex + 1;
+        state.searchCount ++;
     },
     'CHNAGE_TYPE': (state, e) => {
         state.selectType = state.selectTypes[e.target.selectedIndex];
     },
     'SEARCH_KEY': (state, e) => {
         state.searchKey = e.target.value;
+        state.searchCount ++;
     },
     'SEARCH_ECHAR': state => {
         console.log(state);
     },
-    'SEARCH': state => {
-        /*if( selectDay !== 1 || ){
+    'SEARCH': (state, store) => {
+        if( state.searchCount > 0 ){
+            state.isFirstSearch = false;
+            let searchData = {
+                type: state.selectType,
+                keyWord: state.searchKey,
+                lastDays: state.selectDay,
+                pageNum: state.query.page || 1,
+                local: state.query.href
+            };
 
-        }*/
-        Vue.http.post('/report/list', {
-            pageNum: state.query.page,
+            store.commit('SEARCH_BODY', searchData);
+        }
+        
+    },
+    'ORDER_TIME': (state, store) => {
+        
+        let searchData = {
+            type: state.selectType,
+            keyWord: state.searchKey,
+            lastDays: state.selectDay,
+            pageNum: state.query.page || 1,
             local: state.query.href,
-        }).then(result=>{
+            order: 'time'
+        };
+
+        store.commit('SEARCH_BODY', searchData);
+    },
+    'ORDER_TYPE': (state, store) => {
+
+        let searchData = {
+            type: state.selectType,
+            keyWord: state.searchKey,
+            lastDays: state.selectDay,
+            pageNum: state.query.page || 1,
+            local: state.query.href,
+            order: 'type'
+        };
+
+        store.commit('SEARCH_BODY', searchData);
+        //store.commit('test');
+    },
+    'SEARCH_BODY':(state, searchData) => {
+
+        state.loading = true;
+        Vue.http.post('/report/list', searchData ).then(result=>{
             let rBody = result.body;
             if( rBody.code === 200 ){
                 let lists = rBody.data.results;
                 state.lists = lists;
                 state.buckets = rBody.data.buckets;
                 state.pages = rBody.data.page;
-                if( lists.length === 0 ){
-                    state.listNormal = true;
-                }
+                state.listNormal = (lists.length === 0);
                 state.hasMorePage = rBody.data.page.pages > 1;
             }else{
                 state.isError = true;
             }
-            
-            
+            state.loading = false;
         },()=>{
-
-        }).catch(()=>{
+            state.isError = true;
             state.loading = false;
         });
     }
@@ -73,10 +110,16 @@ const actions = {
         store.commit('CHNAGE_TYPE', e);
     },
     'SEARCH': store => {
-        store.commit('SEARCH');
+        store.commit('SEARCH', store);
     },
     'SEARCH_KEY': (store, e) => {
         store.commit('SEARCH_KEY', e);
+    },
+    'ORDER_TIME': store =>{
+        store.commit('ORDER_TIME', store);
+    },
+    'ORDER_TYPE': store =>{
+        store.commit('ORDER_TYPE', store);
     }
 };
 

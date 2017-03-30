@@ -6,6 +6,7 @@ import userInfo from './modules/user/edit';
 import modPwd from './modules/user/modPwd';
 import report from './modules/report/report';
 import reportList from './modules/report/list';
+import reportDetail from './modules/report/detail';
 Vue.use(Vuex);
 export default new Vuex.Store({
 	modules:{
@@ -14,6 +15,7 @@ export default new Vuex.Store({
 		userInfo: userInfo,
 		modPwd: modPwd,
 		report: report,
-		reportList: reportList
+		reportList: reportList,
+		reportDetail: reportDetail
 	}
 });
