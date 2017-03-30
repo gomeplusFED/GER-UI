@@ -1,42 +1,15 @@
 <template> 
 	<div class="report-content">
 		<div class="report-charbox"></div>
-		<!-- <div class="report-info">
-			<div>www.gomeplus.com</div>
-			<div class="clearfix">
-				<span>今日错误：20</span>
-				<span>7日错误：20</span>
-				<span>15日错误：20</span>
-			</div>
-			<div class="clearfix">
-				<span>错误类型：20</span>
-				<span>报错脚本数：20</span>
-				<span>最高错误类型：err msg</span>
-			</div>
-		</div> -->
 		<div class="clearfix report-doway">
 			<span>最近：</span>
-			<select>
-				<option>1天</option>
-				<option>2天</option>
-				<option>3天</option>
-				<option>4天</option>
-				<option>5天</option>
-				<option>6天</option>
-				<option>7天</option>
-				<option>8天</option>
-				<option>9天</option>
-				<option>10天</option>
-				<option>11天</option>
-				<option>12天</option>
-				<option>13天</option>
-				<option>14天</option>	
-				<option>15天</option>
+			<select v-model="selectDays">
+				<option v-for="n in 15" :vaule="n">{{n}}天</option>
 			</select>
 			<a href="javascript:;">按时间排序</a>
 			<a href="javascript:;">按错误类型数量排序</a>
 			<span>按类型：</span>
-			<select class="type-select">
+			<select class="type-select" >
 				<option>错误消息</option>
 				<option>错误链接</option>
 				<option>错误文件</option>
@@ -53,13 +26,15 @@
         </ul>
         <div class="ger-list-box">
 			<ul class="ger-list">
-				<li class="clearfix">
+				<li class="clearfix" v-for="list in lists">
 					<div class="width-30">
-						<div class="list-over">发生的冯绍峰是的是的对方是否发生的冯绍峰是的是的对方是否发生的冯绍峰是的是的对方是否发生的冯绍峰是的是的对方是否发生的冯绍峰是的是的对方是否发生的冯绍峰是的是的对方是否</div>
+						<div class="list-over" :title="list._source.message.msg">{{list._source.message.msg}}</div>
 					</div>
-					<div class="width-15 t-c">2017-02-18 99:00</div>
-					<div class="width-30">fdsfsfsd发送到发送到</div>
-					<div class="width-15 t-c">12</div>
+					<div class="width-15 t-c">{{new Date(parseInt(list._source.message.timestamp.split('.')[0]))}}</div>
+					<div class="width-30">
+						<div class="list-over" :title="list._source.message.title">{{list._source.message.title || '空标题'}}</div>
+					</div>
+					<div class="width-15 t-c">{{buckets.counts[buckets.keys.indexOf(list._source.message.msg)]}}</div>
 					<div class="width-10 t-c">
 						<router-link :to="{ name: 'reportDetail'}">查看更多</router-link>
 					</div>
@@ -79,5 +54,29 @@
 	</div>
    
 </template> 
-<script> 
+<script type="text/javascript">
+	
+import store from '../../store';
+import vuex from 'vuex';
+const mapState = vuex.mapState;
+const mapActions = vuex.mapActions;
+const reportList = store.state.reportList;
+export default {
+    computed: {
+        ...mapState({
+            selectDays: state => reportList.selectDays,
+            selectTypes: state => reportList.selectTypes,
+            isError: state => reportListtore.isError,
+            isLoading: state => reportList.loading,
+            hasMorePage: state => reportList.hasMorePage,
+            lists: state => reportList.lists,
+            buckets: state => reportList.buckets
+        })
+    },
+    methods:{
+        ...mapActions(['REPORT_REGET'])
+    }
+
+}
+
 </script>
