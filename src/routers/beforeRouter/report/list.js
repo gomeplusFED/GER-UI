@@ -10,7 +10,7 @@ export default (Vue, obj)=>{
 	let local = query.href;
 	let page = query.page || 1;
 	let reportList = store.state.reportList;
-	reportList.local = local;
+	reportList.query = obj.query;
 	Vue.http.post('/report/list', {
 		pageNum: page,
 		local: local
@@ -25,13 +25,14 @@ export default (Vue, obj)=>{
 				reportList.listNormal = true;
 			}
 			reportList.hasMorePage = rBody.data.page.pages > 1;
+			store.commit('SEARCH_ECHAR');
 		}else{
 			reportList.isError = true;
 		}
 		
 		
 	},()=>{
-
+		reportList.isError = true;
 	}).catch(()=>{
 		reportList.loading = false;
 	});
