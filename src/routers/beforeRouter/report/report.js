@@ -9,30 +9,33 @@ export default (Vue, obj)=>{
 	let pageNum = obj.query.page ? obj.query.page : 1;
 	//每页数据条数
 	let size = obj.query.size || 10;
-	//store => module
-	let reportList = store.state.report; 
+	let watchUrls = store.state.initModule.watchUrl.split('^');
+	//页数
+	let pages = Math.ceil(watchUrls / size);
 	//监听列表
-	let watchUrl = store.state.initModule.watchUrl.split('^').slice((pageNum-1)*size, size * pageNum); 
-	/*Vue.http.post('/report/getAll', {
+	let watchUrl = watchUrls.slice((pageNum-1)*size, size * pageNum);
+	//store module
+	let reportModule =  store.state.report;
+	Vue.http.post('/report/getAll', {
 		page: pageNum,
 		watchUrl: watchUrl,
 		size: size
-	}).then(function(data ){*/
-		/*if(data.body.flag){
-			reportList.list = data.body.buckets;
-			// console.log(data.body.buckets);
-		}*/
-		/*console.log(data)
+	}).then(function(data ){
+		let result = data.body;
+		if( result.code === 200 ){
+			reportModule.pages = pages;
+			reportModule.hasMorePage = pages > 1;
+			reportModule.list = result.data;
+		}else{
+			reportModule.isError = true;
+		}
+
+		reportModule.loading = false;
 	}, function(response){
+
+		reportModule.loading = false;
+		reportModule.isError = true;
 		console.log(JSON.stringify(response));
-	});*/
-	let arr = ['msg=对象不支持“querySelector”属性或方法@'];
-	arr.forEach(v=>{
-
-		Vue.http.get('https://www-pre.gomeplus.com/ajax/log/index?err_msg=' + encodeURIComponent(v), {});
-	})
-
-	
-	console.log(watchUrl);
+	});
 
 };
