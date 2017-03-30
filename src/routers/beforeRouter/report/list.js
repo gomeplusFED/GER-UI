@@ -4,20 +4,35 @@
  * @date 2017/03/1
  */
 
+import store from '../../../store';
 export default (Vue, obj)=>{
-	console.log(Vue, obj);
-	/*let pageNum = obj.query.page ? obj.query.page : 0;
-	Vue.http.get('/report/getAll', {
-		page: pageNum
-	}).then(function(response ){
-		let lists = response.data.data;
-		let userListModule = store.state.userList; 
-		userListModule.list = lists; 
-		userListModule.isEmpty = !lists.length;
-		userListModule.hasMorePage = lists.length > 20;
-		userListModule.loading = false;
+	let query = obj.query;
+	let local = query.href;
+	let page = query.page || 1;
+	let reportList = store.state.reportList;
+	reportList.local = local;
+	Vue.http.post('/report/list', {
+		pageNum: page,
+		local: local
+	}).then(result=>{
+		let rBody = result.body;
+		if( rBody.code === 200 ){
+			let lists = rBody.data.results;
+			reportList.lists = lists;
+			reportList.buckets = rBody.data.buckets;
+			reportList.pages = rBody.data.page;
+			if( lists.length === 0 ){
+				reportList.listNormal = true;
+			}
+			reportList.hasMorePage = rBody.data.page.pages > 1;
+		}else{
+			reportList.isError = true;
+		}
 		
-	}, function(){
-		console.log(arguments)；
-	});*/
+		
+	},()=>{
+
+	}).catch(()=>{
+		reportList.loading = false;
+	});
 };
