@@ -1,6 +1,6 @@
 
 import Vue from  'vue';
-//import echarts from  'echarts';
+import Highcharts from  'highcharts/highstock';
 const state = {
     lists:{},
     buckets: {},
@@ -16,13 +16,13 @@ const state = {
     searchKey: '',
     searchCount: 0
 };
-
 const mutations = {
     'REPORT_REGET': () => {
         window.location.reload();
     },
     'CHNAGE_DAY': ( state, e ) => {
         state.selectDay = e.target.selectedIndex + 1;
+        // state.selectDay = 2;
         state.searchCount ++;
     },
     'CHNAGE_TYPE': (state, e) => {
@@ -33,13 +33,77 @@ const mutations = {
         state.searchCount ++;
     },
     'SEARCH_ECHAR': state => {
-        console.log(state);
+        let isCurrentDay = state.selectDay;
+        let title = '';
+        let dataArr = state.lists;
+        let categoriesArr;
+        let dataList;
+        let buckets = state.buckets;
+        dataArr.forEach(v=>{
+            let oDate = new Date(parseInt(v._source.message.timestamp));
+            console.log(oDate.getFullYear() + '' + (oDate.getMonth()+1) + '' + oDate.getDate());
+        });
+        if(isCurrentDay > 1){
+            // 15天内
+            categoriesArr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+            title = '15天内数据';
+            dataList = [7, 6, 9, 14, 1, 3, 8, 2, 1, 1, 1, 9,12,12,2];
+            
+            console.log('15天内数据');
 
-        // let options = {};
-
-        //console.log(echarts);
-        // echarts.init(document.getElementsByClass('report-charbox')[0]);
-        // myChart.setOption(options);
+        }else{
+            // 1天内
+            console.log('当天数据当天数据');
+            categoriesArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+            title = '当天数据';
+            dataList = [7, 6, 9, 14, 1, 3, 8, 2, 1, 1, 1, 9, 7, 6, 9, 14, 1, 3, 8, 2, 1, 1, 1, 9];
+        }
+        // buckets.keys();
+        /*let str = i>9?' ':' 0';
+        let i = 0;
+        let size = 0;
+        state.lists.forEach(v=>{
+            if(v._source.reqest_time.indexOf(str+i)){
+                size++;
+                arr[i] = size;
+            }
+        });*/
+        console.log(categoriesArr, dataList);
+        let options =   {
+                            chart: {
+                                type: 'line'
+                            },
+                            title: {
+                                text: title
+                            },/*
+                            subtitle: {
+                                text: '小标题'
+                            },*/
+                            xAxis: {
+                                categories: categoriesArr
+                            },
+                            yAxis: {
+                                title: {
+                                    text: 'count'
+                                }
+                            },
+                            plotOptions: {
+                                line: {
+                                    dataLabels: {
+                                        enabled: true          // 开启数据标签
+                                    },
+                                    enableMouseTracking: true // 关闭鼠标跟踪，对应的提示框、点击事件会失效
+                                }
+                            },
+                            series: [{
+                                name: 'error length',
+                                data: dataList
+                            }]
+                        };
+        let obj = document.getElementsByClassName('report-charbox')[0];
+        obj.id = 'container';
+        obj.style.height = '200px';
+        var chart = new Highcharts.Chart('container', options);
     },
     'SEARCH': (state, store) => {
         if( state.searchCount > 0 ){
@@ -81,7 +145,6 @@ const mutations = {
         };
 
         store.commit('SEARCH_BODY', searchData);
-        //store.commit('test');
     },
     'SEARCH_BODY':(state, searchData) => {
 
