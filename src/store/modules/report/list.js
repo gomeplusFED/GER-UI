@@ -1,6 +1,6 @@
 
 import Vue from  'vue';
-import echarts from  'echarts';
+//import echarts from  'echarts';
 const state = {
     lists:{},
     buckets: {},
@@ -19,7 +19,7 @@ const state = {
 
 const mutations = {
     'REPORT_REGET': () => {
-     	window.location.reload();
+        window.location.reload();
     },
     'CHNAGE_DAY': ( state, e ) => {
         state.selectDay = e.target.selectedIndex + 1;
@@ -37,7 +37,7 @@ const mutations = {
 
         // let options = {};
 
-        console.log(echarts);
+        //console.log(echarts);
         // echarts.init(document.getElementsByClass('report-charbox')[0]);
         // myChart.setOption(options);
     },
@@ -108,7 +108,7 @@ const mutations = {
 
 const actions = {
     'REPORT_REGET': store =>{
-    	store.commit( 'REPORT_REGET');
+        store.commit( 'REPORT_REGET');
     },
     'CHNAGE_DAY': (store, e) => {
         store.commit('CHNAGE_DAY', e);
