@@ -1,5 +1,5 @@
 <template>
-    <div class="ger-list-content">
+    <div class="ger-list-content" v-if="reportList.length">
         <ul class="ger-list-head clearfix">
             <li class="width-18">域名</li>
             <li class="width-10 t-c">今日错误数</li>
@@ -10,8 +10,6 @@
             <li class="width-22 t-c">15日最高错误类型</li>
             <li class="width-10 t-c">操作</li>
         </ul>
-            
-        
         <div  :class = "['ger-list-box', {'ger-noMore': !hasMorePage}]">
             <div class="ger-loading" v-show="isLoading && !isError">正在加载中，请稍后...</div>
             <div class="ger-loading" v-show="isError && !isLoading" @click="REPORT_REGET">加载失败，点击重试</div>
@@ -44,11 +42,12 @@
             <a href="javascript:;">5</a>
             <a href="javascript:;">下一页</a>
         </div>
-        
+    </div>
+    <div class="ger-list-content-empty" v-else>
+        您关注的域名15内都无报错!
     </div>
 </template> 
 <script type="text/javascript">
-	
 import store from '../../store';
 import vuex from 'vuex';
 const mapState = vuex.mapState;
@@ -64,7 +63,5 @@ export default {
     methods:{
         ...mapActions(['REPORT_REGET'])
     }
-
 }
-
 </script>

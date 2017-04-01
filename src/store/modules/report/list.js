@@ -10,7 +10,7 @@ const state = {
     listNormal: false,
     isError: false,
     loading: true,
-    selectDay: 1,
+    selectDay: 7,
     selectType: 'message.msg.raw',
     selectTypes: ['message.msg.raw', 'message.currentUrl', 'message.targetUrl'],
     searchKey: '',

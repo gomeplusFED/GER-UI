@@ -48,7 +48,7 @@ a:link, a:visited, a:hover, a:active {
     text-decoration: none;
     outline: 0; }
 .clearfix {
-  	*zoom: 1; 
+    *zoom: 1; 
 }
 .clearfix:after {
     content: "";
@@ -224,6 +224,11 @@ $menuHoverBg: #353b41;
         overflow-y: scroll; 
         z-index: 10;
     }
+}
+.ger-list-content-empty{
+    margin-top:150px;
+    text-align:center;
+    width:100%;
 }
 /*pagesbox*/
 .ger-list-bottom{
