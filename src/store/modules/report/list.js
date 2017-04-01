@@ -1,7 +1,6 @@
 
 import Vue from  'vue';
 import Highcharts from  'highcharts/highstock';
-
 const state = {
     lists:{},
     buckets: {},
@@ -19,7 +18,7 @@ const state = {
 };
 const mutations = {
     'REPORT_REGET': () => {
-     	window.location.reload();
+        window.location.reload();
     },
     'CHNAGE_DAY': ( state, e ) => {
         state.selectDay = e.target.selectedIndex + 1;
@@ -101,13 +100,10 @@ const mutations = {
                                 data: dataList
                             }]
                         };
-        // console.log(highcharts);
         let obj = document.getElementsByClassName('report-charbox')[0];
         obj.id = 'container';
-        // obj.style.minWidth = '800px';
         obj.style.height = '200px';
         var chart = new Highcharts.Chart('container', options);
-        // document.getElementsByClassName('ger-loading')[0].remove();
     },
     'SEARCH': (state, store) => {
         if( state.searchCount > 0 ){
@@ -149,7 +145,6 @@ const mutations = {
         };
 
         store.commit('SEARCH_BODY', searchData);
-        //store.commit('test');
     },
     'SEARCH_BODY':(state, searchData) => {
 
@@ -176,7 +171,7 @@ const mutations = {
 
 const actions = {
     'REPORT_REGET': store =>{
-    	store.commit( 'REPORT_REGET');
+        store.commit( 'REPORT_REGET');
     },
     'CHNAGE_DAY': (store, e) => {
         store.commit('CHNAGE_DAY', e);
