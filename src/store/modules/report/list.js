@@ -10,7 +10,7 @@ const state = {
     listNormal: false,
     isError: false,
     loading: true,
-    selectDay: 7,
+    selectDay: 1,
     selectType: 'message.msg.raw',
     selectTypes: ['message.msg.raw', 'message.currentUrl', 'message.targetUrl'],
     searchKey: '',
@@ -48,10 +48,9 @@ const mutations = {
             arr.forEach(v => {
                 dateObj[v] ? dateObj[v] ++ : dateObj[v] = 1;
             });
-            for(var name in dateObj){
-                dataList.push(name);
-                categoriesArr.push(dateObj[name]);
-            }
+            categoriesArr = jsonSort(dateObj, 'days').arrValue;
+            dataList = jsonSort(dateObj, 'days').arrKey;
+
         }else{
             // 1天内
             console.log('当天数据当天数据');
@@ -64,12 +63,10 @@ const mutations = {
             arr.forEach(v => {
                 dateObj[v] ? dateObj[v] ++ : dateObj[v] = 1;
             });
-            for(var name in dateObj){
-                dataList.push(toDou(parseInt(name)) + ':00');
-                categoriesArr.push(parseInt(dateObj[name]));
-            }
+            categoriesArr = jsonSort(dateObj, 'hours').arrValue;
+            dataList = jsonSort(dateObj, 'hours').arrKey;
         }
-        function toDou(n){
+        function zeroFill(n){
             return n > 9 ? ' ' + n : ' 0' + n;
         }
         let options =   {
@@ -86,8 +83,9 @@ const mutations = {
                                 categories: dataList
                             },
                             yAxis: {
+                                min: 0,
                                 title: {
-                                    text: 'count'
+                                    text: '错误个数'
                                 }
                             },
                             plotOptions: {
@@ -107,6 +105,55 @@ const mutations = {
         obj.id = 'container';
         obj.style.height = '200px';
         var chart = new Highcharts.Chart('container', options);
+
+        function jsonSort(json, type){
+            // var json = { 3 : 1, 2: 4, 5:1};
+
+            // ->json = {2 : 4, 3 : 1, 5 : 1};
+            let arrKey = [];
+            let arrValue = [];
+            let res = {};
+
+            for(let name in json){
+                arrKey.push(name);
+            }
+            if(type == 'days'){
+                arrKey.sort(function (n1, n2){
+                    let arr = n1.split('-');
+                    let arr2 = n2.split('-');
+                    let oDate = new Date();
+                    let oDate2 = new Date();
+                    oDate.setFullYear(arr[0],arr[1],arr[2]);
+                    oDate2.setFullYear(arr2[0],arr2[1],arr2[2]);
+                    return oDate.getTime()-oDate2.getTime();
+                });
+
+                for(let name in json){
+                    arrKey.forEach(v => {
+                        if(name == v){
+                            arrValue.push(json[name]);
+                        }
+                    });
+                }
+            }else if(type == 'hours'){
+                arrKey.sort(function (n1, n2){
+                    return n1 - n2;
+                });
+                for(let name in json){
+                    arrKey.forEach(v => {
+                        if(name == v){
+                            arrValue.push(parseInt(json[name]));
+                        }
+                    });
+                }
+                arrKey.forEach(function (v, i, arr) {
+                    arr[i] = zeroFill(parseInt(v)) + ':00';
+                });
+            }
+            res.arrValue = arrValue;
+            res.arrKey = arrKey;
+            return res;
+        }
     },
     'SEARCH': (state, store) => {
         if( state.searchCount > 0 ){
