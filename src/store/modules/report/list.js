@@ -37,7 +37,7 @@ const mutations = {
         let categoriesArr = [];
         let dataList = [];
         if(isCurrentDay > 1){
-            // 15天内 ////
+            // 15天内
             title = '15天内数据';
             console.log('15天内数据');
             let arr = [];
