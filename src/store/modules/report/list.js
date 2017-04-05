@@ -22,7 +22,6 @@ const mutations = {
     },
     'CHNAGE_DAY': ( state, e ) => {
         state.selectDay = e.target.selectedIndex + 1;
-        // state.selectDay = 2;
         state.searchCount ++;
     },
     'CHNAGE_TYPE': (state, e) => {
@@ -35,40 +34,44 @@ const mutations = {
     'SEARCH_ECHAR': state => {
         let isCurrentDay = state.selectDay;
         let title = '';
-        let dataArr = state.lists;
-        let categoriesArr;
-        let dataList;
-        let buckets = state.buckets;
-        dataArr.forEach(v=>{
-            let oDate = new Date(parseInt(v._source.message.timestamp));
-            console.log(oDate.getFullYear() + '' + (oDate.getMonth()+1) + '' + oDate.getDate());
-        });
+        let categoriesArr = [];
+        let dataList = [];
         if(isCurrentDay > 1){
             // 15天内
-            categoriesArr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
             title = '15天内数据';
-            dataList = [7, 6, 9, 14, 1, 3, 8, 2, 1, 1, 1, 9,12,12,2];
-            
             console.log('15天内数据');
-
+            let arr = [];
+            let dateObj = {};
+            state.lists.forEach(v=>{
+                arr.push(v._source.request_time.split(' ')[0]);
+            });
+            arr.forEach(v => {
+                dateObj[v] ? dateObj[v] ++ : dateObj[v] = 1;
+            });
+            for(var name in dateObj){
+                dataList.push(name);
+                categoriesArr.push(dateObj[name]);
+            }
         }else{
             // 1天内
             console.log('当天数据当天数据');
-            categoriesArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
             title = '当天数据';
-            dataList = [7, 6, 9, 14, 1, 3, 8, 2, 1, 1, 1, 9, 7, 6, 9, 14, 1, 3, 8, 2, 1, 1, 1, 9];
-        }
-        // buckets.keys();
-        /*let str = i>9?' ':' 0';
-        let i = 0;
-        let size = 0;
-        state.lists.forEach(v=>{
-            if(v._source.reqest_time.indexOf(str+i)){
-                size++;
-                arr[i] = size;
+            let arr = [];
+            let dateObj = {};
+            state.lists.forEach(v=>{
+                arr.push(v._source.request_time.split(' ')[1].substring(0, 2));
+            });
+            arr.forEach(v => {
+                dateObj[v] ? dateObj[v] ++ : dateObj[v] = 1;
+            });
+            for(var name in dateObj){
+                dataList.push(toDou(parseInt(name)) + ':00');
+                categoriesArr.push(parseInt(dateObj[name]));
             }
-        });*/
-        console.log(categoriesArr, dataList);
+        }
+        function toDou(n){
+            return n > 9 ? ' ' + n : ' 0' + n;
+        }
         let options =   {
                             chart: {
                                 type: 'line'
@@ -80,7 +83,7 @@ const mutations = {
                                 text: '小标题'
                             },*/
                             xAxis: {
-                                categories: categoriesArr
+                                categories: dataList
                             },
                             yAxis: {
                                 title: {
@@ -97,7 +100,7 @@ const mutations = {
                             },
                             series: [{
                                 name: 'error length',
-                                data: dataList
+                                data: categoriesArr
                             }]
                         };
         let obj = document.getElementsByClassName('report-charbox')[0];
