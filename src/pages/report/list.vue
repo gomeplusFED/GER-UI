@@ -46,15 +46,34 @@
             <div class="ger-loading" v-show="!isLoading && !isError && isEmpty">暂无数据</div>
             <div class="ger-loading" v-show="isError && !isLoading && !isEmpty" @click="REPORT_REGET">加载失败，点击重试</div>
         </div>
-        <div class="ger-list-bottom" v-if="hasMorePage">
-            <a href="javascript:;">上一页</a>
-            <a href="javascript:;" class="active">1</a>
-            <a href="javascript:;">2</a>
-            <a href="javascript:;">3</a>
-            <a href="javascript:;">4</a>
-            <span>....</span>
-            <a href="javascript:;">5</a>
-            <a href="javascript:;">下一页</a>
+        <div class="ger-list-bottom" v-if="hasMorePage" v-if="pages.pages <= 5">
+            <router-link v-if="pages.currentPage != 1" :to="{ name: 'list', query: { href: oldHref, page : pre }}">上一页</router-link>
+            <router-link :class="index == pages.currentPage ? 'active':''" v-for="index in pages.pages"  :to="{ name: 'list', query: { href: oldHref, page : index }}">{{index}}</router-link>
+            <router-link v-if="pages.currentPage != pages.pages" :to="{ name: 'list', query: { href: oldHref, page : next }}">下一页</router-link>
+            -------------------小于5页
+        </div>
+        <div class="ger-list-bottom" v-if="hasMorePage" v-if="pages.pages > 5" v-if="pages.currentPage <= 3">
+            <router-link v-if="pages.currentPage != 1" :to="{ name: 'list', query: { href: oldHref, page : pre }}">上一页</router-link>
+            <router-link :class="index == pages.currentPage ? 'active':''" v-for="index in 5"  :to="{ name: 'list', query: { href: oldHref, page : index }}">{{index}}</router-link>
+            <span>...</span>
+            <router-link v-if="pages.currentPage != pages.pages" :to="{ name: 'list', query: { href: oldHref, page : next }}">下一页</router-link>
+            -------------------大于5页   currentPage小于3
+        </div>
+
+        <div class="ger-list-bottom" v-if="hasMorePage" v-if="pages.pages > 5" v-if="pages.currentPage > 3 && pages.pages - pages.currentPage >2">
+            <router-link v-if="pages.currentPage != 1" :to="{ name: 'list', query: { href: oldHref, page : pre }}">上一页</router-link>
+            <span>...</span>
+            <router-link :class="index == pages.currentPage ? 'active':''" v-for="index in pageCount1"  :to="{ name: 'list', query: { href: oldHref, page : index }}">{{index}}</router-link>
+            <span>...</span>
+            <router-link v-if="pages.currentPage != pages.pages" :to="{ name: 'list', query: { href: oldHref, page : next }}">下一页</router-link>
+            -------------------大于5页   currentPage大于3
+        </div>
+        <div class="ger-list-bottom" v-if="hasMorePage" v-if="pages.pages > 5" v-if="pages.pages - pages.currentPage <= 2">
+            <router-link v-if="pages.currentPage != 1" :to="{ name: 'list', query: { href: oldHref, page : pre }}">上一页</router-link>
+            <span>...</span>
+            <router-link :class="index == pages.currentPage ? 'active':''" v-for="index in pageCount2"  :to="{ name: 'list', query: { href: oldHref, page : index }}">{{index}}</router-link>
+            <router-link v-if="pages.currentPage != pages.pages" :to="{ name: 'list', query: { href: oldHref, page : next }}">下一页</router-link>
+            -------------------大于5页 后面几页
         </div>
     </div>
    
@@ -77,11 +96,42 @@ export default {
             lists: state => reportList.lists,
             buckets: state => reportList.buckets,
             selectKey: state => reportList.selectKey,
-            isEmpty: state => reportList.listNormal
-        })
+            isEmpty: state => reportList.listNormal,
+            local: state => reportList.local,
+            pages: state => reportList.pages,
+            oldHref: state => reportList.oldHref
+        }),
+        pageCount1 : function (){
+            let n = parseInt(this.pages.currentPage);
+            let min = n - 2;
+            let max = n + 2;
+            let arr = [];
+            for(var i = n-2; i <= n+2; i++){
+                arr.push(i);
+            }
+            return arr;
+        },
+        pageCount2 : function (){
+            let n = this.pages.pages - 4;
+            let arr = [];
+            for(var i = n; i <= this.pages.pages; i++){
+                arr.push(i);
+            }
+            console.log('computedcomputed');
+            return arr;
+        },
+        pre : function (){
+            let n = parseInt(this.pages.currentPage);
+            return --n;
+        },
+        next : function (){
+            let n = parseInt(this.pages.currentPage);
+            return ++n;
+        }
+        
     },
     methods:{
-        ...mapActions(['REPORT_REGET', 'CHNAGE_DAY', 'CHNAGE_TYPE', 'SEARCH', 'SEARCH_KEY', 'ORDER_TIME', 'ORDER_TYPE'])
+        ...mapActions(['REPORT_REGET', 'CHNAGE_DAY', 'CHNAGE_TYPE', 'SEARCH', 'SEARCH_KEY', 'ORDER_TIME', 'ORDER_TYPE', 'PRE_PAGE', 'CHANGE_PAGE', 'NEXT_PAGE'])
     }
 
 }

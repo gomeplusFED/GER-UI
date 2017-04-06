@@ -22,6 +22,7 @@ export default (Vue, obj)=>{
             reportList.lists = lists;
             reportList.buckets = rBody.data.buckets;
             reportList.pages = rBody.data.page;
+            reportList.total = rBody.data.total;
             if( lists.length === 0 ){
                 reportList.listNormal = true;
             }

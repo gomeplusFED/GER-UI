@@ -4,17 +4,19 @@ import Highcharts from  'highcharts/highstock';
 const state = {
     lists:{},
     buckets: {},
-    page: {},
+    pages: {},
+    total : 0,
     local: '',
     hasMorePage: false,
     listNormal: false,
     isError: false,
     loading: true,
-    selectDay: 1,
+    selectDay: 7,
     selectType: 'message.msg.raw',
     selectTypes: ['message.msg.raw', 'message.currentUrl', 'message.targetUrl'],
     searchKey: '',
-    searchCount: 0
+    searchCount: 0,
+    oldHref: ''
 };
 const mutations = {
     'REPORT_REGET': () => {
@@ -36,13 +38,15 @@ const mutations = {
         let title = '';
         let categoriesArr = [];
         let dataList = [];
+        // 记录当前href的值
+        state.oldHref = state.query.href;
         if(isCurrentDay > 1){
-            // 15天内
             title = '15天内数据';
             console.log('15天内数据');
             let arr = [];
             let dateObj = {};
             state.lists.forEach(v=>{
+                if(!v._source.request_time)return;
                 arr.push(v._source.request_time.split(' ')[0]);
             });
             arr.forEach(v => {
@@ -50,14 +54,13 @@ const mutations = {
             });
             categoriesArr = jsonSort(dateObj, 'days').arrValue;
             dataList = jsonSort(dateObj, 'days').arrKey;
-
         }else{
-            // 1天内
             console.log('当天数据当天数据');
             title = '当天数据';
             let arr = [];
             let dateObj = {};
             state.lists.forEach(v=>{
+                if(!v._source.request_time)return;
                 arr.push(v._source.request_time.split(' ')[1].substring(0, 2));
             });
             arr.forEach(v => {
