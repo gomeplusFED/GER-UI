@@ -50,30 +50,25 @@
             <router-link v-if="pages.currentPage != 1" :to="{ name: 'list', query: { href: oldHref, page : pre }}">上一页</router-link>
             <router-link :class="index == pages.currentPage ? 'active':''" v-for="index in pages.pages"  :to="{ name: 'list', query: { href: oldHref, page : index }}">{{index}}</router-link>
             <router-link v-if="pages.currentPage != pages.pages" :to="{ name: 'list', query: { href: oldHref, page : next }}">下一页</router-link>
-            -------------------小于5页
         </div>
         <div class="ger-list-bottom" v-if="hasMorePage" v-if="pages.pages > 5" v-if="pages.currentPage <= 3">
             <router-link v-if="pages.currentPage != 1" :to="{ name: 'list', query: { href: oldHref, page : pre }}">上一页</router-link>
             <router-link :class="index == pages.currentPage ? 'active':''" v-for="index in 5"  :to="{ name: 'list', query: { href: oldHref, page : index }}">{{index}}</router-link>
             <span>...</span>
             <router-link v-if="pages.currentPage != pages.pages" :to="{ name: 'list', query: { href: oldHref, page : next }}">下一页</router-link>
-            -------------------大于5页   currentPage小于3
         </div>
-
         <div class="ger-list-bottom" v-if="hasMorePage" v-if="pages.pages > 5" v-if="pages.currentPage > 3 && pages.pages - pages.currentPage >2">
             <router-link v-if="pages.currentPage != 1" :to="{ name: 'list', query: { href: oldHref, page : pre }}">上一页</router-link>
             <span>...</span>
             <router-link :class="index == pages.currentPage ? 'active':''" v-for="index in pageCount1"  :to="{ name: 'list', query: { href: oldHref, page : index }}">{{index}}</router-link>
             <span>...</span>
             <router-link v-if="pages.currentPage != pages.pages" :to="{ name: 'list', query: { href: oldHref, page : next }}">下一页</router-link>
-            -------------------大于5页   currentPage大于3
         </div>
         <div class="ger-list-bottom" v-if="hasMorePage" v-if="pages.pages > 5" v-if="pages.pages - pages.currentPage <= 2">
             <router-link v-if="pages.currentPage != 1" :to="{ name: 'list', query: { href: oldHref, page : pre }}">上一页</router-link>
             <span>...</span>
             <router-link :class="index == pages.currentPage ? 'active':''" v-for="index in pageCount2"  :to="{ name: 'list', query: { href: oldHref, page : index }}">{{index}}</router-link>
             <router-link v-if="pages.currentPage != pages.pages" :to="{ name: 'list', query: { href: oldHref, page : next }}">下一页</router-link>
-            -------------------大于5页 后面几页
         </div>
     </div>
    
@@ -117,7 +112,6 @@ export default {
             for(var i = n; i <= this.pages.pages; i++){
                 arr.push(i);
             }
-            console.log('computedcomputed');
             return arr;
         },
         pre : function (){
