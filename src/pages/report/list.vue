@@ -50,25 +50,30 @@
             <router-link v-if="pages.currentPage != 1" :to="{ name: 'list', query: { href: oldHref, page : pre }}">上一页</router-link>
             <router-link :class="index == pages.currentPage ? 'active':''" v-for="index in pages.pages"  :to="{ name: 'list', query: { href: oldHref, page : index }}">{{index}}</router-link>
             <router-link v-if="pages.currentPage != pages.pages" :to="{ name: 'list', query: { href: oldHref, page : next }}">下一页</router-link>
+            -------------------小于5页
         </div>
-        <div class="ger-list-bottom" v-if="hasMorePage" v-if="pages.pages > 5" v-if="pages.currentPage <= 3">
+        <div class="ger-list-bottom" v-if="hasMorePage" v-if="pages.pages > 5 && pages.currentPage <= 3">
             <router-link v-if="pages.currentPage != 1" :to="{ name: 'list', query: { href: oldHref, page : pre }}">上一页</router-link>
             <router-link :class="index == pages.currentPage ? 'active':''" v-for="index in 5"  :to="{ name: 'list', query: { href: oldHref, page : index }}">{{index}}</router-link>
             <span>...</span>
             <router-link v-if="pages.currentPage != pages.pages" :to="{ name: 'list', query: { href: oldHref, page : next }}">下一页</router-link>
+            -------------------大于5页   currentPage小于3
         </div>
-        <div class="ger-list-bottom" v-if="hasMorePage" v-if="pages.pages > 5" v-if="pages.currentPage > 3 && pages.pages - pages.currentPage >2">
+
+        <div class="ger-list-bottom" v-if="hasMorePage" v-if="pages.pages > 5 && pages.currentPage > 3 && pages.pages - pages.currentPage >2">
             <router-link v-if="pages.currentPage != 1" :to="{ name: 'list', query: { href: oldHref, page : pre }}">上一页</router-link>
             <span>...</span>
             <router-link :class="index == pages.currentPage ? 'active':''" v-for="index in pageCount1"  :to="{ name: 'list', query: { href: oldHref, page : index }}">{{index}}</router-link>
             <span>...</span>
             <router-link v-if="pages.currentPage != pages.pages" :to="{ name: 'list', query: { href: oldHref, page : next }}">下一页</router-link>
+            -------------------大于5页   currentPage大于3
         </div>
-        <div class="ger-list-bottom" v-if="hasMorePage" v-if="pages.pages > 5" v-if="pages.pages - pages.currentPage <= 2">
+        <div class="ger-list-bottom" v-if="hasMorePage" v-if="pages.pages > 5 && pages.pages - pages.currentPage <= 2">
             <router-link v-if="pages.currentPage != 1" :to="{ name: 'list', query: { href: oldHref, page : pre }}">上一页</router-link>
             <span>...</span>
             <router-link :class="index == pages.currentPage ? 'active':''" v-for="index in pageCount2"  :to="{ name: 'list', query: { href: oldHref, page : index }}">{{index}}</router-link>
             <router-link v-if="pages.currentPage != pages.pages" :to="{ name: 'list', query: { href: oldHref, page : next }}">下一页</router-link>
+            -------------------大于5页 后面几页
         </div>
     </div>
    
@@ -120,6 +125,13 @@ export default {
         },
         next : function (){
             let n = parseInt(this.pages.currentPage);
+            // 如果url上带有页码并且大于页码总数  默认跳转最后一页
+            if(this.pages.currentPage > this.pages.pages){
+                let reg = new RegExp('page=\\d+');
+                let href = window.location.href.replace(reg, 'lastDays='+ this.selectDay +'&page=' + this.pages.pages);
+                console.log(this.selectDay);
+                window.location.href = href;
+            }
             return ++n;
         }
         
