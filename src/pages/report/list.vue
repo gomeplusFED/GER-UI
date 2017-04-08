@@ -29,15 +29,17 @@
         </ul>
         <div  :class = "['ger-list-box', {'ger-noMore': !hasMorePage}]">
             <ul class="ger-list" track-by="list._id">
-                <li class="clearfix" v-for="list in lists" :data-a="lists.length">
+                <li class="clearfix" v-for="list in newList">
                     <div class="width-30">
                         <div class="list-over" :title="list._source.message.msg">{{list._source.message.msg}}</div>
                     </div>
                     <div class="width-15 t-c">{{list._source.request_time}}</div>
                     <div class="width-30">
-                        <div class="list-over" :title="list._source.message.title">{{list._source.message.title}}</div>
+                        <div class="list-over" v-if="list._source.message.title" :title="list._source.message.title">{{list._source.message.title}}</div>
+                        <div class="list-over" v-if="!list._source.message.title" :title="list._source.message.referer">{{list._source.message.referer}}</div>
                     </div>
-                    <div class="width-15 t-c">{{buckets.counts[buckets.keys.indexOf(list._source.message.msg)]}}</div>
+                    <div class="width-15 t-c" v-if="!buckets.counts[buckets.keys.indexOf(list._source.message.msg)]">0</div>
+                    <div class="width-15 t-c" v-if="buckets.counts[buckets.keys.indexOf(list._source.message.msg)]">{{buckets.counts[buckets.keys.indexOf(list._source.message.msg)]}}</div>
                     <div class="width-10 t-c">
                         <router-link :to="{ name: 'reportDetail', query:{ id: list._id, index: list._index  }}">查看更多</router-link>
                     </div>
@@ -46,18 +48,16 @@
             <div class="ger-loading" v-show="!isLoading && !isError && isEmpty">暂无数据</div>
             <div class="ger-loading" v-show="isError && !isLoading && !isEmpty" @click="REPORT_REGET">加载失败，点击重试</div>
         </div>
-        <div class="ger-list-bottom" v-if="hasMorePage" v-if="pages.pages <= 5">
+        <div class="ger-list-bottom" v-if="hasMorePage" v-if="pages.pages > 1 && pages.pages <= 5">
             <router-link v-if="pages.currentPage != 1" :to="{ name: 'list', query: { href: oldHref, page : pre }}">上一页</router-link>
             <router-link :class="index == pages.currentPage ? 'active':''" v-for="index in pages.pages"  :to="{ name: 'list', query: { href: oldHref, page : index }}">{{index}}</router-link>
             <router-link v-if="pages.currentPage != pages.pages" :to="{ name: 'list', query: { href: oldHref, page : next }}">下一页</router-link>
-            -------------------小于5页
         </div>
         <div class="ger-list-bottom" v-if="hasMorePage" v-if="pages.pages > 5 && pages.currentPage <= 3">
             <router-link v-if="pages.currentPage != 1" :to="{ name: 'list', query: { href: oldHref, page : pre }}">上一页</router-link>
             <router-link :class="index == pages.currentPage ? 'active':''" v-for="index in 5"  :to="{ name: 'list', query: { href: oldHref, page : index }}">{{index}}</router-link>
             <span>...</span>
             <router-link v-if="pages.currentPage != pages.pages" :to="{ name: 'list', query: { href: oldHref, page : next }}">下一页</router-link>
-            -------------------大于5页   currentPage小于3
         </div>
 
         <div class="ger-list-bottom" v-if="hasMorePage" v-if="pages.pages > 5 && pages.currentPage > 3 && pages.pages - pages.currentPage >2">
@@ -66,14 +66,12 @@
             <router-link :class="index == pages.currentPage ? 'active':''" v-for="index in pageCount1"  :to="{ name: 'list', query: { href: oldHref, page : index }}">{{index}}</router-link>
             <span>...</span>
             <router-link v-if="pages.currentPage != pages.pages" :to="{ name: 'list', query: { href: oldHref, page : next }}">下一页</router-link>
-            -------------------大于5页   currentPage大于3
         </div>
         <div class="ger-list-bottom" v-if="hasMorePage" v-if="pages.pages > 5 && pages.pages - pages.currentPage <= 2">
             <router-link v-if="pages.currentPage != 1" :to="{ name: 'list', query: { href: oldHref, page : pre }}">上一页</router-link>
             <span>...</span>
             <router-link :class="index == pages.currentPage ? 'active':''" v-for="index in pageCount2"  :to="{ name: 'list', query: { href: oldHref, page : index }}">{{index}}</router-link>
             <router-link v-if="pages.currentPage != pages.pages" :to="{ name: 'list', query: { href: oldHref, page : next }}">下一页</router-link>
-            -------------------大于5页 后面几页
         </div>
     </div>
    
@@ -109,6 +107,7 @@ export default {
             for(var i = n-2; i <= n+2; i++){
                 arr.push(i);
             }
+            console.log(this.lists[0]);
             return arr;
         },
         pageCount2 : function (){
@@ -126,13 +125,22 @@ export default {
         next : function (){
             let n = parseInt(this.pages.currentPage);
             // 如果url上带有页码并且大于页码总数  默认跳转最后一页
+            console.log(this.pages.currentPage , this.pages.pages, '-=-=-=-=-=-=-=-=-=');
             if(this.pages.currentPage > this.pages.pages){
                 let reg = new RegExp('page=\\d+');
-                let href = window.location.href.replace(reg, 'lastDays='+ this.selectDay +'&page=' + this.pages.pages);
+                let href = window.location.href.replace(reg, 'lastDays='+ this.selectDay +'&page=1');
                 console.log(this.selectDay);
                 window.location.href = href;
             }
             return ++n;
+        },
+        newList : function (){
+            if(!this.lists.length)return;
+            let newList = this.lists.slice(this.pages.froms, this.pages.froms + 5);
+            // console.log(this.lists.slice(0,3));
+            // let newList = this.lists.slice(this.pages.froms, this.pages.froms + 5);
+            return newList;
+            // return [];
         }
         
     },

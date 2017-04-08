@@ -1,5 +1,6 @@
 
 import Vue from  'vue';
+import stores from '../../../store';
 import Highcharts from  'highcharts/highstock';
 const state = {
     lists:{},
@@ -41,8 +42,8 @@ const mutations = {
         // 记录当前href的值
         state.oldHref = state.query.href;
         if(isCurrentDay > 1){
-            title = '15天内数据';
-            console.log('15天内数据');
+            title = state.selectDay + '天内数据';
+            console.log(state.selectDay + '   15天内数据');
             let arr = [];
             let dateObj = {};
             state.lists.forEach(v=>{
@@ -68,6 +69,7 @@ const mutations = {
             });
             categoriesArr = jsonSort(dateObj, 'hours').arrValue;
             dataList = jsonSort(dateObj, 'hours').arrKey;
+            console.log(categoriesArr, dataList);
         }
         function zeroFill(n){
             return n > 9 ? ' ' + n : ' 0' + n;
@@ -159,7 +161,8 @@ const mutations = {
         }
     },
     'SEARCH': (state, store) => {
-        if( state.searchCount > 0 ){
+        // if( state.searchCount > 0 ){
+        if( true ){
             state.isFirstSearch = false;
             let searchData = {
                 type: state.selectType,
@@ -183,6 +186,7 @@ const mutations = {
             local: state.query.href,
             order: 'time'
         };
+        console.log(state.selectDay, 'ORDER_TIME');
 
         store.commit('SEARCH_BODY', searchData);
     },
@@ -196,6 +200,7 @@ const mutations = {
             local: state.query.href,
             order: 'type'
         };
+        console.log(state.selectDay, 'ORDER_TYPE');
 
         store.commit('SEARCH_BODY', searchData);
     },
@@ -211,6 +216,8 @@ const mutations = {
                 state.pages = rBody.data.page;
                 state.listNormal = (lists.length === 0);
                 state.hasMorePage = rBody.data.page.pages > 1;
+
+                stores.commit('SEARCH_ECHAR', state);
             }else{
                 state.isError = true;
             }
