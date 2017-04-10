@@ -1,6 +1,6 @@
 
 import Vue from  'vue';
-import stores from '../../../store';
+import Utils from '../../../plugin';
 import Highcharts from  'highcharts/highstock';
 const state = {
     lists:{},
@@ -34,7 +34,7 @@ const mutations = {
         state.searchKey = e.target.value;
         state.searchCount ++;
     },
-    'SEARCH_ECHAR': state => {
+    'SEARCH_ECHAR': (state, store) => {
         let isCurrentDay = state.selectDay;
         let title = '';
         let categoriesArr = [];
@@ -43,7 +43,6 @@ const mutations = {
         state.oldHref = state.query.href;
         if(isCurrentDay > 1){
             title = state.selectDay + '天内数据';
-            console.log(state.selectDay + '   15天内数据');
             let arr = [];
             let dateObj = {};
             state.lists.forEach(v=>{
@@ -53,10 +52,18 @@ const mutations = {
             arr.forEach(v => {
                 dateObj[v] ? dateObj[v] ++ : dateObj[v] = 1;
             });
-            categoriesArr = jsonSort(dateObj, 'days').arrValue;
-            dataList = jsonSort(dateObj, 'days').arrKey;
+            categoriesArr = Utils.json_sort({
+                json : dateObj,
+                type :  'days',
+                value : 'value'
+            });
+            dataList = Utils.json_sort({
+                json : dateObj,
+                type :  'days',
+                value : 'key'
+            });
+            console.log(categoriesArr, dataList);
         }else{
-            console.log('当天数据当天数据');
             title = '当天数据';
             let arr = [];
             let dateObj = {};
@@ -67,12 +74,18 @@ const mutations = {
             arr.forEach(v => {
                 dateObj[v] ? dateObj[v] ++ : dateObj[v] = 1;
             });
-            categoriesArr = jsonSort(dateObj, 'hours').arrValue;
-            dataList = jsonSort(dateObj, 'hours').arrKey;
+
+            categoriesArr = Utils.json_sort({
+                json : dateObj,
+                type :  'hours',
+                value : 'value'
+            });
+            dataList = Utils.json_sort({
+                json : dateObj,
+                type :  'hours',
+                value : 'key'
+            });
             console.log(categoriesArr, dataList);
-        }
-        function zeroFill(n){
-            return n > 9 ? ' ' + n : ' 0' + n;
         }
         let options =   {
                             chart: {
@@ -110,55 +123,6 @@ const mutations = {
         obj.id = 'container';
         obj.style.height = '200px';
         var chart = new Highcharts.Chart('container', options);
-
-        function jsonSort(json, type){
-            // var json = { 3 : 1, 2: 4, 5:1};
-
-            // ->json = {2 : 4, 3 : 1, 5 : 1};
-            let arrKey = [];
-            let arrValue = [];
-            let res = {};
-
-            for(let name in json){
-                arrKey.push(name);
-            }
-            if(type == 'days'){
-                arrKey.sort(function (n1, n2){
-                    let arr = n1.split('-');
-                    let arr2 = n2.split('-');
-                    let oDate = new Date();
-                    let oDate2 = new Date();
-                    oDate.setFullYear(arr[0],arr[1],arr[2]);
-                    oDate2.setFullYear(arr2[0],arr2[1],arr2[2]);
-                    return oDate.getTime()-oDate2.getTime();
-                });
-
-                for(let name in json){
-                    arrKey.forEach(v => {
-                        if(name == v){
-                            arrValue.push(json[name]);
-                        }
-                    });
-                }
-            }else if(type == 'hours'){
-                arrKey.sort(function (n1, n2){
-                    return n1 - n2;
-                });
-                for(let name in json){
-                    arrKey.forEach(v => {
-                        if(name == v){
-                            arrValue.push(parseInt(json[name]));
-                        }
-                    });
-                }
-                arrKey.forEach(function (v, i, arr) {
-                    arr[i] = zeroFill(parseInt(v)) + ':00';
-                });
-            }
-            res.arrValue = arrValue;
-            res.arrKey = arrKey;
-            return res;
-        }
     },
     'SEARCH': (state, store) => {
         // if( state.searchCount > 0 ){
@@ -171,13 +135,11 @@ const mutations = {
                 pageNum: state.query.page || 1,
                 local: state.query.href
             };
-
-            store.commit('SEARCH_BODY', searchData);
+            store.commit('SEARCH_BODY', {searchData, store});
         }
         
     },
     'ORDER_TIME': (state, store) => {
-        
         let searchData = {
             type: state.selectType,
             keyWord: state.searchKey,
@@ -186,9 +148,8 @@ const mutations = {
             local: state.query.href,
             order: 'time'
         };
-        console.log(state.selectDay, 'ORDER_TIME');
 
-        store.commit('SEARCH_BODY', searchData);
+        store.commit('SEARCH_BODY', {searchData, store});
     },
     'ORDER_TYPE': (state, store) => {
 
@@ -200,14 +161,12 @@ const mutations = {
             local: state.query.href,
             order: 'type'
         };
-        console.log(state.selectDay, 'ORDER_TYPE');
 
-        store.commit('SEARCH_BODY', searchData);
+        store.commit('SEARCH_BODY', {searchData, store});
     },
-    'SEARCH_BODY':(state, searchData) => {
-
+    'SEARCH_BODY':(state, options) => {
         state.loading = true;
-        Vue.http.post('/report/list', searchData ).then(result=>{
+        Vue.http.post('/report/list', options.searchData ).then(result=>{
             let rBody = result.body;
             if( rBody.code === 200 ){
                 let lists = rBody.data.results;
@@ -217,7 +176,7 @@ const mutations = {
                 state.listNormal = (lists.length === 0);
                 state.hasMorePage = rBody.data.page.pages > 1;
 
-                stores.commit('SEARCH_ECHAR', state);
+                options.store.commit('SEARCH_ECHAR', options.store);
             }else{
                 state.isError = true;
             }

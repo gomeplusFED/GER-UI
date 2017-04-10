@@ -27,7 +27,7 @@ export default (Vue, obj)=>{
                 reportList.listNormal = true;
             }
             reportList.hasMorePage = rBody.data.page.pages > 1;
-            store.commit('SEARCH_ECHAR');
+            store.commit('SEARCH_ECHAR', store);
         }else{
             reportList.isError = true;
         }
