@@ -14,9 +14,16 @@ export default (Vue, obj)=>{
 		let lists = result.body.data;
 		for(  let list in lists.message ){
 			if (lists.message.hasOwnProperty(list)) {
-
 				lists['message.' + list] = lists.message[list];
 			}
+		}
+		if( lists.ext ){
+			for(  let list in lists.ext ){
+				if (lists.ext.hasOwnProperty(list)) {
+					lists['ext.' + list] = lists.ext[list];
+				}
+			}
+			delete lists.ext;
 		}
 		delete lists.message;
 		reportDetail.lists = lists;

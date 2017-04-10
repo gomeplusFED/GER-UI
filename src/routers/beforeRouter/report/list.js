@@ -10,6 +10,10 @@ export default (Vue, obj)=>{
     let local = query.href;
     let page = query.page || 1;
     let reportList = store.state.reportList;
+    reportList.selectDay = 7;
+    reportList.selectType = 'message.msg.raw';
+    reportList.searchKey = '';
+    reportList.searchCount = 0;
     reportList.query = obj.query;
     Vue.http.post('/report/list', {
         pageNum: page,
