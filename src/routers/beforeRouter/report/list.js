@@ -41,4 +41,11 @@ export default (Vue, obj)=>{
         reportList.isError = true;
         reportList.loading = false;
     });
+    Vue.http.post('/report/getForms', {
+        local: local,
+        lastDays:store.state.reportList.selectDay,
+        forms: 'forms'
+    }).then(result=>{
+        console.log(result);
+    });
 };

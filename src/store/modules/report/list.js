@@ -13,8 +13,8 @@ const state = {
     isError: false,
     loading: true,
     selectDay: 7,
-    selectType: 'message.msg.raw',
-    selectTypes: ['message.msg.raw', 'message.currentUrl', 'message.targetUrl'],
+    selectType: 'message.msg',
+    selectTypes: ['message.msg', 'message.currentUrl', 'message.targetUrl'],
     searchKey: '',
     searchCount: 0,
     oldHref: ''
@@ -125,8 +125,7 @@ const mutations = {
         var chart = new Highcharts.Chart('container', options);
     },
     'SEARCH': (state, store) => {
-        // if( state.searchCount > 0 ){
-        if( true ){
+        if( state.searchCount > 0 ){
             state.isFirstSearch = false;
             let searchData = {
                 type: state.selectType,
@@ -136,6 +135,11 @@ const mutations = {
                 local: state.query.href
             };
             store.commit('SEARCH_BODY', {searchData, store});
+            store.commit('SEARCH_FORMS', {
+                lastDays: state.selectDay,
+                local: state.query.href,
+                forms: 'forms'
+            });
         }
         
     },
@@ -163,6 +167,13 @@ const mutations = {
         };
 
         store.commit('SEARCH_BODY', {searchData, store});
+    },
+    'SEARCH_FORMS': (state, searchData) => {
+        Vue.http.post('/report/getForms', searchData).then(result=>{
+            console.log(result);
+        },result => {
+            console.log(result);
+        });
     },
     'SEARCH_BODY':(state, options) => {
         state.loading = true;
