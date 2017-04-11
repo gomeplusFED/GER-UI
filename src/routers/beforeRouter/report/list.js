@@ -11,7 +11,6 @@ export default (Vue, obj)=>{
     let local = query.href;
     let page = query.page || 1;
     let reportList = store.state.reportList;
-    reportList.selectDay = 7;
     reportList.selectType = 'message.msg.raw';
     reportList.searchKey = '';
     reportList.searchCount = 0;
@@ -19,7 +18,7 @@ export default (Vue, obj)=>{
     Vue.http.post('/report/list', {
         pageNum: page,
         local: local,
-        lastDays:store.state.reportList.selectDay
+        lastDays: reportList.selectDay
     }).then(result=>{
         let rBody = result.body;
         if( rBody.code === 200 ){
