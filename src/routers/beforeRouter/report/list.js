@@ -30,7 +30,7 @@ export default (Vue, obj)=>{
             if( lists.length === 0 ){
                 reportList.listNormal = true;
             }
-            reportList.hasMorePage = rBody.data.page.pages > 1;
+            reportList.hasMorePage = reportList.pages.pages > 1;
             store.commit('SEARCH_ECHAR', store);
         }else{
             reportList.isError = true;

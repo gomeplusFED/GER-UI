@@ -277,7 +277,7 @@ $menuHoverBg: #353b41;
     .report-charbox{
         margin:0 10px;
         border:1px #ddd solid;
-        min-height: 120px;
+        height: 200px;
     }
     .report-info{
         margin: 5px 10px;

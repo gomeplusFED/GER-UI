@@ -3,7 +3,7 @@
         <div class="report-loading" v-show='isLoading'>
             <div>正在加载中，请稍候...</div>
         </div>
-        <div class="report-charbox"></div>
+        <div class="report-charbox" id="container"></div>
         <div class="clearfix report-doway">
             <span>最近：</span>
             <select @change="CHNAGE_DAY" v-model="selectDay">
@@ -48,41 +48,12 @@
             <div class="ger-loading" v-show="!isLoading && !isError && isEmpty">暂无数据</div>
             <div class="ger-loading" v-show="isError && !isLoading && !isEmpty" @click="REPORT_REGET">加载失败，点击重试</div>
         </div>
-        <div class="ger-list-bottom" v-if="hasMorePage" v-if="pages.pages > 1 && pages.pages <= 5">
-            <router-link v-if="pages.currentPage != 1" :to="{ name: 'list', query: { href: oldHref, page : pre }}">上一页</router-link>
-            <router-link :class="index == pages.currentPage ? 'active':''" v-for="index in pages.pages"  :to="{ name: 'list', query: { href: oldHref, page : index }}">{{index}}</router-link>
-            <router-link v-if="pages.currentPage != pages.pages" :to="{ name: 'list', query: { href: oldHref, page : next }}">下一页</router-link>
-        </div>
-        <div class="ger-list-bottom" v-if="hasMorePage" v-if="pages.pages > 5 && pages.currentPage <= 3">
-            <router-link v-if="pages.currentPage != 1" :to="{ name: 'list', query: { href: oldHref, page : pre }}">上一页</router-link>
-            <router-link :class="index == pages.currentPage ? 'active':''" v-for="index in 5"  :to="{ name: 'list', query: { href: oldHref, page : index }}">{{index}}</router-link>
-            <span>...</span>
-            <router-link :to="{ name: 'list', query: { href: oldHref, page : pages.pages }}">{{pages.pages}}</router-link>
-            <router-link v-if="pages.currentPage != pages.pages" :to="{ name: 'list', query: { href: oldHref, page : next }}">下一页</router-link>
-        </div>
-
-        <div class="ger-list-bottom" v-if="hasMorePage" v-if="pages.pages > 5 && pages.currentPage > 3 && pages.pages - pages.currentPage >2">
-            <router-link v-if="pages.currentPage != 1" :to="{ name: 'list', query: { href: oldHref, page : pre }}">上一页</router-link>
-            <router-link :to="{ name: 'list', query: { href: oldHref, page : 1 }}">{{1}}</router-link>
-            <span>...</span>
-            <router-link :class="index == pages.currentPage ? 'active':''" v-for="index in pageCount1"  :to="{ name: 'list', query: { href: oldHref, page : index }}">{{index}}</router-link>
-            <span>...</span>
-            <router-link :to="{ name: 'list', query: { href: oldHref, page : pages.pages }}">{{pages.pages}}</router-link>
-            <router-link v-if="pages.currentPage != pages.pages" :to="{ name: 'list', query: { href: oldHref, page : next }}">下一页</router-link>
-        </div>
-        <div class="ger-list-bottom" v-if="hasMorePage" v-if="pages.pages > 5 && pages.pages - pages.currentPage <= 2">
-            <router-link v-if="pages.currentPage != 1" :to="{ name: 'list', query: { href: oldHref, page : pre }}">上一页</router-link>
-            <router-link :to="{ name: 'list', query: { href: oldHref, page : 1 }}">{{1}}</router-link>
-            <span>...</span>
-            <router-link :class="index == pages.currentPage ? 'active':''" v-for="index in pageCount2"  :to="{ name: 'list', query: { href: oldHref, page : index }}">{{index}}</router-link>
-            <router-link v-if="pages.currentPage != pages.pages" :to="{ name: 'list', query: { href: oldHref, page : next }}">下一页</router-link>
-        </div>
+        <page></page>
     </div>
-   
 </template> 
 <script type="text/javascript">
-    
 import store from '../../store';
+import page from '../public/page.vue';
 import vuex from 'vuex';
 const mapState = vuex.mapState;
 const mapActions = vuex.mapActions;
@@ -102,54 +73,14 @@ export default {
             local: state => reportList.local,
             pages: state => reportList.pages,
             oldHref: state => reportList.oldHref
-        }),
-        pageCount1 : function (){
-            let n = parseInt(this.pages.currentPage);
-            let min = n - 2;
-            let max = n + 2;
-            let arr = [];
-            for(var i = n-2; i <= n+2; i++){
-                arr.push(i);
-            }
-            console.log(this.lists[0]);
-            return arr;
-        },
-        pageCount2 : function (){
-            let n = this.pages.pages - 4;
-            let arr = [];
-            for(var i = n; i <= this.pages.pages; i++){
-                arr.push(i);
-            }
-            return arr;
-        },
-        pre : function (){
-            let n = parseInt(this.pages.currentPage);
-            return --n;
-        },
-        next : function (){
-            let n = parseInt(this.pages.currentPage);
-            // 如果url上带有页码并且大于页码总数  默认跳转最后一页
-            if(this.pages.currentPage > this.pages.pages){
-                let reg = new RegExp('page=\\d+');
-                let href = window.location.href.replace(reg, 'lastDays='+ this.selectDay +'&page=1');
-                window.location.href = href;
-            }
-            return ++n;
-        },
-        newList : function (){
-            if(!this.lists.length)return;
-            let newList = this.lists.slice(this.pages.froms, this.pages.froms + 5);
-            // console.log(this.lists.slice(0,3));
-            // let newList = this.lists.slice(this.pages.froms, this.pages.froms + 5);
-            return newList;
-            // return [];
-        }
-        
+        })
     },
     methods:{
         ...mapActions(['REPORT_REGET', 'CHNAGE_DAY', 'CHNAGE_TYPE', 'SEARCH', 'SEARCH_KEY', 'ORDER_TIME', 'ORDER_TYPE'])
+    },
+    components: {
+        page
     }
-
 }
 
 </script>
