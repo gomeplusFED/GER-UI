@@ -375,6 +375,11 @@ $menuHoverBg: #353b41;
                 word-break:break-all; 
                 word-wrap:break-word;
             }
+            div:nth-child(1){
+                span{
+                    color:#ff0000;
+                }
+            }
             div:nth-child(2){
                 float: none;
                 display: block;

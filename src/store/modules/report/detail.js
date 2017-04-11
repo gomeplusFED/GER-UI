@@ -3,7 +3,10 @@
 const state = {
     lists: {},
     isError: false,
-    loading: true
+    loading: true,
+    message: {},
+    ext: {},
+    messageKeys: ['msg', 'targetUrl', 'rolNum', 'colNum', 'title', 'host', 'currentUrl', 'referer', 'projectType', 'screenSize', 'flashVer', 'userAgent', 'log_master']
 };
 
 const mutations = {
