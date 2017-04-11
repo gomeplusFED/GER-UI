@@ -19,8 +19,7 @@ export default (Vue, obj)=>{
     Vue.http.post('/report/list', {
         pageNum: page,
         local: local,
-        lastDays: reportList.selectDay,
-        order: reportList.orderBy
+        lastDays:store.state.reportList.selectDay
     }).then(result=>{
         let rBody = result.body;
         if( rBody.code === 200 ){
@@ -45,7 +44,6 @@ export default (Vue, obj)=>{
 
     Vue.http.post('/report/getForms', {
         local: local,
-        // lastDays: 1,
         lastDays: store.state.reportList.selectDay,
         forms: 'forms'
     }).then(result=>{
