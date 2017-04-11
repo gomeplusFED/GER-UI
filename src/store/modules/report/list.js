@@ -11,7 +11,9 @@ const state = {
     hasMorePage: false,
     listNormal: false,
     isError: false,
+    isFormError: false,
     loading: true,
+    formLoading: true,
     selectDay: 7,
     selectType: 'message.msg',
     selectTypes: ['message.msg', 'message.currentUrl', 'message.targetUrl'],
@@ -40,57 +42,17 @@ const mutations = {
         let isDays = state.selectDay > 1;
         let title = '';
         let categoriesArr = [];
-        let dataList = [];
+        let dateList = [];
         // 记录当前href的值
         state.oldHref = state.query.href;
-        /*if(isDays){
+        if(isDays){
             title = state.selectDay + '天内数据';
-            let arr = [];
-            let dateObj = {};
-            state.lists.forEach(v=>{
-                if(!v._source.request_time)return;
-                arr.push(v._source.request_time.split(' ')[0]);
-            });
-            arr.forEach(v => {
-                dateObj[v] ? dateObj[v] ++ : dateObj[v] = 1;
-            });
-            categoriesArr = Utils.json_sort({
-                json : dateObj,
-                type :  'days',
-                value : 'value'
-            });
-            dataList = Utils.json_sort({
-                json : dateObj,
-                type :  'days',
-                value : 'key'
-            });
         }else{
             title = '当天数据';
-            let arr = [];
-            let dateObj = {};
-            state.lists.forEach(v=>{
-                if(!v._source.request_time)return;
-                arr.push(v._source.request_time.split(' ')[1].substring(0, 2));
-            });
-            arr.forEach(v => {
-                dateObj[v] ? dateObj[v] ++ : dateObj[v] = 1;
-            });
-
-            categoriesArr = Utils.json_sort({
-                json : dateObj,
-                type :  'hours',
-                value : 'value'
-            });
-            dataList = Utils.json_sort({
-                json : dateObj,
-                type :  'hours',
-                value : 'key'
-            });
-        }*/
+        }
         categoriesArr = state.categoriesArr;
-        dataList = state.dateList;
-
-        if(true){
+        dateList = state.dateList;
+        if(categoriesArr.length && categoriesArr.length == dateList.length){
             let options =   {
                             chart: {
                                 type: 'line'
@@ -102,7 +64,7 @@ const mutations = {
                                 text: '小标题'
                             },*/
                             xAxis: {
-                                categories: dataList
+                                categories: dateList
                             },
                             yAxis: {
                                 min: 0,
@@ -137,11 +99,11 @@ const mutations = {
                 local: state.query.href
             };
             store.commit('SEARCH_BODY', {searchData, store});
-            store.commit('SEARCH_FORMS', {
+            store.commit('SEARCH_FORMS', { searchData: {
                 lastDays: state.selectDay,
                 local: state.query.href,
                 forms: 'forms'
-            });
+            }, store });
         }
         
     },
@@ -170,11 +132,21 @@ const mutations = {
 
         store.commit('SEARCH_BODY', {searchData, store});
     },
-    'SEARCH_FORMS': (state, searchData) => {
-        Vue.http.post('/report/getForms', searchData).then(result=>{
-            console.log(result);
+    'SEARCH_FORMS': (state, options) => {
+        Vue.http.post('/report/getForms', options.searchData).then(result=>{
+            let rBody = result.body;
+            if( rBody.code === 200 ){
+                let arr = rBody.data.aggregations.forms.buckets;
+                state.dateList = Utils.getCharData(state.selectDay, arr).keys;
+                state.categoriesArr = Utils.getCharData(state.selectDay, arr).values;
+                options.store.commit('SEARCH_ECHAR', options.store);
+            }else{
+                state.isFormError = true;
+                state.formLoading = false;
+            }
         },result => {
-            console.log(result);
+            state.isFormError = true;
+            state.formLoading = false;
         });
     },
     'SEARCH_BODY':(state, options) => {
