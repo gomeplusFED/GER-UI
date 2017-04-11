@@ -253,13 +253,13 @@ $menuHoverBg: #353b41;
     }
     a:hover{
         color:#fff;
-        background: #ee2f2f;
-        border-color:#ee2f2f;
+        background:#5cb85c;
+        border-color:#4cae4c;
     }
     .active,.active:hover{
         border:none;
         background:none;
-        color: #ee2f2f;
+        color:#333;
     }
     span{
         margin: 0 5px;
@@ -320,6 +320,11 @@ $menuHoverBg: #353b41;
             background: #eee;
             line-height: 28px;
             border-radius: 4px;
+        }
+        .active , a:hover{
+            background:#5cb85c;
+            color: #fff;
+            border-color:#4cae4c;
         }
         input{
             float: left;

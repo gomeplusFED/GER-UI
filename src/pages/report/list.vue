@@ -9,8 +9,8 @@
             <select @change="CHNAGE_DAY" v-model="selectDay">
                 <option v-for="n in 15" :value="n">{{n}}天</option>
             </select>
-            <a href="javascript:;" @click="ORDER_TIME">按时间排序</a>
-            <a href="javascript:;" @click="ORDER_TYPE">按错误类型数量排序</a>
+            <a href="javascript:;" @click="ORDER_TIME" :class = "['', {'active': timeChange}]">按时间排序</a>
+            <a href="javascript:;" @click="ORDER_TYPE":class = "['', {'active': typeChange}]">按错误类型数量排序</a>
             <span>按类型：</span>
             <select class="type-select" @change="CHNAGE_TYPE">
                 <option>错误消息</option>
@@ -28,8 +28,8 @@
             <li class="width-10 t-c">操作</li>
         </ul>
         <div  :class = "['ger-list-box', {'ger-noMore': !hasMorePage}]">
-            <ul class="ger-list" track-by="list._id">
-                <li class="clearfix" v-for="list in newList">
+            <ul class="ger-list">
+                <li class="clearfix" v-for="list in lists" track-by="list._id">
                     <div class="width-30">
                         <div class="list-over" :title="list._source.message.msg">{{list._source.message.msg}}</div>
                     </div>
@@ -38,8 +38,7 @@
                         <div class="list-over" v-if="list._source.message.title" :title="list._source.message.title">{{list._source.message.title}}</div>
                         <div class="list-over" v-if="!list._source.message.title" :title="list._source.message.referer">{{list._source.message.referer}}</div>
                     </div>
-                    <div class="width-15 t-c" v-if="!buckets.counts[buckets.keys.indexOf(list._source.message.msg)]">0</div>
-                    <div class="width-15 t-c" v-if="buckets.counts[buckets.keys.indexOf(list._source.message.msg)]">{{buckets.counts[buckets.keys.indexOf(list._source.message.msg)]}}</div>
+                    <div class="width-15 t-c">{{buckets.keys.indexOf(list._source.message.msg) !== -1 ? buckets.counts[buckets.keys.indexOf(list._source.message.msg)] : 1}}</div>
                     <div class="width-10 t-c">
                         <router-link :to="{ name: 'reportDetail', query:{ id: list._id, index: list._index  }}">查看更多</router-link>
                     </div>
@@ -72,7 +71,9 @@ export default {
             isEmpty: state => reportList.listNormal,
             local: state => reportList.local,
             pages: state => reportList.pages,
-            oldHref: state => reportList.oldHref
+            oldHref: state => reportList.oldHref,
+            timeChange: state => reportList.timeChange,
+            typeChange: state => reportList.typeChange
         })
     },
     methods:{

@@ -18,7 +18,8 @@ export default (Vue, obj)=>{
     Vue.http.post('/report/list', {
         pageNum: page,
         local: local,
-        lastDays:store.state.reportList.selectDay
+        lastDays: reportList.selectDay,
+        order: reportList.orderBy
     }).then(result=>{
         let rBody = result.body;
         if( rBody.code === 200 ){
