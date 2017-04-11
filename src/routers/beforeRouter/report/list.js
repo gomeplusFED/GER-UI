@@ -26,6 +26,11 @@ export default (Vue, obj)=>{
             reportList.lists = lists;
             reportList.buckets = rBody.data.buckets;
             reportList.pages = rBody.data.page;
+            if(reportList.pages.pages < page){
+                let reg = new RegExp('page=\\d+');
+                let href = window.location.href.replace(reg, '&page=' + reportList.pages.pages);
+                window.location.href = href;
+            }
             reportList.total = rBody.data.total;
             if( lists.length === 0 ){
                 reportList.listNormal = true;
