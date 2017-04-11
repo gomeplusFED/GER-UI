@@ -17,7 +17,9 @@ const state = {
     selectTypes: ['message.msg.raw', 'message.currentUrl', 'message.targetUrl'],
     searchKey: '',
     searchCount: 0,
-    oldHref: ''
+    oldHref: '',
+    dateList : [],
+    categoriesArr : []
 };
 const mutations = {
     'REPORT_REGET': () => {
@@ -41,7 +43,7 @@ const mutations = {
         let dataList = [];
         // 记录当前href的值
         state.oldHref = state.query.href;
-        if(isDays){
+        /*if(isDays){
             title = state.selectDay + '天内数据';
             let arr = [];
             let dateObj = {};
@@ -84,8 +86,12 @@ const mutations = {
                 type :  'hours',
                 value : 'key'
             });
-        }
-        let options =   {
+        }*/
+        categoriesArr = state.categoriesArr;
+        dataList = state.dateList;
+
+        if(){
+            let options =   {
                             chart: {
                                 type: 'line'
                             },
@@ -117,7 +123,8 @@ const mutations = {
                                 data: categoriesArr
                             }]
                         };
-        var chart = new Highcharts.Chart('container', options);
+            window.chart = new Highcharts.Chart('container', options);
+        }
     },
     'SEARCH': (state, store) => {
         if( state.searchCount > 0 ){

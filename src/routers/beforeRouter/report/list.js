@@ -36,9 +36,37 @@ export default (Vue, obj)=>{
             reportList.isError = true;
         }
         reportList.loading = false;
-        
     },()=>{
         reportList.isError = true;
         reportList.loading = false;
+    });
+
+    Vue.http.post('/report/getForms', {
+        pageNum: page,
+        local: local,
+        lastDays:store.state.reportList.selectDay
+    }).then(result=>{
+        let rBody = result.body;
+        if( rBody.code === 200 ){
+            console.log(reportList.dateList, reportList.categoriesArr);
+            reportList.dateList = [1,1,1,2];
+            reportList.categoriesArr = [2,3,3,3];
+            // let lists = rBody.data.results;
+            // reportList.lists = lists;
+            // reportList.buckets = rBody.data.buckets;
+            // reportList.pages = rBody.data.page;
+            // reportList.total = rBody.data.total;
+            // if( lists.length === 0 ){
+            //     reportList.listNormal = true;
+            // }
+            // reportList.hasMorePage = reportList.pages.pages > 1;
+            // store.commit('SEARCH_ECHAR', store);
+        }else{
+            // reportList.isError = true;
+        }
+        // reportList.loading = false;
+    },()=>{
+        // reportList.isError = true;
+        // reportList.loading = false;
     });
 };

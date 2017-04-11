@@ -56,11 +56,6 @@ export default {
                 window.location.href = href;
             }
             return ++n;
-        },
-        newList : function (){
-            if(!this.lists.length)return;
-            let newList = this.lists.slice(this.pages.froms, this.pages.froms + 5);
-            return newList;
         }
     }
 }

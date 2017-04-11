@@ -29,7 +29,7 @@
         </ul>
         <div  :class = "['ger-list-box', {'ger-noMore': !hasMorePage}]">
             <ul class="ger-list" track-by="list._id">
-                <li class="clearfix" v-for="list in newList">
+                <li class="clearfix" v-for="list in lists">
                     <div class="width-30">
                         <div class="list-over" :title="list._source.message.msg">{{list._source.message.msg}}</div>
                     </div>

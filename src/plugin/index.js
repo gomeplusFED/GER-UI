@@ -1,4 +1,4 @@
-export default {
+let utils = {
     'json_sort': (options)=>{
         let arrKey = Object.keys(options);
         let arrValue = [];
@@ -31,7 +31,7 @@ export default {
                 });
             }
             arrKey.forEach(function (v, i, arr) {
-                arr[i] = this.zeroFill(parseInt(v)) + ':00';
+                arr[i] = utils.zeroFill(parseInt(v)) + ':00';
             });
         }
         return options.value == 'key' ? arrKey : arrValue;
@@ -40,3 +40,4 @@ export default {
         return n > 9 ? ' ' + n : ' 0' + n;
     }
 };
+export default utils;
