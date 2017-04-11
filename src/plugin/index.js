@@ -1,12 +1,7 @@
 export default {
     'json_sort': (options)=>{
-        let arrKey = [];
+        let arrKey = Object.keys(options);
         let arrValue = [];
-        let res = {};
-        for(let name in options.json){
-            arrKey.push(name);
-        }
-        // let arrKey = Object.keys(options);
         if(options.type == 'days'){
             arrKey.sort(function (n1, n2){
                 let arr = n1.split('-');

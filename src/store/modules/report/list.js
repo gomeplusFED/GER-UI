@@ -35,13 +35,13 @@ const mutations = {
         state.searchCount ++;
     },
     'SEARCH_ECHAR': (state, store) => {
-        let isCurrentDay = state.selectDay;
+        let isDays = state.selectDay > 1;
         let title = '';
         let categoriesArr = [];
         let dataList = [];
         // 记录当前href的值
         state.oldHref = state.query.href;
-        if(isCurrentDay > 1){
+        if(isDays){
             title = state.selectDay + '天内数据';
             let arr = [];
             let dateObj = {};
@@ -62,7 +62,6 @@ const mutations = {
                 type :  'days',
                 value : 'key'
             });
-            console.log(categoriesArr, dataList);
         }else{
             title = '当天数据';
             let arr = [];
@@ -85,7 +84,6 @@ const mutations = {
                 type :  'hours',
                 value : 'key'
             });
-            console.log(categoriesArr, dataList);
         }
         let options =   {
                             chart: {
@@ -119,14 +117,10 @@ const mutations = {
                                 data: categoriesArr
                             }]
                         };
-        let obj = document.getElementsByClassName('report-charbox')[0];
-        obj.id = 'container';
-        obj.style.height = '200px';
         var chart = new Highcharts.Chart('container', options);
     },
     'SEARCH': (state, store) => {
-        // if( state.searchCount > 0 ){
-        if( true ){
+        if( state.searchCount > 0 ){
             state.isFirstSearch = false;
             let searchData = {
                 type: state.selectType,
