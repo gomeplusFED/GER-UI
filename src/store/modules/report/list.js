@@ -21,7 +21,7 @@ const state = {
     searchCount: 0,
     oldHref: '',
     dateList : [],
-    categoriesArr : []
+    categoriesArr : [],
     orderBy: 'time',
     timeChange: true,
     typeChange:  false

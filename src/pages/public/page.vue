@@ -31,7 +31,13 @@ export default {
             let arr = [];
             
             if(min < 2){
-                arr = [1, 2, 3, 4, 5];
+                if(this.pages.pages > 5){
+					arr = [1, 2, 3, 4, 5];
+                }else{
+                	for(var i = 1; i <= this.pages.pages; i++){
+	                    arr.push(i);
+	                }
+                }
             }else if(max + 1 > this.pages.pages){
                 for(var i = this.pages.pages - 4; i <= this.pages.pages; i++){
                     arr.push(i);
@@ -50,11 +56,11 @@ export default {
         next : function (){
             let n = parseInt(this.pages.currentPage);
             // 如果url上带有页码并且大于页码总数  默认跳转最后一页
-            if(this.pages.currentPage > this.pages.pages){
+           /* if(this.pages.currentPage > this.pages.pages){
                 let reg = new RegExp('page=\\d+');
                 let href = window.location.href.replace(reg, 'lastDays='+ this.selectDay +'&page=1');
                 window.location.href = href;
-            }
+            }*/
             return ++n;
         }
     }
