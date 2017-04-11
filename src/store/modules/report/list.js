@@ -22,6 +22,9 @@ const state = {
     oldHref: '',
     dateList : [],
     categoriesArr : []
+    orderBy: 'time',
+    timeChange: true,
+    typeChange:  false
 };
 const mutations = {
     'REPORT_REGET': () => {
@@ -38,7 +41,7 @@ const mutations = {
         state.searchKey = e.target.value;
         state.searchCount ++;
     },
-    'SEARCH_ECHAR': (state, store) => {
+    'SEARCH_ECHAR': state => {
         let isDays = state.selectDay > 1;
         let title = '';
         let categoriesArr = [];
@@ -108,26 +111,33 @@ const mutations = {
         
     },
     'ORDER_TIME': (state, store) => {
+        state.orderBy = 'time';
+        state.query.page = 1;
+        state.timeChange = true;
+        state.typeChange = false;
         let searchData = {
             type: state.selectType,
             keyWord: state.searchKey,
             lastDays: state.selectDay,
-            pageNum: state.query.page || 1,
+            pageNum: state.query.page,
             local: state.query.href,
-            order: 'time'
+            order: state.orderBy
         };
-
         store.commit('SEARCH_BODY', {searchData, store});
     },
     'ORDER_TYPE': (state, store) => {
 
+        state.timeChange = false;
+        state.typeChange = true;
+        state.query.page = 1;
+        state.orderBy = 'type';
         let searchData = {
             type: state.selectType,
             keyWord: state.searchKey,
             lastDays: state.selectDay,
-            pageNum: state.query.page || 1,
+            pageNum: state.query.page,
             local: state.query.href,
-            order: 'type'
+            order: state.orderBy
         };
 
         store.commit('SEARCH_BODY', {searchData, store});
