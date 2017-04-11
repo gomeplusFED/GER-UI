@@ -34,7 +34,7 @@ const mutations = {
         state.searchKey = e.target.value;
         state.searchCount ++;
     },
-    'SEARCH_ECHAR': (state, store) => {
+    'SEARCH_ECHAR': state => {
         let isCurrentDay = state.selectDay;
         let title = '';
         let categoriesArr = [];
@@ -122,7 +122,7 @@ const mutations = {
         let obj = document.getElementsByClassName('report-charbox')[0];
         obj.id = 'container';
         obj.style.height = '200px';
-        var chart = new Highcharts.Chart('container', options);
+        window.chartForms = new Highcharts.Chart('container', options);
     },
     'SEARCH': (state, store) => {
         if( state.searchCount > 0 ){
