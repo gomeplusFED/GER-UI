@@ -93,12 +93,12 @@ const mutations = {
     },
     'SEARCH': (state, store) => {
         if( state.searchCount > 0 ){
-            state.isFirstSearch = false;
+            state.query.page = 1;
             let searchData = {
                 type: state.selectType,
                 keyWord: state.searchKey,
                 lastDays: state.selectDay,
-                pageNum: state.query.page || 1,
+                pageNum: state.query.page,
                 local: state.query.href
             };
             store.commit('SEARCH_BODY', {searchData, store});
@@ -154,7 +154,7 @@ const mutations = {
                 state.isFormError = true;
                 state.formLoading = false;
             }
-        },result => {
+        },() => {
             state.isFormError = true;
             state.formLoading = false;
         });
