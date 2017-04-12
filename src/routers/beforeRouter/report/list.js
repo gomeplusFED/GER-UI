@@ -28,7 +28,7 @@ export default (Vue, obj)=>{
             reportList.pages = rBody.data.page;
             if(reportList.pages.pages < page){
                 let reg = new RegExp('page=\\d+');
-                let href = window.location.href.replace(reg, '&page=' + reportList.pages.pages);
+                let href = window.location.href.replace(reg, 'days='+ reportList.selectDay +'&page=' + reportList.pages.pages);
                 window.location.href = href;
             }
             reportList.total = rBody.data.total;

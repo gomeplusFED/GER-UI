@@ -168,11 +168,11 @@ const mutations = {
                 state.lists = lists;
                 state.buckets = rBody.data.buckets;
                 state.pages = rBody.data.page;
-                /*if(state.pages.pages < options.searchData.pageNum){
+                if(state.pages.pages < options.searchData.pageNum){
                     let reg = new RegExp('page=\\d+');
-                    let href = window.location.href.replace(reg, '&page=' + state.pages.pages);
+                    let href = window.location.href.replace(reg, 'days='+ state.selectDay + '&page=' + state.pages.pages);
                     window.location.href = href;
-                }*/
+                }
                 state.listNormal = (lists.length === 0);
                 state.hasMorePage = rBody.data.page.pages > 1;
 
