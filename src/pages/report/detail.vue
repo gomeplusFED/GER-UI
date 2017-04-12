@@ -29,6 +29,13 @@
 				</div>
 			</li>
 		</ul>
+		<h1>获取报错文件真实行列数</h1>
+		<div>
+			<div>上传：<a>上传</a><input type="file" name="file" /></div>
+			<div>行数：<span></span></div>
+			<div>列数：<span></span></div>
+			<div>目标文件：<span></span></div>
+		</div>
 	</div>
 </template> 
 <script type="text/javascript">
