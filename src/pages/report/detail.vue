@@ -12,7 +12,7 @@
 			<li class="clearfix" v-for="(v, i) in messageKeys">
 				<div><span>*</span>message.{{v}}</div>
 				<div>
-					<span>{{message[v] || '--'}}</span> 
+					<span>{{decodeURIComponent(message[v]) || '--'}}</span> 
 				</div>
 			</li>
 
