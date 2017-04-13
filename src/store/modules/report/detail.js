@@ -43,7 +43,7 @@ const mutations = {
                 }else{
                     state.isMapError = true;
                 }
-            }, result => {
+            }, () => {
                 state.isMapError = true;
             });
         }

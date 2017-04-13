@@ -31,7 +31,7 @@ export default (Vue, obj)=>{
 		}
 
 		reportModule.loading = false;
-	}, function(response){
+	}, () => {
 
 		reportModule.loading = false;
 		reportModule.isError = true;
