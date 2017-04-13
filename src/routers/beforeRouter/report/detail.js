@@ -7,6 +7,8 @@
 import store from '../../../store';
 export default (Vue, obj)=>{
 	let reportDetail = store.state.reportDetail;
+	reportDetail.isMapShow = false;
+	reportDetail.isMapError = false;
 	Vue.http.post('/report/getDetail', {
 		index: obj.query.index,
 		id: obj.query.id

@@ -29,12 +29,45 @@
 				</div>
 			</li>
 		</ul>
-		<h1>获取报错文件真实行列数</h1>
-		<div>
-			<div>上传：<a>上传</a><input type="file" name="file" /></div>
-			<div>行数：<span></span></div>
-			<div>列数：<span></span></div>
-			<div>目标文件：<span></span></div>
+		<div class="detail-upload">
+			
+			<h1>获取报错文件真实行列数</h1>
+			<div class="detail-upload-warp">
+				<div class="clearfix">
+					<span>上传：</span>
+					<a href="javascript:;" class="detail-uploadbtn">
+						上传
+						<input type="file"  name="map" @change="FILE_CHANGE"/>
+					</a>
+				</div>
+				<ul v-show="isMapShow&&!isMapError">
+					<li class="clearfix">
+						<span>目标文件：</span>
+						<span>{{map.source}}</span>
+					</li>
+					<li class="clearfix">
+						<span>反解前行数：</span>
+						<span>{{message.rowNum}}</span>
+					</li>
+					<li class="clearfix">
+						<span>反解前列数：</span>
+						<span>{{message.colNum}}</span>
+					</li>
+					<li class="clearfix">
+						<span>反解后行数：</span>
+						<span>{{map.line}}</span>
+					</li>
+					<li class="clearfix">
+						<span>反解后列数：</span>
+						<span>{{map.column}}</span>
+					</li>
+					<li class="clearfix">
+						<span>错误信息：</span>
+						<span>{{message.msg}}</span>
+					</li>
+				</ul>
+				<div v-show="!isMapShow&&isMapError">获取错误，请重试！</div>
+			</div>
 		</div>
 	</div>
 </template> 
@@ -53,11 +86,14 @@ export default {
             lists: state => reportDetail.lists,
             messageKeys: state => reportDetail.messageKeys,
             message: state => reportDetail.message,
-            ext: state => reportDetail.ext
+            ext: state => reportDetail.ext,
+            isMapShow: state => reportDetail.isMapShow,
+            isMapError: state => reportDetail.isMapError,
+            map: state => reportDetail.map
         })
     },
     methods:{
-        ...mapActions(['REPORT_REGET'])
+        ...mapActions(['REPORT_REGET', 'FILE_CHANGE'])
     }
 
 }

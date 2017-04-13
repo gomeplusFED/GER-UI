@@ -35,7 +35,6 @@ export default (Vue, obj)=>{
 
 		reportModule.loading = false;
 		reportModule.isError = true;
-		console.log(JSON.stringify(response));
 	});
 
 };
