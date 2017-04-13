@@ -36,7 +36,6 @@ const mutations = {
             formData.append('rowNum', state.message.rowNum);
             formData.append('colNum', state.message.colNum);
             Vue.http.post('/upload',formData).then(result=>{
-                console.log(result);
                 if( result.body.code === 200 ){
                     state.isMapShow = true;
                     state.map = result.body.data;
