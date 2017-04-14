@@ -43,7 +43,7 @@
             <a href="javascript:;">下一页</a>
         </div>
     </div>
-    <div class="ger-list-content-empty" v-else>
+    <div class="ger-list-content-empty" v-if="!reportList.length">
         您关注的域名15内都无报错!
     </div>
 </template> 
