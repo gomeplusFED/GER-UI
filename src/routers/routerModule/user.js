@@ -11,11 +11,23 @@ import modpwd from '../../pages/user/modpwd.vue';
 export default  [
 	{
 		path: '/index',
-		redirect: () => {
-			if(stroe.state.initModule.isAdmin){
-				return '/user';
-			}else{
-				return '/report';
+		redirect: to => {
+			if( to.query.originUrl && to.query.originUrl !== '' ){
+				let origin = decodeURIComponent(to.query.originUrl).split('?');
+				let redirect = origin[0];
+				let params = origin[1].split('&');
+				let querys = {};
+				params.forEach(v => {
+					let query = v.split('=');
+					querys[query[0]] = query[1];
+				});
+				 return { path: redirect, query: querys }
+			}else {
+				if(stroe.state.initModule.isAdmin){
+					return '/user';
+				}else{
+					return '/report';
+				}
 			}
 	    }
 	},
