@@ -12,6 +12,7 @@ export default  [
 	{
 		path: '/index',
 		redirect: to => {
+			let initModule = stroe.state.initModule;
 			if( to.query.originUrl && to.query.originUrl !== '' ){
 				let origin = decodeURIComponent(to.query.originUrl).split('?');
 				let redirect = origin[0];
@@ -21,9 +22,15 @@ export default  [
 					let query = v.split('=');
 					querys[query[0]] = query[1];
 				});
-				 return { path: redirect, query: querys }
+				let isWatch = querys.href ? ( initModule.watchUrl.indexOf( querys.href ) !== -1 ? true : false) : true;
+				if( isWatch ){
+					return { path: redirect, query: querys }
+				}else{
+					return '/report';
+				}
+				
 			}else {
-				if(stroe.state.initModule.isAdmin){
+				if(initModule.isAdmin){
 					return '/user';
 				}else{
 					return '/report';

@@ -14,6 +14,7 @@ export default (Vue, obj)=>{
     reportList.selectType = 'message.msg.raw';
     reportList.searchKey = '';
     reportList.searchCount = 0;
+    reportList.local = local;
     reportList.query = obj.query;
     Vue.http.post('/report/list', {
         pageNum: page,
