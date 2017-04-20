@@ -4,7 +4,9 @@
  * @date 2017/03/1
  */
 import store from '../../../store';
-export default (Vue, obj)=>{
+export default (Vue, to)=>{
+	
+	store.state.pageModule.currentName = to.name;
 	let userInfoModule = store.state.userInfo;
 	let initModule = store.state.initModule;
 	userInfoModule.userInfo = {
@@ -13,12 +15,12 @@ export default (Vue, obj)=>{
     	rpwd: '',
     	watchUrl: ''
 	};
-	userInfoModule.userInfo.name = obj.query.uname || '';
-	userInfoModule.userInfo.type = obj.query.type;
-	if( obj.query.uname ){
+	userInfoModule.userInfo.name = to.query.uname || '';
+	userInfoModule.userInfo.type = to.query.type;
+	if( to.query.uname ){
 		Vue.http.post('/user/getUserInfo', {
 			superName: initModule.superName,
-			userName: obj.query.uname
+			userName: to.query.uname
 		}).then(function(response ){
 			if( response.body.code === 200 ){
 				userInfoModule.userInfo.pwd =  response.data.data.password;

@@ -6,16 +6,20 @@
 
 import store from '../../../store';
 import Utils from '../../../plugin';
-export default (Vue, obj)=>{
-    let query = obj.query;
+export default (Vue, to, from)=>{
+    store.state.pageModule.currentName = to.name;
+    let query = to.query;
     let local = query.href;
     let page = query.page || 1;
     let reportList = store.state.reportList;
-    reportList.selectType = 'message.msg.raw';
-    reportList.searchKey = '';
-    reportList.searchCount = 0;
-    reportList.local = local;
-    reportList.query = obj.query;
+    let pageModule = store.state.pageModule;
+    if( to.name !== from.name ){
+        reportList.selectType = 'message.msg.raw';
+        reportList.searchKey = '';
+        reportList.searchCount = 0;
+    }
+    
+    reportList.query = to.query;
     Vue.http.post('/report/list', {
         pageNum: page,
         local: local,
@@ -24,20 +28,14 @@ export default (Vue, obj)=>{
         let rBody = result.body;
         if( rBody.code === 200 ){
             let lists = rBody.data.results;
+            pageModule.pages = rBody.data.page;
+            pageModule.hasMorePage = rBody.data.page.pages;
             reportList.lists = lists;
             reportList.buckets = rBody.data.buckets;
-            reportList.pages = rBody.data.page;
-            if(reportList.pages.pages < page){
-                let reg = new RegExp('page=\\d+');
-                let href = window.location.href.replace(reg, 'days='+ reportList.selectDay +'&page=' + reportList.pages.pages);
-                window.location.href = href;
-            }
             reportList.total = rBody.data.total;
             if( lists.length === 0 ){
                 reportList.listNormal = true;
             }
-            reportList.hasMorePage = reportList.pages.pages > 1;
-            // store.commit('SEARCH_ECHAR', store);
         }else{
             reportList.isError = true;
         }
