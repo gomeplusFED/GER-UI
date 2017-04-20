@@ -1,12 +1,12 @@
 <template> 
     <div class="ger-list-bottom" v-if="hasMorePage">
-        <router-link v-if="pages.currentPage != 1" :to="{ name: 'list', query: { href: oldHref, page : pre }}">上一页</router-link>
-        <router-link v-if="pages.currentPage > 3" :to="{ name: 'list', query: { href: oldHref, page : 1 }}">{{1}}</router-link>
+        <a href="javascript:;" v-if="pages.currentPage != 1"  @click="CHANGE_PAGE(pre)">上一页</a>
+        <a href="javascript:;" v-if="pages.currentPage > 3" @click="CHANGE_PAGE(1)">1</a>
         <span v-if="pages.currentPage > 3">...</span>
-        <router-link :class="index == pages.currentPage ? 'active':''" v-for="index in pageCount"  :to="{ name: 'list', query: { href: oldHref, page : index }}">{{index}}</router-link>
+        <a href="javascript:;" :class="index == pages.currentPage ? 'active':''" v-for="index in pageCount"  @click="CHANGE_PAGE(index)">{{index}}</a>
         <span v-if="pages.pages - 3 >= pages.currentPage">...</span>
-        <router-link  v-if="pages.pages - 3 >= pages.currentPage" :to="{ name: 'list', query: { href: oldHref, page : pages.pages }}">{{pages.pages}}</router-link>
-        <router-link v-if="pages.currentPage != pages.pages" :to="{ name: 'list', query: { href: oldHref, page : next }}">下一页</router-link>
+        <a href="javascript:;" v-if="pages.pages - 3 >= pages.currentPage"   @click="CHANGE_PAGE(pages.pages)">{{pages.pages}}</a>
+        <a href="javascript:;" v-if="pages.currentPage != pages.pages"  @click="CHANGE_PAGE(next)">下一页</a>
     </div>
 </template>
 <script type="text/javascript">
@@ -14,15 +14,12 @@ import store from '../../store';
 import vuex from 'vuex';
 const mapState = vuex.mapState;
 const mapActions = vuex.mapActions;
-const list = store.state.reportList;
+const pageModule = store.state.pageModule;
 export default {
     computed: {
         ...mapState({
-            selectDay: state => list.selectDay,
-            hasMorePage: state => list.hasMorePage,
-            lists: state => list.lists,
-            pages: state => list.pages,
-            oldHref: state => list.oldHref
+            hasMorePage: state => pageModule.hasMorePage,
+            pages: state => pageModule.pages
         }),
         pageCount : function (){
             let n = parseInt(this.pages.currentPage);
@@ -50,19 +47,14 @@ export default {
             return arr;
         },
         pre : function (){
-            let n = parseInt(this.pages.currentPage);
-            return --n;
+            return (parseInt(this.pages.currentPage, 10) - 1);
         },
         next : function (){
-            let n = parseInt(this.pages.currentPage);
-            // 如果url上带有页码并且大于页码总数  默认跳转最后一页
-           /* if(this.pages.currentPage > this.pages.pages){
-                let reg = new RegExp('page=\\d+');
-                let href = window.location.href.replace(reg, 'lastDays='+ this.selectDay +'&page=1');
-                window.location.href = href;
-            }*/
-            return ++n;
+            return (parseInt(this.pages.currentPage, 10) + 1);
         }
+    },
+    methods:{
+        ...mapActions(['CHANGE_PAGE'])
     }
 }
 </script>

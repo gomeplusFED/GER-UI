@@ -25,7 +25,7 @@ router.beforeEach((to, from, next) => {
         });
     }else{
         if( beforeRouter[to.name] ){
-            beforeRouter[to.name](Vue, to);
+            beforeRouter[to.name](Vue, to, from);
         }
         next();
     }
