@@ -1,5 +1,6 @@
 
 import Vue from  'vue';
+import store from '../../../store';
 import Utils from '../../../plugin';
 import Highcharts from  'highcharts/highstock';
 const state = {
@@ -21,6 +22,7 @@ const state = {
     searchCount: 0,
     oldHref: '',
     dateList : [],
+    query: {},
     categoriesArr : [],
     orderBy: 'time',
     timeChange: true,
@@ -168,15 +170,36 @@ const mutations = {
                 state.lists = lists;
                 state.buckets = rBody.data.buckets;
                 state.pages = rBody.data.page;
-                if(state.pages.pages < options.searchData.pageNum){
-                    let reg = new RegExp('page=\\d+');
-                    let href = window.location.href.replace(reg, 'days='+ state.selectDay + '&page=' + state.pages.pages);
-                    window.location.href = href;
-                }
                 state.listNormal = (lists.length === 0);
                 state.hasMorePage = rBody.data.page.pages > 1;
-
                 options.store.commit('SEARCH_ECHAR', options.store);
+            }else{
+                state.isError = true;
+            }
+            state.loading = false;
+        },()=>{
+            state.isError = true;
+            state.loading = false;
+        });
+    },
+    'CHANGE_LIST_PAGE': (state, num ) => {
+        Vue.http.post('/report/list', {
+            pageNum: num,
+            local: state.oldHref,
+            lastDays: state.selectDay
+        }).then(result=>{
+            let rBody = result.body;
+            if( rBody.code === 200 ){
+                let pageModule = store.state.pageModule;
+                let lists = rBody.data.results;
+                pageModule.pages = rBody.data.page;
+                pageModule.hasMorePage = rBody.data.page.pages;
+                state.lists = lists;
+                state.buckets = rBody.data.buckets;
+                state.total = rBody.data.total;
+                if( lists.length === 0 ){
+                    state.listNormal = true;
+                }
             }else{
                 state.isError = true;
             }
