@@ -31,12 +31,12 @@
             <ul class="ger-list">
                 <li class="clearfix" v-for="list in lists" track-by="list._id">
                     <div class="width-30">
-                        <div class="list-over" :title="list._source.message.msg">{{list._source.message.msg}}</div>
+                        <div class="list-over" :title="decodeURIComponent(list._source.message.msg)">{{decodeURIComponent(list._source.message.msg)}}</div>
                     </div>
-                    <div class="width-15 t-c">{{list._source.request_time}}</div>
+                    <div class="width-15 t-c">{{decodeURIComponent(list._source.request_time)}}</div>
                     <div class="width-30">
-                        <div class="list-over" v-if="list._source.message.title" :title="list._source.message.title">{{list._source.message.title}}</div>
-                        <div class="list-over" v-if="!list._source.message.title" :title="list._source.message.referer">{{list._source.message.referer}}</div>
+                        <div class="list-over" v-if="list._source.message.title" :title="decodeURIComponent(list._source.message.title)">{{decodeURIComponent(list._source.message.title)}}</div>
+                        <div class="list-over" v-if="!list._source.message.title" :title="decodeURIComponent(list._source.message.referer)">{{decodeURIComponent(list._source.message.referer)}}</div>
                     </div>
                     <div class="width-15 t-c">{{buckets.keys.indexOf(list._source.message.msg) !== -1 ? buckets.counts[buckets.keys.indexOf(list._source.message.msg)] : 1}}</div>
                     <div class="width-10 t-c">
