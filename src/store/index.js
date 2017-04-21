@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import initModule from './modules/initModule';
+import initModule from './modules/public/initModule';
+import pageModule from './modules/public/pageModule';
 import userList from './modules/user/list';
 import userInfo from './modules/user/edit';
 import modPwd from './modules/user/modPwd';
@@ -16,6 +17,7 @@ export default new Vuex.Store({
 		modPwd: modPwd,
 		report: report,
 		reportList: reportList,
-		reportDetail: reportDetail
+		reportDetail: reportDetail,
+		pageModule: pageModule
 	}
 });
