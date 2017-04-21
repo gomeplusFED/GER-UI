@@ -24,7 +24,7 @@
                     <div class="width-10 t-c">{{list.errorType}}</div>
                     <div class="width-10 t-c">{{list.scriptErrorNum}}</div>
                     <div class="width-22 t-c">
-                        <div class="list-over" :title="list.highError">{{list.highError}}</div>
+                        <div class="list-over" :title="decodeURIComponent(list.highError)">{{decodeURIComponent(list.highError)}}</div>
                     </div>
                     <div class="width-10 t-c">
                         <router-link :to="{ name: 'list', query: { href: list.local }}">查看更多</router-link>
@@ -57,7 +57,7 @@ export default {
         ...mapState({
             reportList:state => store.state.report.list,
             isError: state => store.state.report.isError,
-            isLoading: state => store.state.report.loading,
+            isLoading: state => store.state.report.loading
         })
     },
     methods:{

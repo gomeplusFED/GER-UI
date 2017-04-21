@@ -4,11 +4,13 @@
  * @date 2017/03/1
  */
 import store from '../../../store';
-export default (Vue, obj)=>{
+export default (Vue, to)=>{
+	
+	store.state.pageModule.currentName = to.name;
 	//页码
-	let pageNum = obj.query.page ? obj.query.page : 1;
+	let pageNum = to.query.page ? to.query.page : 1;
 	//每页数据条数
-	let size = obj.query.size || 10;
+	let size = to.query.size || 10;
 	let watchUrls = store.state.initModule.watchUrl.split('^');
 	//页数
 	let pages = Math.ceil(watchUrls / size);

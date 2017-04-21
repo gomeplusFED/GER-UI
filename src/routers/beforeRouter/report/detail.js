@@ -5,13 +5,14 @@
  */
 
 import store from '../../../store';
-export default (Vue, obj)=>{
+export default (Vue, to)=>{
 	let reportDetail = store.state.reportDetail;
+	store.state.pageModule.currentName = to.name;
 	reportDetail.isMapShow = false;
 	reportDetail.isMapError = false;
 	Vue.http.post('/report/getDetail', {
-		index: obj.query.index,
-		id: obj.query.id
+		index: to.query.index,
+		id: to.query.id
 	}).then(result=>{
 		let lists = result.body.data;
 		reportDetail.message = lists.message;

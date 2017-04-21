@@ -13,20 +13,27 @@ export default  [
 		path: '/index',
 		redirect: to => {
 			let initModule = stroe.state.initModule;
+				console.log(decodeURIComponent(to.query.originUrl));
 			if( to.query.originUrl && to.query.originUrl !== '' ){
-				let origin = decodeURIComponent(to.query.originUrl).split('?');
-				let redirect = origin[0];
-				let params = origin[1].split('&');
-				let querys = {};
-				params.forEach(v => {
-					let query = v.split('=');
-					querys[query[0]] = query[1];
-				});
-				let isWatch = querys.href ? ( initModule.watchUrl.indexOf( querys.href ) !== -1 ? true : false) : true;
-				if( isWatch ){
-					return { path: redirect, query: querys }
+				let decodeUrl = decodeURIComponent(to.query.originUrl);
+				if( decodeUrl.indexOf('?') !==  -1 ){
+
+					let origin = decodeUrl.split('?');
+					let redirect = origin[0];
+					let params = origin[1].split('&');
+					let querys = {};
+					params.forEach(v => {
+						let query = v.split('=');
+						querys[query[0]] = query[1];
+					});
+					let isWatch = querys.href ? ( initModule.watchUrl.indexOf( querys.href ) !== -1 ? true : false) : true;
+					if( isWatch ){
+						return { path: redirect, query: querys };
+					}else{
+						return '/report';
+					}
 				}else{
-					return '/report';
+					return { path: decodeUrl };
 				}
 				
 			}else {
