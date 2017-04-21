@@ -1,5 +1,4 @@
-//import store from '../index.js';
-import Vue from 'vue';
+
 const state = {
 	hasMorePage: false,
     currentName: '',
