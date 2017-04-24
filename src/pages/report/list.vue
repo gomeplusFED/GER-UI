@@ -40,7 +40,7 @@
                     </div>
                     <div class="width-15 t-c">{{buckets.keys.indexOf(list._source.message.msg) !== -1 ? buckets.counts[buckets.keys.indexOf(list._source.message.msg)] : 1}}</div>
                     <div class="width-10 t-c">
-                        <router-link :to="{ name: 'reportDetail', query:{ id: list._id, index: list._index, href: local }}">查看更多</router-link>
+                        <router-link target="_blank" :to="{ name: 'reportDetail', query:{ id: list._id, index: list._index, href: local }}">查看更多</router-link>
                     </div>
                 </li>
             </ul>

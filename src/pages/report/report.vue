@@ -27,7 +27,7 @@
                         <div class="list-over" :title="decodeURIComponent(list.highError)">{{decodeURIComponent(list.highError)}}</div>
                     </div>
                     <div class="width-10 t-c">
-                        <router-link :to="{ name: 'list', query: { href: list.local }}">查看更多</router-link>
+                        <router-link target="_blank" :to="{ name: 'list', query: { href: list.local }}">查看更多</router-link>
                     </div>
                 </li>
             </ul>

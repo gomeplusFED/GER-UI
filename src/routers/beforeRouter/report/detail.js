@@ -21,10 +21,9 @@ export default (Vue, to)=>{
 		console.log(ua);
 		reportDetail.message = lists.message;
 		reportDetail.message.uaDetail = {
-			"uaName": ua.browser.name,
-			"uaWebkit": ua.engine.name,
-			"os": ua.os.name,
-			"device": ua.device.name || '--'
+			"浏览器名称": ua.browser.name,
+			"浏览器内核": ua.engine.name,
+			"操作系统": ua.os.name
 		};
 		reportDetail.ext = lists.ext;
 		delete lists.message;

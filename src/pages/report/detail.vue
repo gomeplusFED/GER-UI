@@ -26,8 +26,7 @@
 				<div class="ua-details">
 					<ul>
 						<li v-for="(v, i) in message.uaDetail">
-							<span>{{i}}:</span>
-							<span>{{v}}</span>
+							<span>{{i}}:</span>{{v}}
 						</li>
 					</ul>
 				</div>
