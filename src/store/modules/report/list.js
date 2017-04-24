@@ -186,7 +186,8 @@ const mutations = {
         Vue.http.post('/report/list', {
             pageNum: num,
             local: state.oldHref,
-            lastDays: state.selectDay
+            lastDays: state.selectDay,
+            order: state.orderBy
         }).then(result=>{
             let rBody = result.body;
             if( rBody.code === 200 ){
