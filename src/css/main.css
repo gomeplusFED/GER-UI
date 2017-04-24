@@ -374,6 +374,13 @@ $menuHoverBg: #353b41;
                 padding-left: 10px;
                 word-break:break-all; 
                 word-wrap:break-word;
+                em{
+                    height:100%;
+                    line-height:164px;
+                    display:inline-block;
+                    vertical-align:middle;
+                    font-style:normal;
+                }
             }
             div:nth-child(1){
                 span{
@@ -393,6 +400,30 @@ $menuHoverBg: #353b41;
                     padding:0 10px;
                     box-sizing: border-box;
                     width: 100%;
+                }
+            }
+            .ua-details{
+                li:nth-child(1){
+                    span:nth-child(1){
+                        padding-left:0px;
+                    }
+                }
+                li{
+                    span:nth-child(1){
+                        padding-left:0px;
+                    }
+                    span{
+                        display:inline-block;
+                        border-left:none;
+                        width:auto;
+                        padding:10px;
+                    }
+                }
+                li:nth-last-child(1){
+                    border-bottom:none;
+                    span{
+                        padding:10px;
+                    }
                 }
             }
         }
