@@ -82,9 +82,6 @@ const mutations = {
                 watchUrl: state.userInfo.watchUrl,
                 type: state.userInfo.type
             };
-            if(state.type === 'add'){
-                options.createTime = '2017-03-22';
-            }
     		store._vm.$http.post( '/user/edit', options).then((res) => {
     			if(res.body.code === 200){
     				window.location.href = "/user";
