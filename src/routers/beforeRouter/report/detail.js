@@ -26,12 +26,6 @@ export default (Vue, to)=>{
 			"os": ua.os.name,
 			"device": ua.device.name || '--'
 		};
-		/*reportDetail.message.ua.uaName = ua.browser.name;
-		reportDetail.message.ua.uaWebkit = ua.engine.name;
-		reportDetail.message.ua.os = ua.os.name;
-		reportDetail.message.ua.device = ua.device.name || '';*/
-
-
 		reportDetail.ext = lists.ext;
 		delete lists.message;
 		delete lists.ext;
