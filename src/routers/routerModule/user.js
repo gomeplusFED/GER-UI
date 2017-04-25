@@ -13,11 +13,9 @@ export default  [
 		path: '/index',
 		redirect: to => {
 			let initModule = stroe.state.initModule;
-				console.log(decodeURIComponent(to.query.originUrl));
 			if( to.query.originUrl && to.query.originUrl !== '' ){
 				let decodeUrl = decodeURIComponent(to.query.originUrl);
 				if( decodeUrl.indexOf('?') !==  -1 ){
-
 					let origin = decodeUrl.split('?');
 					let redirect = origin[0];
 					let params = origin[1].split('&');
@@ -33,7 +31,7 @@ export default  [
 						return '/report';
 					}
 				}else{
-					return { path: decodeUrl };
+					return (decodeUrl === '/index' ? '/report' :  { path: decodeUrl } );
 				}
 				
 			}else {
