@@ -43,7 +43,7 @@ export default {
             lists: state => store.state.userList.list,
             loading: state => store.state.userList.loading,
             isEmpty: state => store.state.userList.isEmpty,
-            hasMorePage: state => store.state.userList.hasMorePage
+            hasMorePage: state => store.state.pageModule.hasMorePage
         })
     },
     methods:{
