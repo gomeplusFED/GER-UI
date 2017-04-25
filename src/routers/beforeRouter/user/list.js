@@ -9,14 +9,16 @@ export default (Vue, to)=>{
 	store.state.pageModule.currentName = to.name;
 	Vue.http.post('/user/getlist', {
 		superName: store.state.initModule.superName,
-		page: to.query.page || 1
+		pageNum: to.query.page || 1
 	}).then(function(response ){
 		let lists = response.data.data;
+    	let pageModule = store.state.pageModule;
 		let userListModule = store.state.userList; 
 		userListModule.list = lists; 
 		userListModule.isEmpty = !lists.length;
-		userListModule.hasMorePage = lists.length > 20;
 		userListModule.loading = false;
+		pageModule.pages = response.data.page;
+		pageModule.hasMorePage = response.data.page.pages;
 	}, function(){
 		console.log(arguments);
 	});

@@ -1,5 +1,5 @@
 import store from '../../index.js';
-
+import Vue from  'vue';
 const state = {
     list:[],
     hasMorePage: false,
@@ -19,6 +19,32 @@ const mutations = {
 		},() => {
 			console.log(arguments);
 		});
+	},
+	'CHANGE_USER_LIST_PAGE': (state, num) =>{
+		Vue.http.post('/user/getlist', {
+            pageNum: num,
+            superName: store.state.initModule.superName
+        }).then(result=>{
+            let rBody = result.body;
+            if( rBody.code === 200 ){
+                let pageModule = store.state.pageModule;
+                let lists = rBody.data;
+                pageModule.pages = rBody.page;
+                pageModule.hasMorePage = rBody.page.pages;
+                state.list = rBody.data;
+                state.buckets = rBody.data.buckets;
+                state.total = rBody.data.total;
+                if( lists.length === 0 ){
+                    state.listNormal = true;
+                }
+            }else{
+                state.isError = true;
+            }
+            state.loading = false;
+        },()=>{
+            state.isError = true;
+            state.loading = false;
+        });
 	}
 };
 

@@ -242,6 +242,7 @@ $menuHoverBg: #353b41;
     padding:10px;
     background:#fafafa;
     text-align: right;
+    z-index:1000;
     a{
         display: inline-block;
         padding: 0 10px;

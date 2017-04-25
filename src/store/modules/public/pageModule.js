@@ -11,6 +11,9 @@ const mutations = {
 			case 'list':
 				params.store.commit( 'CHANGE_LIST_PAGE', params.page );
 				break;
+			case 'user':
+				params.store.commit( 'CHANGE_USER_LIST_PAGE', params.page );
+				break;
 		}
 	}
 };

@@ -27,21 +27,12 @@
             <div v-show="loading" class="ger-loading">正在加载中，请稍后...</div>
             <div v-show="isEmpty" class="ger-loading">暂无用户，点击<router-link :to="{ name: 'add'}" active-class="active">创建用户</router-link></div>
         </div>
-        <div class="ger-list-bottom" v-if="hasMorePage">
-            <a href="javascript:;">上一页</a>
-            <a href="javascript:;" class="active">1</a>
-            <a href="javascript:;">2</a>
-            <a href="javascript:;">3</a>
-            <a href="javascript:;">4</a>
-            <span>....</span>
-            <a href="javascript:;">5</a>
-            <a href="javascript:;">下一页</a>
-        </div>
-        
+        <page></page>
     </div>
 </template> 
 <script>
 import store from '../../store';
+import page from '../public/page.vue';
 import vuex from 'vuex';
 const mapState = vuex.mapState;
 const mapActions = vuex.mapActions;
@@ -57,6 +48,9 @@ export default {
     },
     methods:{
         ...mapActions(['DELETE_USER'])
+    },
+    components: {
+        page
     }
 
 }

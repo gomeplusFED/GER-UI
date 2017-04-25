@@ -8,7 +8,6 @@ const state = {
     buckets: {},
     pages: {},
     total : 0,
-    local: '',
     hasMorePage: false,
     listNormal: false,
     isError: false,
