@@ -10,6 +10,16 @@ import edit from '../../pages/user/edit.vue';
 import modpwd from '../../pages/user/modpwd.vue';
 export default  [
 	{
+		path: '/',
+		redirect: to => {
+			if(stroe.state.initModule.isAdmin){
+				return '/user';
+			}else{
+				return '/report';
+			}
+		}
+	},
+	{
 		path: '/index',
 		redirect: to => {
 			let initModule = stroe.state.initModule;
