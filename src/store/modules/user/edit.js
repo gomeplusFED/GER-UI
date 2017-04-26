@@ -50,8 +50,27 @@ const mutations = {
     'EDIT_WATCHURL': ( state ) => {
     	var watchUrl = state.userInfo.watchUrl;
 		if( /^[A-Za-z0-9|/\r|\/n|/\r/\n|\.]+$/.test(watchUrl) ){
-			state.error.watchUrl = false;
-			state.submit = true;
+            let watchUrlArr = watchUrl.split(/[\r\n]/);
+            function isThrough(arr){
+                let n = 0;
+                for(var i = 0; i < arr.length; i++){
+                    if(arr[i].indexOf('|') != -1 ){
+                        if(/(\|pc)|(\|mobile)$/.test(arr[i])){
+                            n ++;
+                        }
+                    }else{
+                        n ++;
+                    }
+                };
+                return n == arr.length;
+            }
+            if(isThrough(watchUrlArr)){
+                state.error.watchUrl = false;
+                state.submit = true;
+            }else{
+                state.error.watchUrl = true;
+                state.submit = false;
+            }
 		}else{
 			state.error.watchUrl = true;
 			state.submit = false;

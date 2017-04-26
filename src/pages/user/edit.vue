@@ -26,7 +26,7 @@
             <li class="clearfix">
                 <label class="fl" >域名组: </label>
                 <textarea class="domains"  v-model='userInfo.watchUrl' lazy @blur="EDIT_WATCHURL"></textarea>
-                <span class="ger-form-notice" v-show="!error.watchUrl">请输入域名，以回车分割</span>
+                <span class="ger-form-notice" v-show="!error.watchUrl">请输入域名，以回车分割，终端名称以|分割 pc/mobile<br>eg: www.gomeplus.com|pc  或  www.gomeplus.com|mobile </span>
                 <span class="ger-form-error" v-show="error.watchUrl">域名输入格式错误，请重新输入</span>
             </li>
         </ul>

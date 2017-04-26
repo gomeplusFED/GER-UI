@@ -2,7 +2,7 @@
     <div class="ger-list-content" v-if="reportList.length">
         <ul class="ger-list-head clearfix">
             <li class="width-16">域名</li>
-            <li class="width-8">pc/m</li>
+            <li class="width-8">终端</li>
             <li class="width-8 t-c">今日错误数</li>
             <li class="width-8 t-c">7日错误数</li>
             <li class="width-10 t-c">15日错误数</li>
@@ -19,7 +19,7 @@
                     <div class="width-16">
                         <div class="list-over" :title=list.local>{{list.local}}</div>
                     </div>
-                    <div class="width-8">{{list.type}}</div>
+                    <div class="width-8">{{list.type == 'all' ? '全部' : list.type}}</div>
                     <div class="width-8 t-c">{{list.todayErrorNum}}</div>
                     <div class="width-8 t-c">{{list.weekErrorNum}}</div>
                     <div class="width-10 t-c">{{list.lastFifteenErrorNum}}</div>

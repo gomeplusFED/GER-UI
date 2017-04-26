@@ -103,11 +103,13 @@ const mutations = {
                 local: state.query.href,
                 typeDevice: state.query.type
             };
+            console.log(state.searchKey);
             store.commit('SEARCH_BODY', {searchData, store});
             store.commit('SEARCH_FORMS', { searchData: {
                 lastDays: state.selectDay,
                 local: state.query.href,
-                forms: 'forms'
+                forms: 'forms',
+                typeDevice: state.query.type
             }, store });
         }
         
@@ -123,7 +125,8 @@ const mutations = {
             lastDays: state.selectDay,
             pageNum: state.query.page,
             local: state.query.href,
-            order: state.orderBy
+            order: state.orderBy,
+            typeDevice: state.query.type
         };
         store.commit('SEARCH_BODY', {searchData, store});
     },
@@ -139,7 +142,8 @@ const mutations = {
             lastDays: state.selectDay,
             pageNum: state.query.page,
             local: state.query.href,
-            order: state.orderBy
+            order: state.orderBy,
+            typeDevice: state.query.type
         };
 
         store.commit('SEARCH_BODY', {searchData, store});
@@ -186,13 +190,18 @@ const mutations = {
         });
     },
     'CHANGE_LIST_PAGE': (state, num ) => {
-        Vue.http.post('/report/list', {
+        let search = {
             pageNum: num,
             local: state.oldHref,
             lastDays: state.selectDay,
-            order: state.orderBy,
-            typeDevice: state.query.type
-        }).then(result=>{
+            typeDevice: state.query.type,
+            keyWord: state.searchKey,
+            type: state.selectType
+        };
+        if( state.searchKey === '' ){
+            search.order = state.orderBy;
+        }
+        Vue.http.post('/report/list', search).then(result=>{
             let rBody = result.body;
             if( rBody.code === 200 ){
                 let pageModule = store.state.pageModule;

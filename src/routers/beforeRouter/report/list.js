@@ -50,7 +50,8 @@ export default (Vue, to, from)=>{
     Vue.http.post('/report/getForms', {
         local: local,
         lastDays: store.state.reportList.selectDay,
-        forms: 'forms'
+        forms: 'forms',
+        typeDevice: typeDevice
     }).then(result=>{
         let rBody = result.body;
         if( rBody.code === 200 ){
