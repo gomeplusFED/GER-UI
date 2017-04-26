@@ -10,6 +10,7 @@ export default (Vue, to, from)=>{
     store.state.pageModule.currentName = to.name;
     let query = to.query;
     let local = query.href;
+    let typeDevice = query.type || 'all';
     let page = query.page || 1;
     let reportList = store.state.reportList;
     let pageModule = store.state.pageModule;
@@ -23,7 +24,8 @@ export default (Vue, to, from)=>{
     Vue.http.post('/report/list', {
         pageNum: page,
         local: local,
-        lastDays: reportList.selectDay
+        lastDays: reportList.selectDay,
+        typeDevice: typeDevice
     }).then(result=>{
         let rBody = result.body;
         if( rBody.code === 200 ){

@@ -25,7 +25,7 @@ const state = {
     categoriesArr : [],
     orderBy: 'time',
     timeChange: true,
-    typeChange:  false
+    typeChange: false
 };
 const mutations = {
     'REPORT_REGET': () => {
@@ -100,7 +100,8 @@ const mutations = {
                 keyWord: state.searchKey,
                 lastDays: state.selectDay,
                 pageNum: state.query.page,
-                local: state.query.href
+                local: state.query.href,
+                typeDevice: state.query.type
             };
             store.commit('SEARCH_BODY', {searchData, store});
             store.commit('SEARCH_FORMS', { searchData: {
@@ -166,11 +167,14 @@ const mutations = {
             let rBody = result.body;
             if( rBody.code === 200 ){
                 let lists = rBody.data.results;
+                let pageModule = store.state.pageModule;
                 state.lists = lists;
                 state.buckets = rBody.data.buckets;
                 state.pages = rBody.data.page;
+                pageModule.pages = rBody.data.page;
+                pageModule.hasMorePage = pageModule.pages.pages > 1;
                 state.listNormal = (lists.length === 0);
-                state.hasMorePage = rBody.data.page.pages > 1;
+                state.hasMorePage = state.pages > 1;
                 options.store.commit('SEARCH_ECHAR', options.store);
             }else{
                 state.isError = true;
@@ -186,7 +190,8 @@ const mutations = {
             pageNum: num,
             local: state.oldHref,
             lastDays: state.selectDay,
-            order: state.orderBy
+            order: state.orderBy,
+            typeDevice: state.query.type
         }).then(result=>{
             let rBody = result.body;
             if( rBody.code === 200 ){

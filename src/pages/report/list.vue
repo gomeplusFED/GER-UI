@@ -73,7 +73,8 @@ export default {
             pages: state => reportList.pages,
             oldHref: state => reportList.oldHref,
             timeChange: state => reportList.timeChange,
-            typeChange: state => reportList.typeChange
+            typeChange: state => reportList.typeChange,
+            dateList: state => reportList.dateList
         })
     },
     methods:{
@@ -81,6 +82,13 @@ export default {
     },
     components: {
         page
+    },
+    mounted() {
+        let  char = document.getElementById('container');
+        if(char.innerHTML == ''){
+            char.classList.add('no_data');
+            char.innerHTML = '暂无数据';
+        }
     }
 }
 

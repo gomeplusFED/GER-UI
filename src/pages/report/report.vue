@@ -1,33 +1,35 @@
 <template>
     <div class="ger-list-content" v-if="reportList.length">
         <ul class="ger-list-head clearfix">
-            <li class="width-18">域名</li>
-            <li class="width-10 t-c">今日错误数</li>
-            <li class="width-10 t-c">7日错误数</li>
+            <li class="width-16">域名</li>
+            <li class="width-8">pc/m</li>
+            <li class="width-8 t-c">今日错误数</li>
+            <li class="width-8 t-c">7日错误数</li>
             <li class="width-10 t-c">15日错误数</li>
             <li class="width-10 t-c">15日错误类型数</li>
             <li class="width-10 t-c">15日报错脚本数</li>
             <li class="width-22 t-c">15日最高错误类型</li>
-            <li class="width-10 t-c">操作</li>
+            <li class="width-8 t-c">操作</li>
         </ul>
         <div  :class = "['ger-list-box', {'ger-noMore': !hasMorePage}]">
             <div class="ger-loading" v-show="isLoading && !isError">正在加载中，请稍后...</div>
             <div class="ger-loading" v-show="isError && !isLoading" @click="REPORT_REGET">加载失败，点击重试</div>
             <ul class="ger-list" v-show="!isError && !isLoading">
                 <li class="clearfix" v-for="list in reportList" track-by="list.local">
-                    <div class="width-18">
+                    <div class="width-16">
                         <div class="list-over" :title=list.local>{{list.local}}</div>
                     </div>
-                    <div class="width-10 t-c">{{list.todayErrorNum}}</div>
-                    <div class="width-10 t-c">{{list.weekErrorNum}}</div>
+                    <div class="width-8">{{list.type}}</div>
+                    <div class="width-8 t-c">{{list.todayErrorNum}}</div>
+                    <div class="width-8 t-c">{{list.weekErrorNum}}</div>
                     <div class="width-10 t-c">{{list.lastFifteenErrorNum}}</div>
                     <div class="width-10 t-c">{{list.errorType}}</div>
                     <div class="width-10 t-c">{{list.scriptErrorNum}}</div>
                     <div class="width-22 t-c">
                         <div class="list-over" :title="decodeURIComponent(list.highError)">{{decodeURIComponent(list.highError)}}</div>
                     </div>
-                    <div class="width-10 t-c">
-                        <router-link target="_blank" :to="{ name: 'list', query: { href: list.local }}">查看更多</router-link>
+                    <div class="width-8 t-c">
+                        <router-link target="_blank" :to="{ name: 'list', query: { href: list.local, 'type': list.type }}">查看更多</router-link>
                     </div>
                 </li>
             </ul>

@@ -141,9 +141,18 @@ $menuHoverBg: #353b41;
     }
 }
 /*public width*/
+.width-8{
+    width: 8%;
+    float: left;
+}
 .width-10{
     width: 10%;
     float: left;
+}
+.width-16{
+    width: 16%;
+    float: left;
+    text-indent: 10px;
 }
 .width-18{
     width: 18%;
@@ -279,6 +288,9 @@ $menuHoverBg: #353b41;
         margin:0 10px;
         border:1px #ddd solid;
         height: 200px;
+    }
+    .report-charbox.no_data{
+        line-height:200px;text-align:center;
     }
     .report-info{
         margin: 5px 10px;

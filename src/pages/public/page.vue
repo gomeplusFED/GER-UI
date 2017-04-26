@@ -26,8 +26,7 @@ export default {
             let min = n - 2;
             let max = n + 2;
             let arr = [];
-            
-            if(min < 2){
+            if(min <= 2){
                 if(this.pages.pages > 5){
 					arr = [1, 2, 3, 4, 5];
                 }else{

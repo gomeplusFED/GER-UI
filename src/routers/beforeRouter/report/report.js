@@ -12,6 +12,15 @@ export default (Vue, to)=>{
 	//每页数据条数
 	let size = to.query.size || 10;
 	let watchUrls = store.state.initModule.watchUrl.split('^');
+	let urls = [];
+	let watchItem = [];
+	watchUrls.forEach(v=>{
+		watchItem = v.split('|');
+		urls.push({
+			'www': watchItem[0],
+			'type': watchItem.length == 1 ? 'all' : watchItem[1]
+		})
+	});
 	//页数
 	let pages = Math.ceil(watchUrls / size);
 	//监听列表
@@ -20,7 +29,7 @@ export default (Vue, to)=>{
 	let reportModule =  store.state.report;
 	Vue.http.post('/report/getAll', {
 		page: pageNum,
-		watchUrl: watchUrl,
+		watchUrl: urls,
 		size: size
 	}).then(function(data ){
 		let result = data.body;
