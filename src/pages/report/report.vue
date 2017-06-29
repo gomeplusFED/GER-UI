@@ -20,7 +20,7 @@
                         <div class="width-16">
                             <div class="list-over" :title=list.local>{{list.local}}</div>
                         </div>
-                        <div class="width-8">{{list.type == 'all' ? '全部' : list.type}}</div>
+                        <div class="width-8">{{list.type == 'ALL' ? '全部' : list.type.toLowerCase()}}</div>
                         <div class="width-8 t-c">{{list.todayErrorNum}}</div>
                         <div class="width-8 t-c">{{list.weekErrorNum}}</div>
                         <div class="width-10 t-c">{{list.lastFifteenErrorNum}}</div>
