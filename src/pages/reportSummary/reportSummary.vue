@@ -3,8 +3,6 @@
         <div class="report-loading" v-show='isLoading'>
             <div>正在加载中，请稍候...</div>
         </div>
-        <div class="ger-loading" v-show="noData">暂无数据</div>
-        <div class="ger-loading" v-show="isError">加载失败，点击重试</div>
         <div class="clearfix report-doway report-summary-type">
             <span>最近：</span>
             <select v-model="dateRange">
@@ -14,9 +12,11 @@
                 <option value="90">三个月</option>
                 <option value="180">半年</option>
             </select>
-            <a href="javascript:;" @click="search">搜索</a>
+            <a href="javascript:;" @click="searchData">搜索</a>
         </div>
-        <div class="report-charbox report-charbox-summary" id="report_summary_container"></div>
+        <div class="ger-loading" v-show="noData">暂无数据</div>
+        <div class="ger-loading report-summary-retry" v-show="isError" @click="searchData">加载失败，点击重试</div>
+        <div v-show="!noData" class="report-charbox report-charbox-summary" id="report_summary_container"></div>
     </div>
 </template>
 <script type="text/javascript">
@@ -42,7 +42,7 @@
       ...mapActions([
         'RENDER_CHARTS'
       ]),
-      search(){
+      searchData(){
         this.RENDER_CHARTS(parseInt(this.dateRange));
       }
     }
@@ -54,5 +54,8 @@
     }
     .report-content .report-summary-type select{
         width: 70px;
+    }
+    .report-summary-retry{
+        cursor: pointer;
     }
 </style>
