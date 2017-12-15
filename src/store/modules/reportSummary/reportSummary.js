@@ -35,7 +35,6 @@ const actions = {
         if(body.data.length === 0){
           commit('NO_DATA');
         } else {
-          console.log(splitDataByDomain(body.data));
           renderCHARTS(splitDataByDomain(body.data));
         }
       } else {
