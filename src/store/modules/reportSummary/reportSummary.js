@@ -29,19 +29,18 @@ const actions = {
     commit('LOADING');
     Vue.http.post('/reportSummary/getSummary', { lastDays })
       .then((res)=>{
-      // debugger
-      // console.log(2222);
       commit('LOADED');
-      // const body = res.body;
-      // if(body.code === 200){
-      //   if(body.data.length === 0){
-      //     commit('NO_DATA');
-      //   } else {
-      //
-      //   }
-      // } else {
-      //   commit('ERROR');
-      // }
+      const body = res.body;
+      if(body.code === 200){
+        if(body.data.length === 0){
+          commit('NO_DATA');
+        } else {
+          console.log(splitDataByDomain(body.data));
+          renderCHARTS(splitDataByDomain(body.data));
+        }
+      } else {
+        commit('ERROR');
+      }
     });
   }
 };
@@ -53,6 +52,57 @@ const initModule = {
 };
 export default initModule;
 
+function splitDataByDomain(data) {
+  // 保存所有域名的报错信息
+  const domainObj = {};
+  // 保存所有日期前
+  const dateArr = [];
+  data.forEach((dayData)=>{
+    dateArr.push(dayData._source.date);
+    dayData._source.count.forEach((domain)=>{
+      const curDomain = {};
+      // 保存日期
+      curDomain.date = dayData._source.date;
+      // 保存当天数据
+      curDomain.count = domain.doc_count;
+      // 分别保存终端数据
+      curDomain.terminal = {};
+      domain.projectType.buckets.forEach((bucket)=>{
+        curDomain.terminal[bucket.key] = bucket.doc_count
+      });
+      // 以域名作为键值保存数据，以数组的形式保存
+      domainObj[domain.key] = domainObj[domain.key] || {};
+      // 以日期作为key将当天数据保存到当前域名的数据集合
+      domainObj[domain.key][curDomain.date] = curDomain;
+    })
+  });
+  return {
+    xAxis: dateArr.reverse(),
+    data: fixData(dateArr, domainObj).reverse()
+  };
+}
+
+// 如果某域名某天没有数据，将其置为null
+function fixData(dateArr, domainObj) {
+  const result = [];
+  for(let domain in domainObj){
+    const domainArr = [];
+    dateArr.forEach((day)=>{
+      // domainObj[domain][day] = domainObj[domain][day] || null;
+      // 最终按日期顺序，以数组形式保存数据
+      if(domainObj[domain][day]){
+        domainArr.push(domainObj[domain][day].count);
+      } else {
+        domainArr.push(null);
+      }
+    });
+    result.push({
+      name: domain,
+      data: domainArr
+    });
+  }
+  return result;
+}
 
 function renderCHARTS(data){
     let options =   {
@@ -66,7 +116,7 @@ function renderCHARTS(data){
             text: '小标题'
         },*/
         xAxis: {
-            categories: []
+            categories: data.xAxis
         },
         yAxis: {
             min: 0,
@@ -82,10 +132,7 @@ function renderCHARTS(data){
                 enableMouseTracking: true // 关闭鼠标跟踪，对应的提示框、点击事件会失效
             }
         },
-        series: [{
-            name: 'error length',
-            data: data
-        }]
+        series: data.data
     };
     window.chart = new Highcharts.Chart('report_summary_container', options);
 }

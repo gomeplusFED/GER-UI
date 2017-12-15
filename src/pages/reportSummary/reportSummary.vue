@@ -4,8 +4,8 @@
             <div>正在加载中，请稍候...</div>
         </div>
         <div class="ger-loading" v-show="noData">暂无数据</div>
-        <div class="ger-loading" v-show="isError" @click="REPORT_REGET">加载失败，点击重试</div>
-        <div class="report-charbox" id="report_summary_container"></div>
+        <div class="ger-loading" v-show="isError">加载失败，点击重试</div>
+        <div class="report-charbox report-charbox-summary" id="report_summary_container"></div>
     </div>
 </template>
 <script type="text/javascript">
@@ -29,6 +29,8 @@
     }
   }
 </script>
-<style scoped="">
-
+<style scoped>
+.report-content .report-charbox-summary{
+    height: 500px;
+}
 </style>
