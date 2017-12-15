@@ -6,4 +6,5 @@
 
 import report from './report';
 import user from './user';
-export default  Array.prototype.concat.call(user,report);
+import reportSummary from './reportSummary';
+export default  Array.prototype.concat.call(user,report,reportSummary);

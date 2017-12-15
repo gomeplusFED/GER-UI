@@ -8,6 +8,7 @@ import modPwd from './modules/user/modPwd';
 import report from './modules/report/report';
 import reportList from './modules/report/list';
 import reportDetail from './modules/report/detail';
+import reportSummary from './modules/reportSummary/reportSummary';
 Vue.use(Vuex);
 export default new Vuex.Store({
 	modules:{
@@ -18,6 +19,7 @@ export default new Vuex.Store({
 		report: report,
 		reportList: reportList,
 		reportDetail: reportDetail,
-		pageModule: pageModule
+		pageModule: pageModule,
+		reportSummary: reportSummary
 	}
 });

@@ -7,6 +7,9 @@
             <li>
                 <router-link :to="{name: 'report'}"  active-class="active">错误列表</router-link>
             </li>
+            <li>
+                <router-link :to="{name: 'reportSummary'}"  active-class="active">错误汇总</router-link>
+            </li>
         </ul>
     </div>
 </template> 
