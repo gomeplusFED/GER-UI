@@ -35,7 +35,15 @@ const actions = {
         if(body.data.length === 0){
           commit('NO_DATA');
         } else {
-          renderCHARTS(splitDataByDomain(body.data));
+          if(lastDays <= 31){
+            renderCHARTS(splitDataByDomain(body.data));
+          } else if(lastDays === 90){
+            // 近三个月，三个点合并为一个点显示
+            renderCHARTS(mergeData(splitDataByDomain(body.data), 3), 3);
+          } else if(lastDays === 180){
+            // 近半年，6个点合并为一个显示
+            renderCHARTS(mergeData(splitDataByDomain(body.data), 6), 6);
+          }
         }
       } else {
         commit('ERROR');
@@ -104,7 +112,49 @@ function fixData(dateArr, domainObj) {
   return result;
 }
 
-function renderCHARTS(data){
+function mergeData(chartsData, mergeLen){
+  // 分别合并每个域名的数据
+  chartsData.data.forEach(function (domain) {
+    const domainData = domain.data;
+    const mergedData = [];
+    // 按照合并长度mergeLen合并数据
+    for(let i = 0, len = domainData.length; i < len; i += mergeLen){
+      mergedData.push(mergeDataByLen(domainData, i, mergeLen));
+    }
+    // 保存合并后的数据
+    domain.data = mergedData;
+  });
+  // 按照合并长度mergeLen合并横坐标
+  const mergedXAis = [];
+  for(let i = 0, len = chartsData.xAxis.length; i < len; i += mergeLen){
+    mergedXAis.push(chartsData.xAxis[i]);
+  }
+  chartsData.xAxis = mergedXAis;
+
+  return chartsData;
+}
+
+function mergeDataByLen(data, index ,length) {
+  let result = null;
+  // 将length长度内的数据合并
+  for(let i = 0; i < length && (index + i) < data.length; i++){
+    // 当前数据是否为null
+    if(data[index + i]){
+      result = result || {};
+      // 遍历每一项内的所有数据，合并
+      for(let key in data[index + i]){
+        if(result[key]){
+          result[key] += data[index + i][key]
+        } else {
+          result[key] = data[index + i][key]
+        }
+      }
+    }
+  }
+  return result;
+}
+
+function renderCHARTS(data, dayRange){
     let options =   {
         chart: {
             type: 'line'
@@ -138,7 +188,7 @@ function renderCHARTS(data){
           const tooltip = [];
           if(options.pc) tooltip.push('pc:' + options.pc);
           if(options.mobile) tooltip.push('mobile:' + options.mobile);
-          return this.x + '<br/>'
+          return tranformDate(this.x, dayRange) + '<br/>'
             + this.series.name + ':' + this.y + '<br/>'
             + tooltip.join('<br/>');
         }
@@ -146,4 +196,16 @@ function renderCHARTS(data){
       series: data.data
     };
     window.chart = new Highcharts.Chart('report_summary_container', options);
+}
+
+function tranformDate(dateString, dayRange) {
+  const result = dateString.replace(/-/g,  '.');
+  if(!dayRange){
+    return result;
+  }
+  // 显示为时间范围
+  const dateArr = dateString.split('-');
+  const date = new Date(dateArr[0], dateArr[1] - 1,  dateArr[2]);
+  date.setTime(date.setDate(date.getDate() + dayRange - 1));
+  return result + '~' + date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate();
 }
