@@ -52,56 +52,53 @@ const initModule = {
 export default initModule;
 
 function splitDataByDomain(data) {
-  // 保存所有域名的报错信息
+  // domainObj用于保存所有域名下的报错信息
   const domainObj = {};
-  // 保存所有日期前
+  // dateArr用于保存所有日期
   const dateArr = [];
   data.forEach((dayData)=>{
-    dateArr.push(dayData._source.date);
-    dayData._source.count.forEach((domain)=>{
+    dateArr.push(dayData.date);
+    dayData.domain_data.forEach((domainData)=>{
+      // 以域名作为键值保存数据
+      // （这里用对象保存，方便fixData函数判断）
+      domainObj[domainData.key] = domainObj[domainData.key] || {};
+
       const curDomain = {};
-      // 保存日期
-      curDomain.date = dayData._source.date;
-      // 保存当天数据
-      curDomain.count = domain.doc_count;
-      // 分别保存终端数据
-      curDomain.terminal = {};
-      domain.projectType.buckets.forEach((bucket)=>{
-        curDomain.terminal[bucket.key] = bucket.doc_count
+      // 保存当天报错信息
+      curDomain.y = domainData.doc_count;
+      // 保存各个终端下的报错数据
+      domainData.buckets.forEach((bucket)=>{
+        curDomain[bucket.key] = bucket.doc_count
       });
-      // 以域名作为键值保存数据，以数组的形式保存
-      domainObj[domain.key] = domainObj[domain.key] || {};
+
       // 以日期作为key将当天数据保存到当前域名的数据集合
-      domainObj[domain.key][curDomain.date] = curDomain;
+      domainObj[domainData.key][dayData.date] = curDomain;
     })
   });
   return {
-    xAxis: dateArr.reverse(),
-    data: fixData(dateArr, domainObj).reverse()
+    xAxis: dateArr,
+    data: fixData(dateArr, domainObj)
   };
 }
 
 // 如果某域名某天没有数据，将其置为null
 function fixData(dateArr, domainObj) {
   const result = [];
+  // 遍历的所有域名的信息
   for(let domain in domainObj){
-    const domainArr = [];
+    const domainArrData = [];
+    // 遍历所有日期，判断当前域名当天的数据是否为空，并补齐为null
     dateArr.forEach((day)=>{
-      // domainObj[domain][day] = domainObj[domain][day] || null;
-      // 最终按日期顺序，以数组形式保存数据
+      // 最终按照日期的顺序，将域名数据保存在数组中
       if(domainObj[domain][day]){
-        domainArr.push({
-          y: domainObj[domain][day].count,
-          pc: domainObj[domain][day].terminal.pc,
-          mobile: domainObj[domain][day].terminal.mobile
-        });
+        domainArrData.push(domainObj[domain][day]);
       } else {
-        domainArr.push(null);
+        domainArrData.push(null);
       }
     });
     result.push({
       name: domain,
-      data: domainArr
+      data: domainArrData
     });
   }
   return result;
