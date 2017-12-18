@@ -1,6 +1,6 @@
 import Vue from  'vue';
 import Highcharts from  'highcharts/highstock';
-
+import data from './fakeData'
 const state = {
   isLoading: true,
   noData: false,
@@ -30,7 +30,7 @@ const actions = {
     Vue.http.post('/reportSummary/getSummary', { lastDays })
       .then((res)=>{
       commit('LOADED');
-      const body = res.body;
+      const body = data;
       if(body.code === 200){
         if(body.data.length === 0){
           commit('NO_DATA');
@@ -90,7 +90,11 @@ function fixData(dateArr, domainObj) {
       // domainObj[domain][day] = domainObj[domain][day] || null;
       // 最终按日期顺序，以数组形式保存数据
       if(domainObj[domain][day]){
-        domainArr.push(domainObj[domain][day].count);
+        domainArr.push({
+          y: domainObj[domain][day].count,
+          pc: domainObj[domain][day].terminal.pc,
+          mobile: domainObj[domain][day].terminal.mobile
+        });
       } else {
         domainArr.push(null);
       }
@@ -131,7 +135,18 @@ function renderCHARTS(data){
                 enableMouseTracking: true // 关闭鼠标跟踪，对应的提示框、点击事件会失效
             }
         },
-        series: data.data
+      tooltip: {
+        formatter: function () {
+          const options = this.point.options;
+          const tooltip = [];
+          if(options.pc) tooltip.push('pc:' + options.pc);
+          if(options.mobile) tooltip.push('mobile:' + options.mobile);
+          return this.x + '<br/>'
+            + this.series.name + ':' + this.y + '<br/>'
+            + tooltip.join('<br/>');
+        }
+      },
+      series: data.data
     };
     window.chart = new Highcharts.Chart('report_summary_container', options);
 }
