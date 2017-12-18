@@ -1,6 +1,6 @@
 import Vue from  'vue';
 import Highcharts from  'highcharts/highstock';
-import data from './fakeData'
+
 const state = {
   isLoading: true,
   noData: false,
@@ -30,7 +30,7 @@ const actions = {
     Vue.http.post('/reportSummary/getSummary', { lastDays })
       .then((res)=>{
       commit('LOADED');
-      const body = data;
+      const body = res.body;
       if(body.code === 200){
         if(body.data.length === 0){
           commit('NO_DATA');
