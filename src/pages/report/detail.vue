@@ -12,10 +12,7 @@
 			<li class="clearfix" v-for="(v, i) in messageKeys">
 				<div><span>*</span>message.{{v}}</div>
 				<div>
-					<span>
-						{{decodeURIComponent(message[v]) || '--'}}
-					</span>
-					
+					<span v-html="fixMsg(message[v], v) || '--'"></span>
 				</div>
 			</li>
 
@@ -109,7 +106,17 @@ export default {
         })
     },
     methods:{
-        ...mapActions(['REPORT_REGET', 'FILE_CHANGE'])
+        ...mapActions(['REPORT_REGET', 'FILE_CHANGE']),
+	  fixMsg(msg, type){
+        msg = decodeURIComponent(msg);
+        if(!msg) return;
+        if (type === 'msg') {
+          return msg.replace(/ at /g, '<br/>at ')
+        } else if (type === 'breadcrumbs') {
+
+        }
+        return msg;
+	  }
     }
 
 }
