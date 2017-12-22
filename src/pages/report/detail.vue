@@ -42,12 +42,12 @@
 				</div>
 			</li>
 
-			<li class="clearfix">
+			<li class="clearfix detail-breadcrumbs">
 				<div>
 					<em class=""><span>*</span>message.breadcrumbs</em>
 				</div>
-				<div class="detail-breadcrumbs">
-					<ul v-if="breadcrumbs.length > 0">
+				<div>
+					<ul v-if="breadcrumbs.length <= 0">
 						<li v-for="(v) in breadcrumbs" v-html="parseBreadcrumbs(v)">
 						</li>
 					</ul>
@@ -161,8 +161,14 @@ export default {
 
 </script>
 <style>
-	.report-detail-box .report-detail-list .detail-breadcrumbs li{
+	.report-detail-box .report-detail-list .detail-breadcrumbs div ul li{
 		padding: 15px 10px;
 		line-height: 150%;
 	}
+    .report-detail-box .report-detail-list .detail-breadcrumbs div ul li:last-child{
+        border-bottom: 0;
+    }
+    .report-detail-box .report-detail-list .detail-breadcrumbs div em{
+        line-height: inherit;
+    }
 </style>
