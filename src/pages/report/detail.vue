@@ -47,7 +47,7 @@
 					<em class=""><span>*</span>message.breadcrumbs</em>
 				</div>
 				<div>
-					<ul v-if="breadcrumbs.length <= 0">
+					<ul v-if="breadcrumbs.length > 0">
 						<li v-for="(v) in breadcrumbs" v-html="parseBreadcrumbs(v)">
 						</li>
 					</ul>
