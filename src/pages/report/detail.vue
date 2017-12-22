@@ -41,6 +41,19 @@
 					<span>{{decodeURIComponent(value) || '--'}}</span>
 				</div>
 			</li>
+
+			<li class="clearfix">
+				<div>
+					<em class=""><span>*</span>message.breadcrumbs</em>
+				</div>
+				<div class="detail-breadcrumbs">
+					<ul v-if="breadcrumbs.length > 0">
+						<li v-for="(v) in breadcrumbs" v-html="parseBreadcrumbs(v)">
+						</li>
+					</ul>
+					<ul v-else><li>--</li></ul>
+				</div>
+			</li>
 		</ul>
 		<div class="detail-upload">
 			
@@ -99,6 +112,15 @@ export default {
             lists: state => reportDetail.lists,
             messageKeys: state => reportDetail.messageKeys,
             message: state => reportDetail.message,
+          	breadcrumbs: state => {
+              let breadcrumbs;
+              try {
+                breadcrumbs = JSON.parse(reportDetail.message.breadcrumbs)
+			  } catch (e){
+                breadcrumbs = [];
+			  }
+			  return breadcrumbs;
+			},
             ext: state => reportDetail.ext,
             isMapShow: state => reportDetail.isMapShow,
             isMapError: state => reportDetail.isMapError,
@@ -111,14 +133,36 @@ export default {
         msg = decodeURIComponent(msg);
         if(!msg) return;
         if (type === 'msg') {
-          return msg.replace(/ at /g, '<br/>at ')
-        } else if (type === 'breadcrumbs') {
-
+          msg = msg.replace(/ at /g, '<br/>at ')
         }
         return msg;
-	  }
+	  },
+	  parseBreadcrumbs(breadcrumbs){
+	    let result = '';
+	    for(let key in breadcrumbs){
+	      if(key === 'outerHTML'){
+            result += key + ': ' + this.HTMLEncode(breadcrumbs[key]) + '<br/>';
+          } else {
+            result += key + ': ' + breadcrumbs[key] + '<br/>';
+          }
+		}
+		return result;
+	  },
+      HTMLEncode(html) {
+        let temp = document.createElement("div");
+        (temp.textContent != null) ? (temp.textContent = html) : (temp.innerText = html);
+        const output = temp.innerHTML;
+        temp = null;
+        return output;
+      }
     }
 
 }
 
 </script>
+<style>
+	.report-detail-box .report-detail-list .detail-breadcrumbs li{
+		padding: 15px 10px;
+		line-height: 150%;
+	}
+</style>
