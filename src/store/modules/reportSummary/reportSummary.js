@@ -198,6 +198,9 @@ function renderCHARTS(data, dayRange){
     window.chart = new Highcharts.Chart('report_summary_container', options);
 }
 
+const nowDate = new Date();
+nowDate.setDate(nowDate.getDate() - 1); // 数据只会统计到当前天的前一天
+const nowTime = nowDate.getTime();
 function tranformDate(dateString, dayRange) {
   const result = dateString.replace(/-/g,  '.');
   if(!dayRange){
@@ -205,7 +208,8 @@ function tranformDate(dateString, dayRange) {
   }
   // 显示为时间范围
   const dateArr = dateString.split('-');
-  const date = new Date(dateArr[0], dateArr[1] - 1,  dateArr[2]);
-  date.setTime(date.setDate(date.getDate() + dayRange - 1));
+  let date = new Date(dateArr[0], dateArr[1] - 1,  dateArr[2]);
+  date.setDate(date.getDate() + dayRange - 1)
+  if(date.getTime() > nowTime) date = nowDate;
   return result + '~' + date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate();
 }
