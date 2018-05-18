@@ -12,10 +12,7 @@
 			<li class="clearfix" v-for="(v, i) in messageKeys">
 				<div><span>*</span>message.{{v}}</div>
 				<div>
-					<span>
-						{{decodeURIComponent(message[v]) || '--'}}
-					</span>
-					
+					<span v-html="fixMsg(message[v], v) || '--'"></span>
 				</div>
 			</li>
 
@@ -42,6 +39,19 @@
 				<div>{{key}}</div>
 				<div>
 					<span>{{decodeURIComponent(value) || '--'}}</span>
+				</div>
+			</li>
+
+			<li class="clearfix detail-breadcrumbs">
+				<div>
+					<em class=""><span>*</span>message.breadcrumbs</em>
+				</div>
+				<div>
+					<ul v-if="breadcrumbs.length > 0">
+						<li v-for="(v) in breadcrumbs" v-html="parseBreadcrumbs(v)">
+						</li>
+					</ul>
+					<ul v-else><li>--</li></ul>
 				</div>
 			</li>
 		</ul>
@@ -102,6 +112,15 @@ export default {
             lists: state => reportDetail.lists,
             messageKeys: state => reportDetail.messageKeys,
             message: state => reportDetail.message,
+          	breadcrumbs: state => {
+              let breadcrumbs;
+              try {
+                breadcrumbs = JSON.parse(reportDetail.message.breadcrumbs)
+			  } catch (e){
+                breadcrumbs = [];
+			  }
+			  return breadcrumbs;
+			},
             ext: state => reportDetail.ext,
             isMapShow: state => reportDetail.isMapShow,
             isMapError: state => reportDetail.isMapError,
@@ -109,9 +128,47 @@ export default {
         })
     },
     methods:{
-        ...mapActions(['REPORT_REGET', 'FILE_CHANGE'])
+        ...mapActions(['REPORT_REGET', 'FILE_CHANGE']),
+	  fixMsg(msg, type){
+        msg = decodeURIComponent(msg);
+        if(!msg) return;
+        if (type === 'msg') {
+          msg = msg.replace(/ at /g, '<br/>at ')
+        }
+        return msg;
+	  },
+	  parseBreadcrumbs(breadcrumbs){
+	    let result = '';
+	    for(let key in breadcrumbs){
+	      if(key === 'outerHTML'){
+            result += key + ': ' + this.HTMLEncode(breadcrumbs[key]) + '<br/>';
+          } else {
+            result += key + ': ' + breadcrumbs[key] + '<br/>';
+          }
+		}
+		return result;
+	  },
+      HTMLEncode(html) {
+        let temp = document.createElement("div");
+        (temp.textContent != null) ? (temp.textContent = html) : (temp.innerText = html);
+        const output = temp.innerHTML;
+        temp = null;
+        return output;
+      }
     }
 
 }
 
 </script>
+<style>
+	.report-detail-box .report-detail-list .detail-breadcrumbs div ul li{
+		padding: 15px 10px;
+		line-height: 150%;
+	}
+    .report-detail-box .report-detail-list .detail-breadcrumbs div ul li:last-child{
+        border-bottom: 0;
+    }
+    .report-detail-box .report-detail-list .detail-breadcrumbs div em{
+        line-height: inherit;
+    }
+</style>
